@@ -8,17 +8,17 @@ class S3Helper {
 	constructor(DOCKERIZED, AWS_ACCESSKEY, AWS_ACCESSKEYSECRET){
 		//use minio for dockerized version
         if (process.env.HOST_IP){
-            var hostIp = process.env.HOST_IP;
+            var hostname = process.env.HOST_IP;
         }
         else {
-            var hostIp = 'minio';
+            var hostname = 'minio';
         }
 
 		if (DOCKERIZED) {
 			this.s3 = new AWS.S3({
 				accessKeyId: AWS_ACCESSKEY,
 				secretAccessKey: AWS_ACCESSKEYSECRET,
-                endpoint:'http://' + hostIp + ':9000',
+                endpoint: hostname,
 				s3ForcePathStyle: true,
 				signatureVersion: 'v4'
 			});
