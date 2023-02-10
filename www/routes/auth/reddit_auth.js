@@ -7,7 +7,6 @@ var crypto = require('crypto');
 router.get('/login/reddit', checkIfLoggedIn, function(req,res,next){
 	crypto.randomBytes(24, function(err, buffer) {
 		var RANDOM_STRING = buffer.toString('hex');
-		// store it in the redis for later comparison?
 		setCredential(req, 'rd_state', RANDOM_STRING);
 
 		var url = new URL("https://www.reddit.com/api/v1/authorize"),

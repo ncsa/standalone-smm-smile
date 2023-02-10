@@ -9,7 +9,6 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 const passport = require('passport');
 const OAuth2Strategy = require('passport-oauth2').Strategy;
-const redis = require('redis');
 const fetch = require('node-fetch');
 
 var lambdaRoutesTemplate = require(path.join(__dirname, 'scripts', 'helper_func', 'lambdaRoutesTemplate.js'));
@@ -114,13 +113,6 @@ if (process.env.DOCKERIZED === 'true') {
             done(null, user);
         });
 
-        // configure redisClient
-        (async () => {
-            redisClient = redis.createClient({url:"redis://redis:6379"});
-            redisClient.on('error', (err) => console.log('Redis Client Error', err));
-            await redisClient.connect();
-        })();
-
         global.checkIfLoggedIn = function (req, res, next) {
             if (req.isAuthenticated() || req.user != null) {
                 return next();
@@ -129,16 +121,15 @@ if (process.env.DOCKERIZED === 'true') {
         }
 
         global.retrieveCredentials = async function (req) {
-            return await redisClient.hGetAll(req.user.email);
+            return req.user.credentials;
         }
 
         global.removeCredential = async function (req, entry) {
-            await redisClient.hDel(req.user.email, entry);
+            delete req.user.credentials;
         }
 
         global.setCredential = async function (req, entry, credential) {
-            await redisClient.hSet(req.user.email, entry, credential, redis.print);
-            await redisClient.expire(req.user.email, 30 * 60);
+            req.user["credentials"] = {entry: credential};
         };
     }
 
