@@ -3,8 +3,7 @@ var router = express.Router();
 var path = require('path');
 var appPath = path.dirname(path.dirname(__dirname));
 var fs = require('fs');
-var deleteTags = require(path.join(appPath, 'scripts', 'helper_func', 'helper.js'));
-var createTags = require(path.join(appPath, 'scripts', 'helper_func', 'helper.js'));
+var {deleteTags, createTags} = require(path.join(appPath, 'scripts', 'helper_func', 'helper.js'));
 
 
 router.get('/tag', checkIfLoggedIn, function(req,res,next){

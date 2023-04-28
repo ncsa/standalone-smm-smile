@@ -4,7 +4,7 @@ var CSV = require('csv-string');
 var path = require('path');
 var appPath = path.dirname(path.dirname(__dirname));
 var getMultiRemote = require(path.join(appPath, 'scripts', 'helper_func', 'getRemote.js'));
-var deleteTags = require(path.join(appPath, 'scripts', 'helper_func', 'helper.js'));
+var {deleteTags} = require(path.join(appPath, 'scripts', 'helper_func', 'helper.js'));
 
 router.get('/history', checkIfLoggedIn, function (req, res, next) {
     res.render('history', {

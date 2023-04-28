@@ -4,7 +4,7 @@ var path = require('path');
 var fs = require('fs');
 var CSV = require('csv-string');
 var appPath = path.dirname(path.dirname(__dirname));
-var createTags = require(path.join(appPath, 'scripts', 'helper_func', 'helper.js'));
+var {createTags} = require(path.join(appPath, 'scripts', 'helper_func', 'helper.js'));
 
 // if smile home folder doesn't exist, create one
 if (!fs.existsSync(smileHomePath)) {
