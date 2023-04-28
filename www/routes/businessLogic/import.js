@@ -63,10 +63,10 @@ router.post('/import', checkIfLoggedIn, upload.single('importFile'),function(req
                     var tagIdMapPath = path.join(smileHomePath, req.user.email, 'map.json');
                     if (fs.existsSync(tagIdMapPath)){
                         var tagIdMap = JSON.parse(fs.readFileSync(tagIdMapPath));
-                        tagIdMap[fileFullPath] = keywords;
+                        tagIdMap[folderFullPath] = keywords;
                     }else{
                         tagIdMap = {};
-                        tagIdMap[fileFullPath] = keywords;
+                        tagIdMap[folderFullPath] = keywords;
                     }
                     fs.writeFileSync(tagIdMapPath,JSON.stringify(tagIdMap, null, 2));
 
