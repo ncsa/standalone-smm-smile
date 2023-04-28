@@ -231,6 +231,8 @@ analysesRoutesFiles.forEach(function (route, i) {
                     introduction: formParam.introduction.join(" "),
                     wiki: formParam.wiki,
                     param: formParam,
+                    parent: '/',
+                    SINGLE_USER: SINGLE_USER==='true',
                     user: req.user,
                     enableEmail: email
                 });
