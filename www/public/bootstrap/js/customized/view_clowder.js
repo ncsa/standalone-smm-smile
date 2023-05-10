@@ -87,7 +87,7 @@ function generate_collection_list(){
 				$("#selectCollection").append(`<option value="Please Select...">Please Select...</option> 
 							<option value="newCollection">Create a new collection</option>`);					
 				$.each(data,function(i,val){
-					$("#selectCollection").append(`<option value="`+ val.id +`">` + val.name + `</option>`);
+					$("#selectCollection").append(`<option value="`+ val.id +`">` + val.collectionname + `</option>`);
 				});
 			}
 		},
