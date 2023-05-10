@@ -6,7 +6,7 @@ function invoke_clowder(){
 		data: {},			
 		success:function(data){
 			// if logged, move on to the next modal
-			if (data === 'logged'){
+			if (data === 'Logged in!'){
 				$("#clowder-modal").modal('show');
 			
 			// if not, prompt to log in first
@@ -38,7 +38,7 @@ function generate_data_list(){
 			url:'list-dataset', 
 			data: {},			
 			success:function(data){
-				if ('ERROR' in data){
+				if (data.hasOwnProperty("ERROR")){
 					$("#clowder-modal").modal('hide');
 					$("#error").val(JSON.stringify(data));
 					$("#warning").modal('show');					
@@ -77,7 +77,7 @@ function generate_collection_list(){
 			$("#selectCollection").prev().hide();
 			$("#selectCollection").show();
 			
-			if ('ERROR' in data){
+			if (data.hasOwnProperty("ERROR")){
 				$("#clowder-modal").modal('hide');
 				$("#error").val(JSON.stringify(data));
 				$("#warning").modal('show');					
@@ -111,7 +111,7 @@ function generate_space_list_dataset(){
 			// hide loading bar show selectSpaceInDataset
 			$("#selectSpaceInDataset").prev().hide();
 			$("#selectSpaceInDataset").show();
-			if ('ERROR' in data){
+			if (data.hasOwnProperty("ERROR")){
 				$("#clowder-modal").modal('hide');
 				$("#error").val(JSON.stringify(data));
 				$("#warning").modal('show');					
@@ -147,7 +147,7 @@ function generate_space_list_collection(){
             $("#selectSpaceInCollection").prev().hide();
             $("#selectSpaceInCollection").show();
 
-            if ('ERROR' in data){
+            if (data.hasOwnProperty("ERROR")){
                 $("#clowder-modal").modal('hide');
                 $("#error").val(JSON.stringify(data));
                 $("#warning").modal('show');
@@ -184,7 +184,7 @@ function generate_user_list(){
 				$("#selectUser").prev().hide();
 				$("#selectUser").show();
 				
-				if ('ERROR' in data){
+				if (data.hasOwnProperty("ERROR")){
 					$("#clowder-modal").modal('hide');
 					$("#error").val(JSON.stringify(data));
 					$("#warning").modal('show');					
@@ -250,7 +250,7 @@ function login_request(){
 			url:'clowder-login', 
 			data: data,			
 			success:function(data){
-				if ('ERROR' in data){
+				if (data.hasOwnProperty("ERROR")){
 					$("#error").val(JSON.stringify(data));
 					$("#warning").modal('show');
 				}else{
@@ -409,7 +409,7 @@ function create_clowder_dataset(){
 			data: JSON.stringify(data),
 			contentType: "application/json",
 			success:function(data){
-				if ('ERROR' in data){
+				if (data.hasOwnProperty("ERROR")){
 					$("#error").val(JSON.stringify(data));
 					$("#warning").modal('show');
 				}else{
@@ -608,7 +608,7 @@ function submit_clowder_files(){
 				$("#clowder-upload").show();
 				$("#clowder-prev").show();
 				
-				if ('ERROR' in data){
+				if (data.hasOwnProperty("ERROR")){
 					$("#error").val(JSON.stringify(data));
 					$("#warning").modal('show');
 				}else{
@@ -737,7 +737,7 @@ function create_clowder_collection(){
 			data: JSON.stringify(data),
 			contentType: "application/json",
 			success:function(data){
-				if ('ERROR' in data){
+				if (data.hasOwnProperty("ERROR")){
 					$("#error").val(JSON.stringify(data));
 					$("#warning").modal('show');
 				}else{
@@ -799,7 +799,7 @@ function create_clowder_space(){
 			data: JSON.stringify(data),	
 			contentType: "application/json",			
 			success:function(data){
-				if ('ERROR' in data){
+				if (data.hasOwnProperty("ERROR")){
 					$("#error").val(JSON.stringify(data));
 					$("#warning").modal('show');					
 				}else{
