@@ -672,8 +672,7 @@ function clowder_form_validation(caseID){
 			// TODO figure out how to remove this hardcode
 		case 'login':
 			if ( $("#clowderEmail").val() === '' || $("#clowderPassword").val() === '' || $("#clowderEmail").val().indexOf("@") == -1){
-				$("#modal-message").append(`<h4>You must have already registered with Clowder and provide us with your valid username and password.</h4>
-											<a href="https://clowder.smm.ncsa.illinois.edu/signup" target="_blank">Clowder Registration</a>`);
+				$("#modal-message").append(`<h4>You must have already registered with Clowder and provide us with your valid username and password.</h4>`);
 				$("#alert").modal('show');
 				return false;
 			}
