@@ -614,9 +614,9 @@ function submit_clowder_files(){
 				}else{
 					$("#clowder-message").text(data.info);
 					$("#file-links").empty();
-					$.each(data.urls, function(i,url){
+					$.each(data.ids, function(i,id){
 						$("#file-links").append(`<a style="display:block;font-size:15px;" 
-							href="`+ url + `">` + url + `</a>`);
+							href="`+ id + `">` + id + `</a>`);
 					});
 					// hide upoad modal, show confirmation modal
 					$("#clowder-modal").modal('hide');
