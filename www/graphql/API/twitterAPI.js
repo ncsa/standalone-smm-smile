@@ -119,7 +119,7 @@ function twitterAPI(tokens, resolveName, id, args) {
             case 'fetchTimeline':
 
                 args['user_id'] = id;
-                client.get('/statuses/user_timeline', args, function (error, tweets, response) {
+                client.get('//statuses/user_timeline', args, function (error, tweets, response) {
                     if (error) reject(error);
                     resolve(tweets);
                 });
