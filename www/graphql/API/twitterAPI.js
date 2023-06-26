@@ -68,7 +68,7 @@ function twitterAPI(tokens, resolveName, id, args) {
             case 'searchTimeline':
                 var max_pages = args['pages'] - 1;
                 delete args['pages'];
-                client.get('//statuses/user_timeline', args, function (error, tweets, response) {
+                client.get('/statuses/user_timeline', args, function (error, tweets, response) {
                     if (error) {
                         console.log(error);
                         reject(JSON.stringify(error));
@@ -88,7 +88,7 @@ function twitterAPI(tokens, resolveName, id, args) {
                                 // that means we might get the same tweet as the specified max_id, hence -1
                                 var max_id = bigInt(item[item.length - 1]['id']);
                                 args['max_id'] = max_id.minus(1).toString();
-                                client.get('//statuses/user_timeline', args, function (error, newTweets, response) {
+                                client.get('/statuses/user_timeline', args, function (error, newTweets, response) {
                                     if (error) reject(error);
 
                                     if (newTweets.length > 0) {
@@ -119,7 +119,7 @@ function twitterAPI(tokens, resolveName, id, args) {
             case 'fetchTimeline':
 
                 args['user_id'] = id;
-                client.get('//statuses/user_timeline', args, function (error, tweets, response) {
+                client.get('/statuses/user_timeline', args, function (error, tweets, response) {
                     if (error) reject(error);
                     resolve(tweets);
                 });
