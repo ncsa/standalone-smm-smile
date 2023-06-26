@@ -5,7 +5,7 @@ var bigInt = require("big-integer");
 
 function twitterAPI(tokens, resolveName, id, args) {
 
-    using twitterstreamingapi2sample@lists.illinonis.edu
+    // using twitterstreamingapi2sample@lists.illinonis.edu
     var client = new Twitter({
     		consumer_key:TWITTER_CONSUMER_KEY,
     		consumer_secret:TWITTER_CONSUMER_SECRET,
