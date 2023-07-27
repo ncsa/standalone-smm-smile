@@ -866,6 +866,9 @@ function updateString(queryTerm,parameters){
 	else if(queryTerm === 'queryTweet'){
 		query =  `\ttwitter{\n\t\t`	+ queryTerm + `(`+ constructQuery(parameters.tweet)	+ `\n\t\t}\n\t}`;
 	}
+	else if(queryTerm === 'queryTweetV2'){
+		query =  `\ttwitter{\n\t\t`	+ queryTerm + `(`+ constructQuery(parameters.tweetV2)	+ `\n\t\t}\n\t}`;
+	}
 	else if (queryTerm === 'queryReddit'){
 		query =  `\treddit{\n\t\tsearch(`+  constructQuery(parameters.rdSearch) +  `\n\t\t}\n\t}`;  
 	}
@@ -929,7 +932,7 @@ function setHitogramInterval(freq){
 	var filename = $("#sn-filename").val();
 	
 	var queryTerm = $("#social-media").find(':selected').val();
-	if (queryTerm === 'queryTweet'){
+	if (queryTerm === 'queryTweet' || queryTerm === 'queryTweetV2'){
 		var prefix = 'twitter-Tweet';
 	}else if (queryTerm === 'getTimeline'){
 		var prefix = 'twitter-Timeline';
