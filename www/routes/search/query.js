@@ -351,6 +351,9 @@ function removeInvalidToken(req, platform) {
     if (platform === 'twitter') {
         removeCredential(req, 'twt_access_token_key');
         removeCredential(req, 'twt_access_token_secret');
+    }
+    else if (platform === 'twitterV2') {
+        removeCredential(req, 'twt_v2_access_token');
     } else if (platform === 'reddit') {
         removeCredential(req, 'rd_access_token');
     }
@@ -381,6 +384,7 @@ function checkAuthorized(req) {
     return new Promise(async (resolve, reject) => {
         var response = {
             twitter: false,
+            twitterV2: false,
             reddit: false,
         };
 

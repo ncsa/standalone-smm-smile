@@ -234,7 +234,7 @@ function submitSearchbox(searchboxID, filenameID, dryrun = false){
 
 	}
 	else if (queryTerm === 'queryTweetV2'){
-		var additional_num = 50
+		var additional_num = 50;
 		if (dryrun) additional_num = 0;
 		var queryString = `{
 							  twitter {
