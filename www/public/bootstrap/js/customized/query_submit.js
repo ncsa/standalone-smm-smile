@@ -236,7 +236,7 @@ function submitSearchbox(searchboxID, filenameID, dryrun = false){
 	else if (queryTerm === 'queryTweetV2'){
 		var queryString = `{
 							  twitter {
-								queryTweet(q:"` + keyword + `", additional_num: 0){
+								queryTweetV2(q:"` + keyword + `", additional_num: 0){
 								  id
 								  text
 								  edit_history_tweet_ids
