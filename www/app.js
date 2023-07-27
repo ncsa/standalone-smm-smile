@@ -169,7 +169,7 @@ if (process.env.DOCKERIZED === 'true') {
     DROPBOX_CLIENT_SECRET = config.dropbox.client_secret;
     GOOGLE_CLIENT_ID = config.google.client_id;
     GOOGLE_CLIENT_SECRET = config.google.client_secret;
-    SMILE_GRAPHQL_URL = "localhost";
+    SMILE_GRAPHQL_URL = "http://localhost:5050/graphql";
     BUCKET_NAME = 'macroscope-smile';
     SINGLE_USER = 'true';
 
