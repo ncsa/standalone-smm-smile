@@ -267,6 +267,7 @@ function submitSearchbox(searchboxID, filenameID, dryrun = false){
 							}
 							`;
 		var prefix = 'twitterV2-Tweet';
+		var pages = -999;
 		var params = parameters.tweetV2;
 	}
 	else if (queryTerm === 'queryReddit'){

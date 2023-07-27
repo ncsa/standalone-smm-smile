@@ -75,7 +75,6 @@ router.post('/query', checkIfLoggedIn, function (req, res) {
             checkExist(req.user.email + '/GraphQL/' + req.body.prefix + '/', req.body.filename)
             .then((value) => {
                 if (value) {
-
                     var headers = {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json',
@@ -221,10 +220,15 @@ router.post('/query', checkIfLoggedIn, function (req, res) {
                         res.send({ERROR: JSON.stringify(gatherMultiPostError)});
                     })
                 } else {
-                    res.send({ERROR: 'This filename ' + req.body.filename + ' already exist in your directory. Please rename it to something else!'});
+                    res.send({ERROR: 'This filename ' + req.body.filename + ' already exist in your directory. ' +
+                            'Please rename it to something else!'});
                 }
+            })
+            .catch(checkExistError => {
+                res.send({ERROR: checkExistError });
             });
-        } else {
+        }
+        else {
             res.send({ERROR: platform + " token expired! Please refresh the page."})
         }
     }).catch(checkAuthorizedError => {
