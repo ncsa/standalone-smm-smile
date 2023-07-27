@@ -6,7 +6,9 @@ function init(){
 
     queryTerm = '';
     Query ='';
-    parameters = { 	tweet: {},
+    parameters = {
+    	tweet: {},
+    	tweetV2: {},
         twtTimeline: {},
         rdSearch: {},
         rdComment:{},
@@ -166,6 +168,7 @@ function init(){
 		
 		$(".tweet").hide();
 		$(".timeline").hide();
+		$(".tweetV2").hide();
 		$(".reddit-search").hide();
 		$(".reddit-post").hide();
 		$(".reddit-comment").hide();
@@ -201,6 +204,19 @@ function init(){
 			$("#searchbox").attr("placeholder","User screen name starting after @");
             $("boolean").tooltip('hide');
         }
+		if ( queryTerm === 'queryTweetV2'){
+			$(".tweetV2").show();
+			$("#searchbox").attr("placeholder","Tweet keywords that you wish to search...");
+
+			// tooltip to show twitter rules
+			$("boolean").attr('data-original-title',
+				"Twitter API supports a list of standard search operators to modify the behavior of the query. For example, " +
+				"<b>SPACE, OR, MINUS SIGN, HASHTAG and etc</b>. <br>Details please refer to the&nbsp" +
+				"<a href='https://developer.twitter.com/en/docs/tweets/search/guides/standard-operators.html' target='_blank'>" +
+				"standard operators</a>")
+			.tooltip('fixTitle')
+			.tooltip('show');
+		}
         else if ( queryTerm === 'queryReddit'){
 			$(".reddit-search").show();
 			$("#searchbox").attr("placeholder","Keywords for the Reddit posts that you wish to search...");
@@ -287,7 +303,8 @@ function init(){
                                 parameters['twtTimeline']['screen_name:'] = keyword;
                                 parameters['tweet']['q:'] = keyword;
                                 parameters['twtTimeline']['screen_name:'] = keyword;
-                                parameters['rdSearch']['query:'] = keyword;
+								parameters['tweetV2']['q:'] = keyword;
+								parameters['rdSearch']['query:'] = keyword;
                                 parameters['rdPost']['subredditName:']= keyword;
                                 parameters['rdComment']['subredditName:'] = keyword;
                                 parameters['psPost']['q:'] = keyword;
@@ -315,6 +332,7 @@ function init(){
 
             parameters['tweet']['q:'] = keyword;
             parameters['twtTimeline']['screen_name:'] = keyword;
+			parameters['tweetV2']['q:'] = keyword;
             parameters['rdSearch']['query:'] = keyword;
             parameters['rdPost']['subredditName:']= keyword;
             parameters['rdComment']['subredditName:'] = keyword;
@@ -497,7 +515,7 @@ function init(){
 		$("#input").val(`{\n\n` + Query +`\n\n}`);
 
 	});
-	
+
 	/*----------------------------------------------------- Reddit Search-------------------------------------------------------*/
 	$("input[name='time']").change(function(){
 		parameters['rdSearch']['time:'] = $(this).val();

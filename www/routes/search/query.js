@@ -386,9 +386,9 @@ function checkAuthorized(req) {
 
         var obj = await retrieveCredentials(req);
         if (obj && 'twt_access_token_key' in obj && 'twt_access_token_secret' in obj) response['twitter'] = true;
+        if (obj && 'twt_v2_access_token' in obj) response['twitterV2'] = true;
         if (obj && 'rd_access_token' in obj) response['reddit'] = true;
         resolve(response);
-
     });
 }
 

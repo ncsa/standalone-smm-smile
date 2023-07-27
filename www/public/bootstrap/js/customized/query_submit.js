@@ -233,6 +233,40 @@ function submitSearchbox(searchboxID, filenameID, dryrun = false){
 		var params = parameters.twtTimeline;
 
 	}
+	else if (queryTerm === 'queryTweetV2'){
+		var queryString = `{
+							  twitter {
+								queryTweet(q:"` + keyword + `", additional_num: 0){
+								  id
+								  text
+								  edit_history_tweet_ids
+								  attachments {
+									poll_ids
+									media_keys
+								  }
+								  author_id
+								  conversation_id
+								  created_at
+								  in_reply_to_user_id
+								  lang
+								  possibly_sensitive
+								  referenced_tweets {
+									type
+									id
+								  }
+								  reply_settings
+								  source
+								  withheld {
+									copyright
+									country_codes
+								  }
+								}
+							  }
+							}
+							`;
+		var prefix = 'twitterV2-Tweet';
+		var params = parameters.tweetV2;
+	}
 	else if (queryTerm === 'queryReddit'){
 		var queryString = `{
 								reddit{

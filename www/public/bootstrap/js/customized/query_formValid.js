@@ -71,6 +71,14 @@ function formValid(searchID){
 				return false
 			}
 		}
+		else if ($("#social-media option:selected").val() === 'queryTweetV2'){
+			if ($("#twtV2TweetFields option:selected").val()===undefined){
+				$("#modal-message").append(`<h4>Please select at least one Field of the search result!</h4>`);
+				$("#alert").modal('show');
+				$("#twtV2TweetFields").focus();
+				return false
+			}
+		}
 		else if ($("#social-media option:selected").val() === 'queryUser'){
 			if ($("#twtUserFields option:selected").val()===undefined){
 				$("#modal-message").append(`<h4>Please select at least one Field of the search result!</h4>`);

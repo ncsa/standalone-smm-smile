@@ -84,9 +84,11 @@ html
                 div(id="tabs")
                     boolean(data-toggle="tooltip", data-placement="top", data-html="true")
                     select(class="selectpicker show-tick" id="social-media" title="Choose a Data Source..." data-width="220px")
-                        optgroup(label="Search Twitter")
-                            option(data-icon="fab fa-twitter" value="queryTweet" disabled) Tweets
-                            option(data-icon="fas fa-user" value="getTimeline" disabled) User timeline
+                        optgroup(label="Search Twitter/X V2")
+                            option(data-icon="fab fa-twitter" value="queryTweetV2" disabled) Tweets
+                        //optgroup(label="Search Twitter")
+                        //    option(data-icon="fab fa-twitter" value="queryTweet" disabled) Tweets
+                        //    option(data-icon="fas fa-user" value="getTimeline" disabled) User timeline
                         optgroup(label="Search Reddit")
                             option(data-icon="fab fa-reddit-alien" value="queryReddit" disabled) Search Reddit Posts
                             option(data-icon="fas fa-list-ul" value="redditPost" disabled) Posts in Subreddit
