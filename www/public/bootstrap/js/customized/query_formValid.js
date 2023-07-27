@@ -11,7 +11,7 @@ function saveValid(filenameID){
 		$(filenameID).focus();
 		return false
 	}else if (!regexp1.test($(filenameID).val())){
-		$("#modal-message").append(`<h4>filename illegal!<br> Legal Filename should only include <i>Alphabet, Number,
+		$("#modal-message").append(`<h4>filename Warning<br> Legal Filename should only include <i>Alphabet, Number,
 		Underscore</i> and/or <i>Dash</i>. <b>Example: mySearch-cwang138</b></h4>`);
 		$("#alert").modal('show');
 		$(filenameID).focus();
