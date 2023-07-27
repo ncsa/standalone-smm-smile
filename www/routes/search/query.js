@@ -43,6 +43,7 @@ router.post('/query-dryrun', checkIfLoggedIn, function (req, res) {
                 'redditaccesstoken': obj['rd_access_token'],
                 'twtaccesstokenkey': obj['twt_access_token_key'],
                 'twtaccesstokensecret': obj['twt_access_token_secret'],
+                'twtbearertoken': obj['twt_v2_access_token']
             };
 
             gatherSinglePost(req, headers).then(responseObj => {
@@ -81,6 +82,7 @@ router.post('/query', checkIfLoggedIn, function (req, res) {
                         'redditaccesstoken': obj['rd_access_token'],
                         'twtaccesstokenkey': obj['twt_access_token_key'],
                         'twtaccesstokensecret': obj['twt_access_token_secret'],
+                        'twtbearertoken': obj['twt_v2_access_token']
                     };
 
                     var multiPostPromises = [];
