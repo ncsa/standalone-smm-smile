@@ -29,7 +29,7 @@ $.getScript("bootstrap/js/customized/view_helperFunc.js", function(){
                         // networkx page has restriction to only apply to twitter data
                         if (window.location.pathname.split('/').slice(-1)[0] === 'networkx') {
                             $.each(data, function (key, val) {
-                                if (key === 'twitter-Tweet') {
+                                if (key === 'twitter-Tweet' || key === 'twitterV2-Tweet') {
                                     $("#selectFile").append($("<optgroup></optgroup>").attr("label", key));
                                     $.each(val, function (key2, val2) {
                                         $("#selectFile").find(`optgroup[label='` + key + `']`).after($("<option></option>")
@@ -120,6 +120,7 @@ $.getScript("bootstrap/js/customized/view_helperFunc.js", function(){
                                     || directory === 'reddit-Historical-Post'
                                     || directory === 'reddit-Search'
                                     || directory === 'twitter-Tweet'
+                                    || directory === 'twitterV2-Tweet'
                                     || directory === 'twitter-Timeline'){
                                     $("#getImg").show();
                                 }

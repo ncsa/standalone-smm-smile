@@ -939,8 +939,10 @@ function setHitogramInterval(freq){
 	var filename = $("#sn-filename").val();
 	
 	var queryTerm = $("#social-media").find(':selected').val();
-	if (queryTerm === 'queryTweet' || queryTerm === 'queryTweetV2'){
+	if (queryTerm === 'queryTweet'){
 		var prefix = 'twitter-Tweet';
+	}else if (queryTerm === 'queryTweetV2'){
+		var prefix = 'twitterV2-Tweet';
 	}else if (queryTerm === 'getTimeline'){
 		var prefix = 'twitter-Timeline';
 	}else if (queryTerm === 'queryReddit'){
