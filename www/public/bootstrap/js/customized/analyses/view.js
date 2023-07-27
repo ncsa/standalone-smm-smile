@@ -29,7 +29,7 @@ $.getScript("bootstrap/js/customized/view_helperFunc.js", function(){
                         // networkx page has restriction to only apply to twitter data
                         if (window.location.pathname.split('/').slice(-1)[0] === 'networkx') {
                             $.each(data, function (key, val) {
-                                if (key === 'twitter-Tweet' || key === 'twitterV2-Tweet') {
+                                if (key === 'twitter-Tweet') {
                                     $("#selectFile").append($("<optgroup></optgroup>").attr("label", key));
                                     $.each(val, function (key2, val2) {
                                         $("#selectFile").find(`optgroup[label='` + key + `']`).after($("<option></option>")
