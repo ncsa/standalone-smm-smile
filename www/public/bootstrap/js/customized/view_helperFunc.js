@@ -675,6 +675,12 @@ function appendTitle(title,ID){
         $("#tag-modal").modal('show');
     });
 
+    // for delete
+    $("#deleteFile").on('click',function(e){
+        e.preventDefault();
+        deleteModal(ID);
+    });
+
     $("#title-container").show();
 }
 
