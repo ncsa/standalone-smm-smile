@@ -1,8 +1,8 @@
 {
   "name": "smile_server",
-  "version": "0.2.7",
+  "version": "0.2.9",
   "description": "",
-  "main": "app.js",
+  "main": "",
   "dependencies": {
     "amqplib": "^0.8.0",
     "archiver": "^2.1.0",
@@ -38,11 +38,11 @@
     "serve-favicon": "^2.4.3"
   },
   "scripts": {
-    "test": "nodemon app.js",
+    "test": "nodemon ",
     "local-test": "export DOCKERIZED=false && npm test",
     "local-test-windows": "set DOCKERIZED=false && npm test",
-    "start": " forever app.js",
-    "docker-start": "node app.js"
+    "start": " forever ",
+    "docker-start": "node "
   },
   "author": "Chen Wang <cwang138@illinois>",
   "license": "MIT"

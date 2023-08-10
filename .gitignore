@@ -1,8 +1,8 @@
 .DS_Store
-www/downloads
-www/uploads
+downloads
+uploads
 node_modules
-www/nltk_data
+nltk_data
 main_config.json
 graphql_config.json
 map.json

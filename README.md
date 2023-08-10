@@ -10,7 +10,7 @@
 
 ### For developers:
 #### Structure of SMILE:
-![Architecture](./www/docs/SMILE_architecture.png)
+![Architecture](www/docs/SMILE_architecture.png)
 
 #### Prerequisite:
 - You have **Nodejs** installed: https://nodejs.org/en/download
