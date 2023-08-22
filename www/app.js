@@ -31,6 +31,12 @@ CLOWDER_ON = process.env.CLOWDER_ON || 'false';
 CLOWDER_BASE_URL= process.env.CLOWDER_BASE_URL || "http://clowder.localhost/";
 email = true;
 
+// API key
+global.checkIfLoggedInAPI = function (req, res, next) {
+    req.user = {email: s3FolderName};
+    return next();
+}
+
 /**
  * determine which version of deployment: dockerized vs usual
  */
