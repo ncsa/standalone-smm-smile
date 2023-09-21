@@ -26,11 +26,11 @@ var app = express();
  */
 smileHomePath = path.join(process.env.HOME, 'smile');
 s3FolderName = process.env.USER || 'local';
-SINGLE_USER = process.env.SINGLE_USER === 'true' || true;
-CLOWDER_ON = process.env.CLOWDER_ON ==='true' || false;
-TWITTER_ON = process.env.TWITTER_ON ==='true' || true;
-REDDIT_ON = process.env.REDDIT_ON === 'true' || true;
-SHARE_EXPIRE_IN = process.env.SHARE_EXPIRE_IN === '1' || 1;
+SINGLE_USER = process.env.SINGLE_USER ? process.env.SINGLE_USER === 'true': true;
+CLOWDER_ON = process.env.CLOWDER_ON ? process.env.CLOWDER_ON ==='true': false;
+TWITTER_ON = process.env.TWITTER_ON ? process.env.TWITTER_ON ==='true': true;
+REDDIT_ON = process.env.REDDIT_ON ? process.env.REDDIT_ON === 'true': true;
+SHARE_EXPIRE_IN = process.env.SHARE_EXPIRE_IN ? process.env.SHARE_EXPIRE_IN : 1;
 CLOWDER_BASE_URL= process.env.CLOWDER_BASE_URL || "http://clowder.localhost/";
 email = true;
 
@@ -172,11 +172,6 @@ if (process.env.DOCKERIZED === 'true') {
     GOOGLE_CLIENT_SECRET = config.google.client_secret;
     SMILE_GRAPHQL_URL = "http://localhost:5050/graphql";
     BUCKET_NAME = 'macroscope-smile';
-    SINGLE_USER = true;
-    CLOWDER_ON = false;
-    TWITTER_ON = true;
-    REDDIT_ON = true;
-    SHARE_EXPIRE_IN = 1;
 
     lambdaHandler = new LambdaHelper(AWS_ACCESSKEY, AWS_ACCESSKEYSECRET);
     batchHandler = new BatchHelper(AWS_ACCESSKEY, AWS_ACCESSKEYSECRET);
