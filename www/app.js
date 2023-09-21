@@ -26,8 +26,11 @@ var app = express();
  */
 smileHomePath = path.join(process.env.HOME, 'smile');
 s3FolderName = process.env.USER || 'local';
-SINGLE_USER = 'true';
-CLOWDER_ON = process.env.CLOWDER_ON || 'false';
+SINGLE_USER = process.env.SINGLE_USER === 'true' || true;
+CLOWDER_ON = process.env.CLOWDER_ON ==='true' || false;
+TWITTER_ON = process.env.TWITTER_ON ==='true' || true;
+REDDIT_ON = process.env.REDDIT_ON === 'true' || true;
+SHARE_EXPIRE_IN = process.env.SHARE_EXPIRE_IN === '1' || 1;
 CLOWDER_BASE_URL= process.env.CLOWDER_BASE_URL || "http://clowder.localhost/";
 email = true;
 
@@ -58,8 +61,6 @@ if (process.env.DOCKERIZED === 'true') {
     GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
     GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
     BUCKET_NAME = process.env.BUCKET_NAME;
-    SINGLE_USER = process.env.SINGLE_USER;
-    CLOWDER_ON = process.env.CLOWDER_ON;
 
     if (process.env.EMAIL_HOST === "" || process.env.EMAIL_HOST === undefined || process.env.EMAIL_HOST === null ||
         process.env.EMAIL_FROM_ADDRESS === "" || process.env.EMAIL_FROM_ADDRESS === undefined || process.env.EMAIL_FROM_ADDRESS === null) {
@@ -71,7 +72,7 @@ if (process.env.DOCKERIZED === 'true') {
     batchHandler = new RabbitmqSender();
     s3 = new S3Helper(true, AWS_ACCESSKEY, AWS_ACCESSKEYSECRET);
 
-    if (SINGLE_USER === 'true') {
+    if (SINGLE_USER) {
         global.checkIfLoggedIn = function (req, res, next) {
             req.user = {email: s3FolderName};
             return next();
@@ -171,8 +172,11 @@ if (process.env.DOCKERIZED === 'true') {
     GOOGLE_CLIENT_SECRET = config.google.client_secret;
     SMILE_GRAPHQL_URL = "http://localhost:5050/graphql";
     BUCKET_NAME = 'macroscope-smile';
-    SINGLE_USER = 'true';
-    CLOWDER_ON = 'false';
+    SINGLE_USER = true;
+    CLOWDER_ON = false;
+    TWITTER_ON = true;
+    REDDIT_ON = true;
+    SHARE_EXPIRE_IN = 1;
 
     lambdaHandler = new LambdaHelper(AWS_ACCESSKEY, AWS_ACCESSKEYSECRET);
     batchHandler = new BatchHelper(AWS_ACCESSKEY, AWS_ACCESSKEYSECRET);
@@ -240,8 +244,8 @@ analysesRoutesFiles.forEach(function (route, i) {
                     introduction: formParam.introduction.join(" "),
                     wiki: formParam.wiki,
                     param: formParam,
-                    SINGLE_USER: SINGLE_USER==='true',
-                    CLOWDER_ON: CLOWDER_ON==='true',
+                    SINGLE_USER: SINGLE_USER,
+                    CLOWDER_ON: CLOWDER_ON,
                     user: req.user,
                     enableEmail: email
                 });

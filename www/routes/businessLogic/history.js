@@ -10,8 +10,8 @@ router.get('/history', checkIfLoggedIn, function (req, res, next) {
     res.render('history', {
         user: req.user,
         parent: '/',
-        SINGLE_USER: SINGLE_USER==='true',
-        CLOWDER_ON: CLOWDER_ON==='true',
+        SINGLE_USER: SINGLE_USER,
+        CLOWDER_ON: CLOWDER_ON,
         enableEmail: email
     });
 });
