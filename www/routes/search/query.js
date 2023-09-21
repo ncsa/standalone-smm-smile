@@ -23,6 +23,8 @@ router.get('/query', checkIfLoggedIn, function (req, res) {
             parent: '/',
             error: req.query.error,
             SINGLE_USER: SINGLE_USER,
+            CLOWDER_ON: CLOWDER_ON,
+            REDDIT_ON: REDDIT_ON,
             status: status,
         });
     })

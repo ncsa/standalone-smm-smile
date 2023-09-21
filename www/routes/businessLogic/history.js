@@ -12,6 +12,7 @@ router.get('/history', checkIfLoggedIn, function (req, res, next) {
         parent: '/',
         SINGLE_USER: SINGLE_USER,
         CLOWDER_ON: CLOWDER_ON,
+        SHARE_EXPIRE_IN: SHARE_EXPIRE_IN,
         enableEmail: email
     });
 });
