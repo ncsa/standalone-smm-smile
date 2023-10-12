@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Allow upload social media data to Clowder [#99](https://github.com/ncsa/standalone-smm-smile/issues/99)
 
+### Added
+- More environment variable to control such as Twitter/Reddit Auth, Expiration date [#101](https://github.com/ncsa/standalone-smm-smile/issues/)
+
 ## [0.3.0] - 2023-09-14
 ### Fixed
 - Github action to auto generate docker container [#93](https://github.com/ncsa/standalone-smm-smile/issues/93)
