@@ -10,13 +10,25 @@ div(id="auth-panel")
             //img(src='bootstrap/img/logo/twitter-sm-logo.png', width="30px", height="30px")
               //| Twitter integration temporarily disabled
     div(class="twitterV2-auth", id="twitterV2-auth")
-        a(class="btn btn-primary btn-block auth-button", href="login/twitterV2")
-            img(src='bootstrap/img/logo/x-sm-logo.png', width="30px", height="30px")
-            | Authorize with your Twitter/X account
-            img(src="bootstrap/img/logo/checkbox.png", class="export-success", width="30px", style="display:none;")
+        if TWITTER_ON
+            a(class="btn btn-primary btn-block auth-button", href="login/twitterV2")
+                img(src='bootstrap/img/logo/x-sm-logo.png', width="30px", height="30px")
+                | Authorize with your Twitter/X account
+                img(src="bootstrap/img/logo/checkbox.png", class="export-success", width="30px", style="display:none;")
+        else
+            a(class="btn btn-primary btn-block auth-button", href="login/twitterV2" disabled)
+                img(src='bootstrap/img/logo/x-sm-logo.png', width="30px", height="30px")
+                | Twitter/X Temporarily Not Accessible
+                img(src="bootstrap/img/logo/checkbox.png", class="export-success", width="30px", style="display:none;")
     div(class="reddit-auth", id="reddit-auth")
-        a(class="btn btn-primary btn-block auth-button", href="login/reddit")
-            img(src='bootstrap/img/logo/reddit-sm-logo.png', width="30px",height="30px")
-            | Authorize with your Reddit account
-            img(src="bootstrap/img/logo/checkbox.png", class="export-success", width="30px", style="display:none;")
+        if REDDIT_ON
+            a(class="btn btn-primary btn-block auth-button", href="login/reddit")
+                img(src='bootstrap/img/logo/reddit-sm-logo.png', width="30px",height="30px")
+                | Authorize with your Reddit account
+                img(src="bootstrap/img/logo/checkbox.png", class="export-success", width="30px", style="display:none;")
+        else
+            a(class="btn btn-primary btn-block auth-button", href="login/reddit" disabled)
+                img(src='bootstrap/img/logo/reddit-sm-logo.png', width="30px",height="30px")
+                | Reddit Temporarily Not Accessible
+                img(src="bootstrap/img/logo/checkbox.png", class="export-success", width="30px", style="display:none;")
     button(id="auth-next", style="", class="pull-right") next
