@@ -49,7 +49,7 @@ router.get('/', function (req, res, next) {
     res.render('index', {
         user: req.user,
         pages: pages,
-        SINGLE_USER:SINGLE_USER==='true',
+        SINGLE_USER:SINGLE_USER,
     });
 });
 
