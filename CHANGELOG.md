@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
-- Google Analytics [#107](https://github.com/ncsa/standalone-smm-smile/issues/107)
+- Google Analytics 4 tag for user analysis [#107](https://github.com/ncsa/standalone-smm-smile/issues/107)
 
 ## [0.3.1] - 2023-10-12
 ### Changed
