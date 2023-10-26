@@ -77,5 +77,9 @@ You can find the deployed python code in [smm-analytics repository](https://open
    * **lambda_network_analysis/**, and **batch/batch_network_analysis.py** contains the network analysis scripts
    * **batch/RedditComment.py** expands the top level Reddit submission and comments given a collection of threads
    * **lambda_histogram/** plot a histogram given the search results of social media
-   
+
+#### Using Google Analytics 4:
+- The tag for Google Analytics 4 is already included in the code.
+- Set the environment variable ```GA_KEY``` and provide the value of your Google Analytics 4 key.
+
 Please contact the **[SRTI lab](https://srtilab.techservices.illinois.edu/about/)** to request assistance on setting up the SMILE server.
