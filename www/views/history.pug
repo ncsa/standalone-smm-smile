@@ -32,6 +32,7 @@ html
         script(src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.js")
 
         <!-- customized -->
+        script(src="bootstrap/js/jquery.csv.js")
         script(src="bootstrap/js/customized/warning_trigger.js")
         script(src="bootstrap/js/customized/modal_overlay.js")
         script(src="bootstrap/js/customized/parse_session.js")
@@ -74,8 +75,8 @@ html
                 // background for search tags
                 div(id="search-background", style="width:800px;margin:auto auto;")
                     h3(style="margin:8em 0 2em 0;text-align:center;")
-                        i(class="far fa-hand-point-left")
-                        |  &nbsp;Click the Past Job ID to View.
+                        i(class="fas fa-search")
+                        |  &nbsp;Search by tags
                     div(class="list-container")
                         input(class="form-control", placeholder="search by tag name", id="search-tag", style="display:inline;width:80%;")
                         button(class="btn btn-primary", id="search-tag-btn", style="display:inline;width:20%;margin-left:-3px;border-radius:0 3px 3px 0;vertical-align:unset;")
