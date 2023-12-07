@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "smile.fullname" . }}-nm-ent-rec
+  labels:
+    {{- include "smile.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.algorithm_name_entity_recognition.replicas }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "smile.name" . }}-nm-ent-rec
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "smile.name" . }}-nm-ent-rec
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: nm-ent-rec
+          image: "{{ .Values.image.project }}/{{ .Values.algorithm_name_entity_recognition.image.repository }}:{{ .Values.algorithm_name_entity_recognition.image.tag }}"
+          imagePullPolicy: {{ .Values.algorithm_name_entity_recognition.image.pullPolicy | default .Values.image.pullPolicy }}
+          command: ["python3"]
+          args: ["./rabbitmq_handler.py"]
+          env:
+            - name: RABBITMQ_HOST
+              value: "{{ include "smile.fullname" . }}-rabbitmq"
+            - name: QUEUE_NAME
+              value: name_entity_recognition
+            {{- include "smile.minio.connect" . | nindent 12 }}
+            {{- include "smile.email.connect" . | nindent 12 }}
+          resources:
+            {{- toYaml .Values.algorithm_name_entity_recognition.resources | nindent 12 }}
+      {{- with .Values.algorithm_name_entity_recognition.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.algorithm_name_entity_recognition.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.algorithm_name_entity_recognition.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

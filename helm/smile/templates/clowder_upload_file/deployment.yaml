@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "smile.fullname" . }}-cld-up-file
+  labels:
+    {{- include "smile.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.clowder_upload_file.replicas }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "smile.name" . }}-cld-up-file
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "smile.name" . }}-cld-up-file
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: cld-up-file
+          image: "{{ .Values.image.project }}/{{ .Values.clowder_upload_file.image.repository }}:{{ .Values.clowder_upload_file.image.tag }}"
+          imagePullPolicy: {{ .Values.clowder_upload_file.image.pullPolicy | default .Values.image.pullPolicy }}
+          command: ["python"]
+          args: ["./rabbitmq_handler.py"]
+          env:
+            - name: HOST_IP
+              value: "{{ include "smile.fullname" . }}-minio"
+            - name: RABBITMQ_HOST
+              value: "{{ include "smile.fullname" . }}-rabbitmq"
+            - name: QUEUE_NAME
+              value: lambda_upload_clowder
+            {{- with (index .Values.ingress.hosts 1)}}
+            - name: CLOWDER_BASE_URL
+              value: "https://{{ .host }}/"
+            {{- end}}
+            {{- include "smile.minio.connect" . | nindent 12 }}
+          resources:
+            {{- toYaml .Values.clowder_upload_file.resources | nindent 12 }}
+      {{- with .Values.clowder_upload_file.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.clowder_upload_file.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.clowder_upload_file.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

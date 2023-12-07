@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "smile.fullname" . }}-cls-predict
+  labels:
+    {{- include "smile.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.algorithm_classification_predict.replicas }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "smile.name" . }}-cls-predict
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "smile.name" . }}-cls-predict
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: cls-predict
+          image: "{{ .Values.image.project }}/{{ .Values.algorithm_classification_predict.image.repository }}:{{ .Values.algorithm_classification_predict.image.tag }}"
+          imagePullPolicy: {{ .Values.algorithm_classification_predict.image.pullPolicy | default .Values.image.pullPolicy }}
+          command: ["python"]
+          args: ["./rabbitmq_handler.py"]
+          env:
+            - name: RABBITMQ_HOST
+              value: "{{ include "smile.fullname" . }}-rabbitmq"
+            - name: QUEUE_NAME
+              value: classification_predict
+            {{- include "smile.minio.connect" . | nindent 12 }}
+          resources:
+            {{- toYaml .Values.algorithm_classification_predict.resources | nindent 12 }}
+      {{- with .Values.algorithm_classification_predict.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.algorithm_classification_predict.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.algorithm_classification_predict.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

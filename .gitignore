@@ -9,3 +9,31 @@ map.json
 *.log
 *.swp
 .idea
+
+#########################
+# helm related
+#########################
+# ignore secrets
+gitrepo.yaml
+variables.txt
+*.secret.yaml
+
+# ignore terraform files
+terraform/.terraform
+terraform/*.auto.tfvars
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+
+# ignore downloaded chart fiels
+charts/*
+*/charts/*
+# values for deployment
+*/values-clowder.yaml
+*/values-smile.yaml
+
+# idea folder
+*.idea/
+
+# secrets
+*.secret.*
+*.secret.yaml

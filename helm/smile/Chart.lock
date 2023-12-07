@@ -1,0 +1,12 @@
+dependencies:
+- name: rabbitmq
+  repository: https://charts.bitnami.com/bitnami
+  version: 11.7.0
+- name: minio
+  repository: https://charts.bitnami.com/bitnami
+  version: 12.1.3
+- name: redis
+  repository: https://charts.bitnami.com/bitnami
+  version: 17.6.0
+digest: sha256:ef61ee3fc18af86bf276359adba62024af1cab89b4f87bffe57ef0e9e5221195
+generated: "2023-02-01T14:00:21.4759023-06:00"

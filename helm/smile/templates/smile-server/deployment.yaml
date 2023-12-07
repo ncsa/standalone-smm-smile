@@ -1,0 +1,237 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "smile.fullname" . }}-server
+  labels:
+    {{- include "smile.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.smile_server.replicas }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "smile.name" . }}-server
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "smile.name" . }}-server
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+#      initContainers:
+#        - name: tags
+#          image: "{{ .Values.image.project }}/{{ .Values.smile_server.image.repository }}:{{ .Values.smile_server.image.tag }}"
+#          imagePullPolicy: {{ .Values.smile_server.image.pullPolicy | default .Values.image.pullPolicy }}
+#          command: ["/bin/mkdir"]
+#          args: ["-p", "/mounts/smile_data", "/mounts/smile_user", "/mounts/smile_tag"]
+#          volumeMounts:
+#            - name: {{ include "smile.fullname" . }}-data
+#              mountPath: /mounts
+      containers:
+        - name: server
+          image: "{{ .Values.image.project }}/{{ .Values.smile_server.image.repository }}:{{ .Values.smile_server.image.tag }}"
+          imagePullPolicy: {{ .Values.smile_server.image.pullPolicy | default .Values.image.pullPolicy }}
+          command: ["npm"]
+          args: ["run", "docker-start"]
+          env:
+            - name: HOME
+              value: /smile/
+            - name: SINGLE_USER
+              value: "false"
+            - name: CLOWDER_ON
+              value: "true"
+            - name: DOCKERIZED
+              value: "true"
+            - name: REDIS_URL
+              value: "redis://{{ include "smile.fullname" . }}-redis-master:6379"
+            - name: RABBITMQ_URL
+              value: "amqp://{{ include "smile.fullname" . }}-rabbitmq:5672"
+            - name: SMILE_GRAPHQL_URL
+              value: "http://{{ include "smile.fullname" . }}-graphql:5050/graphql"
+            - name: LOCAL_ALGORITHM
+              value: "true"
+            - name: HOST_IP
+              value: "{{ include "smile.fullname" . }}-minio"
+            - name: SHARE_EXPIRE_IN
+              value: "1"
+            - name: GA_KEY
+              valueFrom:
+                secretKeyRef:
+                  {{- if .Values.externalsecrets }}
+                  name: {{ .Values.externalsecrets }}
+                  {{- else }}
+                  name: {{ include "smile.fullname" . }}-server
+                  {{- end }}
+                  key: GA_KEY
+            - name: TWITTER_ON
+              value: "false"
+            - name: TWITTER_CONSUMER_KEY
+              valueFrom:
+                secretKeyRef:
+                  {{- if .Values.externalsecrets }}
+                  name: {{ .Values.externalsecrets }}
+                  {{- else }}
+                  name: {{ include "smile.fullname" . }}-server
+                  {{- end }}
+                  key: TWITTER_CONSUMER_KEY
+            - name: TWITTER_CONSUMER_SECRET
+              valueFrom:
+                secretKeyRef:
+                  {{- if .Values.externalsecrets }}
+                  name: {{ .Values.externalsecrets }}
+                  {{- else }}
+                  name: {{ include "smile.fullname" . }}-server
+                  {{- end }}
+                  key: TWITTER_CONSUMER_SECRET
+            - name: TWITTER_V2_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  {{- if .Values.externalsecrets }}
+                  name: {{ .Values.externalsecrets }}
+                  {{- else }}
+                  name: {{ include "smile.fullname" . }}-server
+                  {{- end }}
+                  key: TWITTER_V2_CLIENT_ID
+            - name: TWITTER_V2_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  {{- if .Values.externalsecrets }}
+                  name: {{ .Values.externalsecrets }}
+                  {{- else }}
+                  name: {{ include "smile.fullname" . }}-server
+                  {{- end }}
+                  key: TWITTER_V2_CLIENT_SECRET
+            - name: TWITTER_V2_CALLBACK_URL
+              value: "https://{{ .host }}/login/twitterV2/callback"
+            - name: REDDIT_ON
+              value: "true"
+            - name: REDDIT_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  {{- if .Values.externalsecrets }}
+                  name: {{ .Values.externalsecrets }}
+                  {{- else }}
+                  name: {{ include "smile.fullname" . }}-server
+                  {{- end }}
+                  key: REDDIT_CLIENT_ID
+            - name: REDDIT_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  {{- if .Values.externalsecrets }}
+                  name: {{ .Values.externalsecrets }}
+                  {{- else }}
+                  name: {{ include "smile.fullname" . }}-server
+                  {{- end }}
+                  key: REDDIT_CLIENT_SECRET
+            {{- with (first .Values.ingress.hosts) }}
+            - name: REDDIT_CALLBACK_URL
+              value: "https://{{ .host }}/login/reddit/callback"
+            {{- end }}
+            - name: BOX_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  {{- if .Values.externalsecrets }}
+                  name: {{ .Values.externalsecrets }}
+                  {{- else }}
+                  name: {{ include "smile.fullname" . }}-server
+                  {{- end }}
+                  key: BOX_CLIENT_ID
+            - name: BOX_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  {{- if .Values.externalsecrets }}
+                  name: {{ .Values.externalsecrets }}
+                  {{- else }}
+                  name: {{ include "smile.fullname" . }}-server
+                  {{- end }}
+                  key: BOX_CLIENT_SECRET
+            - name: DROPBOX_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  {{- if .Values.externalsecrets }}
+                  name: {{ .Values.externalsecrets }}
+                  {{- else }}
+                  name: {{ include "smile.fullname" . }}-server
+                  {{- end }}
+                  key: DROPBOX_CLIENT_ID
+            - name: DROPBOX_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  {{- if .Values.externalsecrets }}
+                  name: {{ .Values.externalsecrets }}
+                  {{- else }}
+                  name: {{ include "smile.fullname" . }}-server
+                  {{- end }}
+                  key: DROPBOX_CLIENT_SECRET
+            - name: GOOGLE_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  {{- if .Values.externalsecrets }}
+                  name: {{ .Values.externalsecrets }}
+                  {{- else }}
+                  name: {{ include "smile.fullname" . }}-server
+                  {{- end }}
+                  key: GOOGLE_CLIENT_ID
+            - name: GOOGLE_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  {{- if .Values.externalsecrets }}
+                  name: {{ .Values.externalsecrets }}
+                  {{- else }}
+                  name: {{ include "smile.fullname" . }}-server
+                  {{- end }}
+                  key: GOOGLE_CLIENT_SECRET
+            - name: CILOGON_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  {{- if .Values.externalsecrets }}
+                  name: {{ .Values.externalsecrets }}
+                  {{- else }}
+                  name: {{ include "smile.fullname" . }}-server
+                  {{- end }}
+                  key: CILOGON_CLIENT_ID
+            - name: CILOGON_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  {{- if .Values.externalsecrets }}
+                  name: {{ .Values.externalsecrets }}
+                  {{- else }}
+                  name: {{ include "smile.fullname" . }}-server
+                  {{- end }}
+                  key: CILOGON_CLIENT_SECRET
+            - name: CILOGON_CALLBACK_URL
+              value: https://{{ .host }}/smile-login/callback
+            {{- include "smile.minio.connect" . | nindent 12 }}
+            {{- include "smile.email.connect" . | nindent 12 }}
+          ports:
+            - containerPort: {{ .Values.smile_server.service.port }}
+              name: server
+          volumeMounts:
+            - name: {{ include "smile.fullname" . }}-tag
+              mountPath: /smile/
+          livenessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.smile_server.service.port }}
+          readinessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.smile_server.service.port }}
+          resources:
+            {{- toYaml .Values.smile_server.resources | nindent 12 }}
+      volumes:
+        - name: {{ include "smile.fullname" . }}-tag
+          persistentVolumeClaim:
+            claimName: {{ include "smile.fullname" . }}-tag
+      {{- with .Values.smile_server.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.smile_server.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.smile_server.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

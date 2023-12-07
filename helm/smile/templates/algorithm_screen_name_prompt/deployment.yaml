@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "smile.fullname" . }}-scr-nm-pmt
+  labels:
+    {{- include "smile.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.algorithm_screen_name_prompt.replicas }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "smile.name" . }}-scr-nm-pmt
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "smile.name" . }}-scr-nm-pmt
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: scr-nm-pmt
+          image: "{{ .Values.image.project }}/{{ .Values.algorithm_screen_name_prompt.image.repository }}:{{ .Values.algorithm_screen_name_prompt.image.tag }}"
+          imagePullPolicy: {{ .Values.algorithm_screen_name_prompt.image.pullPolicy | default .Values.image.pullPolicy }}
+          command: ["python"]
+          args: ["./screen_name_prompt.py"]
+          env:
+            - name: RABBITMQ_HOST
+              value: "{{ include "smile.fullname" . }}-rabbitmq"
+            - name: QUEUE_NAME
+              value: bae_screen_name_prompt
+            {{- include "smile.minio.connect" . | nindent 12 }}
+          resources:
+            {{- toYaml .Values.algorithm_screen_name_prompt.resources | nindent 12 }}
+      {{- with .Values.algorithm_screen_name_prompt.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.algorithm_screen_name_prompt.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.algorithm_screen_name_prompt.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

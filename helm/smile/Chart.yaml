@@ -1,0 +1,45 @@
+apiVersion: v2
+name: smile
+icon:
+home: https://github.com/ncsa/standalone-smm-smile
+description: Smile
+type: application
+
+# This is the chart version. This version number should be incremented each time you make changes
+# to the chart and its templates, including the app version.
+# Versions are expected to follow Semantic Versioning (https://semver.org/)
+version: 0.1.0
+
+# This is the version number of the application being deployed. This version number should be
+# incremented each time you make changes to the application. Versions are not expected to
+# follow Semantic Versioning. They should reflect the version the application is using.
+appVersion: 0.1.0
+
+# List of people that maintain this helm chart.
+maintainers:
+  - name: Yong Wook Kim
+    email: ywkim@illinois.edu
+
+# location of source code
+sources:
+  - https://github.com/ncsa/standalone-smm-smile
+
+# dependencies for the helm chart, use helm dep install to the install them.
+dependencies:
+  - name: rabbitmq
+    version: ~11
+    repository: https://charts.bitnami.com/bitnami
+  - name: minio
+    version: ~12
+    repository: https://charts.bitnami.com/bitnami
+  - name: redis
+    version: ~17
+    repository: https://charts.bitnami.com/bitnami
+
+# annotations for artifact.io
+annotations:
+  artifacthub.io/links: |
+    - name: Helm Chart
+      url: https://git.ncsa.illinois.edu/isda/clusters/smm
+  artifacthub.io/changes: |
+    - Updated email functions in components

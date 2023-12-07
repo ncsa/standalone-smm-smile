@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "smile.fullname" . }}-cld-list
+  labels:
+    {{- include "smile.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.clowder_create_dataset.replicas }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "smile.name" . }}-cld-list
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "smile.name" . }}-cld-list
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: cld-list
+          image: "{{ .Values.image.project }}/{{ .Values.clowder_list.image.repository }}:{{ .Values.clowder_list.image.tag }}"
+          imagePullPolicy: {{ .Values.clowder_list.image.pullPolicy | default .Values.image.pullPolicy }}
+          command: ["python"]
+          args: ["./rabbitmq_handler.py"]
+          env:
+            - name: HOST_IP
+              value: "{{ include "smile.fullname" . }}-minio"
+            - name: RABBITMQ_HOST
+              value: "{{ include "smile.fullname" . }}-rabbitmq"
+            - name: QUEUE_NAME
+              value: lambda_list_clowder
+            {{- with (index .Values.ingress.hosts 1) }}
+            - name: CLOWDER_BASE_URL
+              value: "https://{{ .host }}/"
+            {{- end }}
+            - name: CLOWDER_GLOBAL_KEY
+              valueFrom:
+                secretKeyRef:
+                  {{- if .Values.externalsecrets }}
+                  name: {{ .Values.externalsecrets }}
+                  {{- else }}
+                  name: {{ include "smile.fullname" . }}-server
+                  {{- end }}
+                  key: CLOWDER_GLOBAL_KEY
+          resources:
+            {{- toYaml .Values.clowder_list.resources | nindent 12 }}
+      {{- with .Values.clowder_list.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.clowder_list.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.clowder_list.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "smile.fullname" . }}-graphql
+  labels:
+    {{- include "smile.labels" . | nindent 4 }}
+spec:
+  selector:
+    app.kubernetes.io/name: {{ include "smile.name" . }}-graphql
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  type: {{ .Values.smile_graphql.service.type }}
+  ports:
+    - port: {{ .Values.smile_graphql.service.port }}
+      name: graphql
+      targetPort: {{ .Values.smile_graphql.service.port }}
+      protocol: TCP

@@ -1,0 +1,34 @@
+{{- if .Values.ingress.enabled -}}
+  {{- $fullName := include "smile.fullname" . -}}
+  {{- $svcPort := .Values.smile_server.service.port -}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ $fullName }}-server
+  labels:
+    {{- include "smile.labels" . | nindent 4 }}
+spec:
+  {{- if .Values.ingress.tls }}
+  tls:
+    {{- range .Values.ingress.tls }}
+    - hosts:
+        {{- range .hosts }}
+        - {{ . | quote }}
+        {{- end }}
+      secretName: {{ .secretName }}
+    {{- end }}
+  {{- end }}
+  rules:
+    {{- with (first .Values.ingress.hosts) }}
+    - host: {{ .host | quote }}
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: {{ $fullName }}-server
+                port:
+                  number: {{ $svcPort }}
+    {{- end }}
+  {{- end }}
