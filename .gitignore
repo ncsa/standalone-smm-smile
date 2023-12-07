@@ -35,6 +35,5 @@ helm/smile/values-smile.yaml
 *.idea/
 
 # secrets
-*.secret.*
 *.secret.yaml
 helm/smile/smile.secret.yaml
