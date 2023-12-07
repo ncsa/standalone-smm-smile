@@ -25,11 +25,11 @@ terraform/terraform.tfstate
 terraform/terraform.tfstate.backup
 
 # ignore downloaded chart fiels
-charts/*
-*/charts/*
+helm/smile/charts/*
+*charts/*
 # values for deployment
-*/values-clowder.yaml
-*/values-smile.yaml
+helm/smile/values-clowder.yaml
+helm/smile/values-smile.yaml
 
 # idea folder
 *.idea/
@@ -37,3 +37,4 @@ charts/*
 # secrets
 *.secret.*
 *.secret.yaml
+helm/smile/smile.secret.yaml
