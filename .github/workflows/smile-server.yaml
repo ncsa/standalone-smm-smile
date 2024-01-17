@@ -43,7 +43,7 @@ jobs:
         echo "GITHUB_BRANCH=${BRANCH}" >> $GITHUB_ENV
 
         if [ "$BRANCH" == "main" ]; then
-          VERSION=$(cat manual_jb/content/_config.yml | grep "version" | head -1 | awk -F= "{print $2 }" | sed "s/[[:alpha:]|,|-|\"|:|#|[:space:]]//g" | sed "s/-//g")
+          VERSION=$(grep '"version"' www/package.json | sed 's/.*"\([0-9\.]*\)", *$/\1/')
           VERSIONS="latest"
           OLDVERSION=""
           TMPVERSION=$VERSION
