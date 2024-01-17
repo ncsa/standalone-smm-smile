@@ -85,9 +85,9 @@ jobs:
 
     - name: Publish doc image to Docker Hub
       if: |
-        github.repository == env.MAIN_REPO &&
-        github.event_name == 'push' && 
-        env.GITHUB_BRANCH == 'main'
+        github.repository == env.MAIN_REPO
+#        github.event_name == 'push' &&
+#        env.GITHUB_BRANCH == 'main'
       uses: elgohr/Publish-Docker-Github-Action@3.04
       with:
         registry: docker.io
@@ -99,9 +99,9 @@ jobs:
 
     - name: Publish doc image to Github
       if: |
-        github.repository == env.MAIN_REPO
-#        github.event_name == 'push' &&
-#        env.GITHUB_BRANCH == 'develop'
+        github.repository == env.MAIN_REPO &&
+        github.event_name == 'push' &&
+        env.GITHUB_BRANCH == 'develop'
       uses: elgohr/Publish-Docker-Github-Action@3.04
       with:
         registry: ghcr.io
