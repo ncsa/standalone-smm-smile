@@ -76,10 +76,20 @@ jobs:
           DOCKERHUB_README="false"
           if [ "${{ github.repository }}" == "${{ env.MAIN_REPO }}" ]; then
             if [ "${{ secrets.DOCKERHUB_USERNAME }}" != "" -a "${{ secrets.DOCKERHUB_PASSWORD }}" != "" ]; then
+              if env.GITHUB_BRANCH == 'main'; then
               DOCKERHUB_PUSH="true"
-              if [ -e "README.md" ]; then
-                DOCKERHUB_README="true"
+                if [ -e "README.md" ]; then
+                  DOCKERHUB_README="true"
+                fi
               fi
+            fi
+          fi
+          
+          # should we push to github
+          GITHUB_PUSH="false"
+          if [ "${{ github.repository }}" == "${{ env.MAIN_REPO }}" ]; then
+            if env.GITHUB_BRANCH == 'develop'; then
+              GITHUB_PUSH="true"
             fi
           fi
 
@@ -101,7 +111,9 @@ jobs:
             if [ "$NCSAHUB_PUSH" == "true" ]; then
               IMAGES="${IMAGES}${NCSAHUB}/${IMAGE}:${tag},"
             fi
-            IMAGES="${IMAGES}ghcr.io/${OWNER_LC}/${IMAGE}:${tag},"
+            if [ "$GITHUB_PUSH" == "true" ]; then
+              IMAGES="${IMAGES}ghcr.io/${OWNER_LC}/${IMAGE}:${tag},"
+            fi
           done
           IMAGES="${IMAGES%,*}"
 
@@ -119,6 +131,12 @@ jobs:
           echo "DOCKERHUB_PUSH=${DOCKERHUB_PUSH}" >> $GITHUB_ENV
           echo "NCSAHUB_PUSH=${NCSAHUB_PUSH}" >> $GITHUB_ENV
           echo "IMAGES=${IMAGES}" >> $GITHUB_ENV
+
+      - name: Print Images
+        run: echo "${{ env.IMAGES }}"
+
+      - name: Print Version tag
+        run: echo "${{ env.TAGS }}"
 
       # setup docker build
       - name: Set up QEMU
@@ -184,3 +202,27 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
           repository: ${{ env.DOCKERHUB_ORG }}/${{ github.event.repository.name }}
           readme-filepath: README.md
+
+      - name: Publish image to Github
+        if: env.GITHUB_PUSH == 'true'
+        uses: elgohr/Publish-Docker-Github-Action@3.04
+        with:
+          registry: ghcr.io
+          name: ${{ matrix.docker_repo_tag }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          tags: ${{ env.IMAGES }}
+          workdir: ./www
+          IMAGES="${IMAGES}ghcr:
+            io/${OWNER_LC}/${IMAGE}:${tag},":
+
+      - name: Publish doc image to Docker Hub
+        if: env.DOCKERHUB_PUSH == 'true'
+        uses: elgohr/Publish-Docker-Github-Action@3.04
+        with:
+          registry: docker.io
+          name: ${{ matrix.docker_repo_tag }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          tags: ${{ env.IMAGES }}
+          workdir: ./www
