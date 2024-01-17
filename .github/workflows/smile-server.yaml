@@ -45,7 +45,7 @@ jobs:
           if [ "$BRANCH" == "PR-116" ]; then
             echo "Condition is true"
           else
-            echo "Condition is false"
+            echo "$BRANCH"
           fi
 
       # calculate some variables that are used later
