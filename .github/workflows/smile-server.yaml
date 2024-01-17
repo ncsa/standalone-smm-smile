@@ -42,7 +42,7 @@ jobs:
 
       - name: Check Condition
         run: |
-          if [ "${BRANCH}" == "PR-116" ]; then
+          if [ "$BRANCH" == "PR-116" ]; then
             echo "Condition is true"
           else
             echo "Condition is false"
