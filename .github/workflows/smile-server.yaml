@@ -90,8 +90,10 @@ jobs:
           # should we push to NCSA
           NCSAHUB_PUSH="false"
           if [ "${{ github.repository }}" == "${{ env.MAIN_REPO }}" ]; then
-            if [ "${{ secrets.HUB_USERNAME }}" != "" -a "${{ secrets.HUB_PASSWORD }}" != "" ]; then
-              NCSAHUB_PUSH="true"
+            if [ "${{ env.GITHUB_BRANCH == 'develop' }}" ]; then
+              if [ "${{ secrets.HUB_USERNAME }}" != "" -a "${{ secrets.HUB_PASSWORD }}" != "" ]; then
+                NCSAHUB_PUSH="true"
+              fi
             fi
           fi
 
@@ -123,6 +125,9 @@ jobs:
           echo "DOCKERHUB_PUSH=${DOCKERHUB_PUSH}" >> $GITHUB_ENV
           echo "NCSAHUB_PUSH=${NCSAHUB_PUSH}" >> $GITHUB_ENV
           echo "IMAGES=${IMAGES}" >> $GITHUB_ENV
+
+      - name: Print DOCKERHUB_PUSH
+        run: echo "${{ env.TAGS }}"
 
       # setup docker build
       - name: Set up QEMU
