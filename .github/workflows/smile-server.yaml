@@ -143,12 +143,13 @@ jobs:
           echo "NCSAHUB_PUSH=${NCSAHUB_PUSH}" >> $GITHUB_ENV
           echo "IMAGES=${IMAGES}" >> $GITHUB_ENV
 
-      - name: versiont test
-        run: if [ "$BRANCH" == "PR-116" ]; then
-                echo "main"
-              else
-                echo "not main"
-              fi
+      - name: version test
+        run: |
+          if [ "$BRANCH" == "PR-116" ]; then
+            echo "main"
+          else
+            echo "not main"
+          fi
 
       - name: Print Github branch
         run: echo "${{ env.GITHUB_BRANCH }}"
