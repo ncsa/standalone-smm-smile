@@ -76,8 +76,8 @@ jobs:
     - name: Build docker image
       if: |
         github.repository == env.MAIN_REPO &&
-        github.event_name == 'push' && 
-        (env.GITHUB_BRANCH == 'main' || env.GITHUB_BRANCH == 'develop')
+        github.event_name == 'push'
+#        (env.GITHUB_BRANCH == 'main' || env.GITHUB_BRANCH == 'develop')
       uses: elgohr/Publish-Docker-Github-Action@3.04
       with:
         name: socialmediamacroscope/smile-server
@@ -101,8 +101,9 @@ jobs:
     - name: Publish doc image to Github
       if: |
         github.repository == env.MAIN_REPO &&
-        github.event_name == 'push' && 
-        env.GITHUB_BRANCH == 'develop'
+        github.event_name == 'push'
+#        github.event_name == 'push' &&
+#        env.GITHUB_BRANCH == 'develop'
       uses: elgohr/Publish-Docker-Github-Action@3.04
       with:
         registry: ghcr.io
