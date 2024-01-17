@@ -77,12 +77,10 @@ jobs:
           DOCKERHUB_PUSH="false"
           DOCKERHUB_README="false"
           if [ "${{ github.repository }}" == "${{ env.MAIN_REPO }}" ]; then
-            if [ "${{ env.GITHUB_BRANCH }}" == "PR-116" ]; then
-              if [ "${{ secrets.DOCKERHUB_USERNAME }}" != "" -a "${{ secrets.DOCKERHUB_PASSWORD }}" != "" ]; then
-                DOCKERHUB_PUSH="true"
-                if [ -e "README.md" ]; then
-                  DOCKERHUB_README="true"
-                fi
+            if [ "${{ secrets.DOCKERHUB_USERNAME }}" != "" -a "${{ secrets.DOCKERHUB_PASSWORD }}" != "" ]; then
+              DOCKERHUB_PUSH="true"
+              if [ -e "README.md" ]; then
+                DOCKERHUB_README="true"
               fi
             fi
           fi
