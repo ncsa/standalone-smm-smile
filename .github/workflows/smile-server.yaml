@@ -81,7 +81,7 @@ jobs:
 
     - name: Build docker image
       if: |
-        github.repository == env.MAIN_REPO &&
+#        github.repository == env.MAIN_REPO &&
         github.event_name == 'push'
 #        (env.GITHUB_BRANCH == 'main' || env.GITHUB_BRANCH == 'develop')
       uses: elgohr/Publish-Docker-Github-Action@3.04
