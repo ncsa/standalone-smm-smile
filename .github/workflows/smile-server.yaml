@@ -91,7 +91,7 @@ jobs:
       uses: elgohr/Publish-Docker-Github-Action@3.04
       with:
         registry: docker.io
-        name: smile-server
+        name: socialmediamacroscope/smile-server
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
         tags: "${{ env.TAGS }}"
@@ -105,7 +105,7 @@ jobs:
       uses: elgohr/Publish-Docker-Github-Action@3.04
       with:
         registry: ghcr.io
-        name: ${{ matrix.github_repo_tag }}
+        name: ncsa/smiles-server
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
         tags: "${{ env.TAGS }}"
