@@ -85,7 +85,7 @@ jobs:
           DOCKERHUB_PUSH="false"
           DOCKERHUB_README="false"
           if [ "${{ github.repository }}" == "${{ env.MAIN_REPO }}" ]; then
-            if [ ${BRANCH} == "PR-116" ]; then
+            if [ ${BRANCH} == "main" ]; then
               if [ "${{ secrets.DOCKERHUB_USERNAME }}" != "" -a "${{ secrets.DOCKERHUB_PASSWORD }}" != "" ]; then
                 DOCKERHUB_PUSH="true"
                 if [ -e "README.md" ]; then
@@ -98,7 +98,7 @@ jobs:
           # should we push to Github
           GITHUB_PUSH="false"
           if [ "${{ github.repository }}" == "${{ env.MAIN_REPO }}" ]; then
-            if [ ${BRANCH} == "PR-116" ]; then
+            if [ ${BRANCH} == "develop" ]; then
               GITHUB_PUSH="true"
             fi
           fi
@@ -106,10 +106,8 @@ jobs:
           # should we push to NCSA
           NCSAHUB_PUSH="false"
           if [ "${{ github.repository }}" == "${{ env.MAIN_REPO }}" ]; then
-            if [ ${BRANCH} == "PR-116" ]; then
-              if [ "${{ secrets.HUB_USERNAME }}" != "" -a "${{ secrets.HUB_PASSWORD }}" != "" ]; then
-                NCSAHUB_PUSH="true"
-              fi
+            if [ "${{ secrets.HUB_USERNAME }}" != "" -a "${{ secrets.HUB_PASSWORD }}" != "" ]; then
+              NCSAHUB_PUSH="true"
             fi
           fi
 
@@ -144,6 +142,13 @@ jobs:
           echo "DOCKERHUB_PUSH=${DOCKERHUB_PUSH}" >> $GITHUB_ENV
           echo "NCSAHUB_PUSH=${NCSAHUB_PUSH}" >> $GITHUB_ENV
           echo "IMAGES=${IMAGES}" >> $GITHUB_ENV
+
+      - name: versiont test
+        run: if [ "$BRANCH" == "PR-116" ]; then
+                echo "main"
+              else
+                echo "not main"
+              fi
 
       - name: Print Github branch
         run: echo "${{ env.GITHUB_BRANCH }}"
