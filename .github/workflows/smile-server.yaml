@@ -79,7 +79,7 @@ jobs:
 #        (env.GITHUB_BRANCH == 'main' || env.GITHUB_BRANCH == 'develop')
       uses: elgohr/Publish-Docker-Github-Action@3.04
       with:
-        name: socialmediamacroscope/smile-server
+        name: smile-server
         no_push: true
         workdir: www
 
