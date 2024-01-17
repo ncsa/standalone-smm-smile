@@ -40,6 +40,14 @@ jobs:
       # checkout source code
       - uses: actions/checkout@v3
 
+      - name: Check Condition
+        run: |
+          if [ "${{ env.GITHUB_BRANCH }}" == "PR-116" ]; then
+            echo "Condition is true"
+          else
+            echo "Condition is false"
+          fi
+
       # calculate some variables that are used later
       - name: version information
         run: |
