@@ -126,8 +126,8 @@ jobs:
           echo "NCSAHUB_PUSH=${NCSAHUB_PUSH}" >> $GITHUB_ENV
           echo "IMAGES=${IMAGES}" >> $GITHUB_ENV
 
-      - name: Print DOCKERHUB_PUSH
-        run: echo "${{ env.TAGS }}"
+      - name: Print Github branch
+        run: echo "${{ env.GITHUB_BRANCH }}"
 
       # setup docker build
       - name: Set up QEMU
