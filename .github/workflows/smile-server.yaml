@@ -213,8 +213,6 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
           tags: ${{ env.IMAGES }}
           workdir: ./www
-          IMAGES="${IMAGES}ghcr:
-            io/${OWNER_LC}/${IMAGE}:${tag},":
 
       - name: Publish doc image to Docker Hub
         if: env.DOCKERHUB_PUSH == 'true'
