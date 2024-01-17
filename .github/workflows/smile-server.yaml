@@ -70,6 +70,8 @@ jobs:
             VERSION="$BRANCH"
             tags="$BRANCH"
           fi
+          
+          echo "GITHUB_BRANCH=${BRANCH}" >> $GITHUB_ENV
 
           # should we push to dockerhub, and is there a README
           DOCKERHUB_PUSH="false"
