@@ -86,11 +86,19 @@ jobs:
               fi
             fi
           fi
+          
+          # should we push to Github
+          GITHUB_PUSH="false"
+          if [ "${{ github.repository }}" == "${{ env.MAIN_REPO }}" ]; then
+            if [ "${{ env.GITHUB_BRANCH }}" == "develop" ]; then
+              GITHUB_PUSH="true"
+            fi
+          fi
 
           # should we push to NCSA
           NCSAHUB_PUSH="false"
           if [ "${{ github.repository }}" == "${{ env.MAIN_REPO }}" ]; then
-            if [ "${{ env.GITHUB_BRANCH == 'develop' }}" ]; then
+            if [ "${{ env.GITHUB_BRANCH }}" == "main" ]; then
               if [ "${{ secrets.HUB_USERNAME }}" != "" -a "${{ secrets.HUB_PASSWORD }}" != "" ]; then
                 NCSAHUB_PUSH="true"
               fi
@@ -107,7 +115,9 @@ jobs:
             if [ "$NCSAHUB_PUSH" == "true" ]; then
               IMAGES="${IMAGES}${NCSAHUB}/${IMAGE}:${tag},"
             fi
-            IMAGES="${IMAGES}ghcr.io/${OWNER_LC}/${IMAGE}:${tag},"
+            if [ "$GITHUB_PUSH" == "true" ]; then
+              IMAGES="${IMAGES}ghcr.io/${OWNER_LC}/${IMAGE}:${tag},"
+            fi
           done
           IMAGES="${IMAGES%,*}"
 
@@ -117,6 +127,7 @@ jobs:
           echo "DOCKERHUB_README=${DOCKERHUB_README}"
           echo "DOCKERHUB_PUSH=${DOCKERHUB_PUSH}"
           echo "NCSAHUB_PUSH=${NCSAHUB_PUSH}"
+          echo "GITHUB_PUSH=${GITHUB_PUSH}"
           echo "IMAGES=${IMAGES}"
 
           echo "BRANCH=${BRANCH}" >> $GITHUB_ENV
