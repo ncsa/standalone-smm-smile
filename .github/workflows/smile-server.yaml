@@ -42,7 +42,7 @@ jobs:
 
       - name: Check Condition
         run: |
-          if [ ${BRANCH} == "PR-116" ]; then
+          if [ "$BRANCH" == "PR-116" ]; then
             echo "Condition is true"
           else
             echo "Condition is false"
@@ -150,9 +150,6 @@ jobs:
           else
             echo "not main"
           fi
-
-      - name: Print Github branch
-        run: echo "${{ env.GITHUB_BRANCH }}"
 
       # setup docker build
       - name: Set up QEMU
