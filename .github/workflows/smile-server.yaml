@@ -181,6 +181,7 @@ jobs:
 
       # build the docker images
       - name: Build and push docker
+        if: env.DOCKERHUB_PUSH == 'true' || env.NCSAHUB_PUSH == 'true' || env.GITHUB_PUSH == 'true'
         uses: docker/build-push-action@v3
         with:
           context: ./www
