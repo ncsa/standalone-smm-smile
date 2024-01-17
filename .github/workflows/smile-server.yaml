@@ -40,14 +40,6 @@ jobs:
       # checkout source code
       - uses: actions/checkout@v3
 
-      - name: Check Condition
-        run: |
-          if [ "$BRANCH" == "PR-116" ]; then
-            echo "Condition is true"
-          else
-            echo "Condition is false"
-          fi
-
       # calculate some variables that are used later
       - name: version information
         run: |
@@ -142,14 +134,6 @@ jobs:
           echo "DOCKERHUB_PUSH=${DOCKERHUB_PUSH}" >> $GITHUB_ENV
           echo "NCSAHUB_PUSH=${NCSAHUB_PUSH}" >> $GITHUB_ENV
           echo "IMAGES=${IMAGES}" >> $GITHUB_ENV
-
-      - name: version test
-        run: |
-          if [ "$BRANCH" == "PR-116" ]; then
-            echo "main"
-          else
-            echo "not main"
-          fi
 
       # setup docker build
       - name: Set up QEMU
