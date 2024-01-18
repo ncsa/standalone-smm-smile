@@ -90,9 +90,7 @@ jobs:
           # should we push to Github
           GITHUB_PUSH="false"
           if [ "${{ github.repository }}" == "${{ env.MAIN_REPO }}" ]; then
-            if [ ${BRANCH} == "develop" ]; then
               GITHUB_PUSH="true"
-            fi
           fi
 
           # should we push to NCSA
