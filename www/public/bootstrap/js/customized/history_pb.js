@@ -15,7 +15,8 @@ $.getScript("bootstrap/js/customized/view_helperFunc.js", function(){
                         $("#loading").hide();
 
                         $("#search-tag-results").empty();
-                        $("#background").show();
+                        $("#import-background").hide();
+                        $("#search-background").show();
 
                         $("#error").val(JSON.stringify(data));
                         $("#warning").modal('show');
@@ -215,9 +216,26 @@ $.getScript("bootstrap/js/customized/view_helperFunc.js", function(){
         $("#title").empty();
         $("#d3js-container").hide();
         $("#loading").hide();
+        $("#import-background").hide();
 
         $("#search-tag-results").empty();
-        $("#background").show();
+        $("#search-background").show();
+    });
+
+    $("#import-invoke").on("click", function (e) {
+        $("#title-container").empty();
+        $("#overview-title").hide();
+        $("#overview-container").empty();
+        $("#img-container").empty();
+        $("#result-container").empty();
+        $("#gaudge").empty();
+        $("#title").empty();
+        $("#d3js-container").hide();
+        $("#loading").hide();
+        $("#search-background").hide();
+
+
+        $("#import-background").show();
     });
 
 });

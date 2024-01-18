@@ -22,7 +22,7 @@ $.getScript("bootstrap/js/customized/view_helperFunc.js", function(){
                 if (data) {
                     if ('ERROR' in data) {
                         $("#loading").hide();
-                        $("#background").show();
+                        $("#search-background").show();
                         $("#error").val(JSON.stringify(data));
                         $("#warning").modal('show');
                     } else {
@@ -95,7 +95,7 @@ $.getScript("bootstrap/js/customized/view_helperFunc.js", function(){
                         if (data) {
                             if ('ERROR' in data) {
                                 $("#loading").hide();
-                                $("#background").show();
+                                $("#search-background").show();
                                 $("#error").val(JSON.stringify(data));
                                 $("#warning").modal('show');
                             } else {

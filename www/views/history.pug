@@ -32,6 +32,7 @@ html
         script(src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.js")
 
         <!-- customized -->
+        script(src="bootstrap/js/jquery.csv.js")
         script(src="bootstrap/js/customized/warning_trigger.js")
         script(src="bootstrap/js/customized/modal_overlay.js")
         script(src="bootstrap/js/customized/parse_session.js")
@@ -47,6 +48,7 @@ html
         include components/tag.pug
         include components/clowder.pug
         include components/share.pug
+        include components/import-dialogs
 
         div(class="container-fluid")
             div(class="row")
@@ -54,15 +56,27 @@ html
                     h2(style="color:#ffffff;text-align:center;") History
                         button(class="btn btn-primary pull-right", id="search-tag-invoke")
                             i(class="fas fa-search")
+                        button(class="btn btn-primary pull-right", id="import-invoke" style="margin-right:1em;")
+                            i(class="fas fa-plus")
+                            | import
                         img(src="bootstrap/img/gifs/loading5.gif", width="50px", id="historyListLoading")
                     ul(class="nav nav-sidebar")
 
         div(class="container-fluid")
             div(class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 main")
-                div(id="background", style="width:800px;margin:auto auto;")
-                    h4(style="margin:100px 0;text-align:center;")
-                        i(class="far fa-hand-point-left")
-                        |  &nbsp;Click the Past Job ID to View.
+                // background for import
+                div(id="import-background" style="width:800px;margin:auto auto;display:none;")
+                    h3(style="margin:8em 0 2em 0;text-align:center;")
+                        i(class="fas fa-upload")
+                        |  &nbsp;Import your own data source
+                    div(style="text-align:center;")
+                        include components/import-button.pug
+
+                // background for search tags
+                div(id="search-background", style="width:800px;margin:auto auto;")
+                    h3(style="margin:8em 0 2em 0;text-align:center;")
+                        i(class="fas fa-search")
+                        |  &nbsp;Search by tags
                     div(class="list-container")
                         input(class="form-control", placeholder="search by tag name", id="search-tag", style="display:inline;width:80%;")
                         button(class="btn btn-primary", id="search-tag-btn", style="display:inline;width:20%;margin-left:-3px;border-radius:0 3px 3px 0;vertical-align:unset;")

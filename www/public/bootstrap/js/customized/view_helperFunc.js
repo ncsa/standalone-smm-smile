@@ -526,7 +526,8 @@ function submitHistory(currItem, folderURL){
     $("#gaudge").empty();
     $("#title").empty();
     $("#d3js-container").hide();
-    $("#background").hide();
+    $("#search-background").hide();
+    $("#import-background").hide();
     $("#loading").show();
 
     $.ajax({
@@ -539,7 +540,7 @@ function submitHistory(currItem, folderURL){
                     $("#loading").hide();
 
                     $("#search-tag-results").empty();
-                    $("#background").show();
+                    $("#search-background").show();
 
                     $("#error").val(JSON.stringify(data));
                     $("#warning").modal('show');

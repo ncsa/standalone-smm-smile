@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Google Analytics 4 tag for user analysis [#107](https://github.com/ncsa/standalone-smm-smile/issues/107)
 - Github action to publish to different docker registry [#106](https://github.com/ncsa/standalone-smm-smile/issues/106)
+- Import feature added to history page [#98](https://github.com/ncsa/standalone-smm-smile/issues/98)
 
 ## [0.3.1] - 2023-10-12
 ### Changed
