@@ -130,6 +130,7 @@ jobs:
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
           echo "DOCKERHUB_README=${DOCKERHUB_README}" >> $GITHUB_ENV
           echo "DOCKERHUB_PUSH=${DOCKERHUB_PUSH}" >> $GITHUB_ENV
+          echo "GITHUB_PUSH=${GITHUB_PUSH}" >> $GITHUB_ENV
           echo "NCSAHUB_PUSH=${NCSAHUB_PUSH}" >> $GITHUB_ENV
           echo "IMAGES=${IMAGES}" >> $GITHUB_ENV
 
