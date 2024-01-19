@@ -70,17 +70,27 @@ jobs:
             VERSION="$BRANCH"
             tags="$BRANCH"
           fi
+          
+          echo "GITHUB_BRANCH=${BRANCH}" >> $GITHUB_ENV
 
           # should we push to dockerhub, and is there a README
           DOCKERHUB_PUSH="false"
           DOCKERHUB_README="false"
           if [ "${{ github.repository }}" == "${{ env.MAIN_REPO }}" ]; then
-            if [ "${{ secrets.DOCKERHUB_USERNAME }}" != "" -a "${{ secrets.DOCKERHUB_PASSWORD }}" != "" ]; then
-              DOCKERHUB_PUSH="true"
-              if [ -e "README.md" ]; then
-                DOCKERHUB_README="true"
+            if [ ${BRANCH} == "main" ]; then
+              if [ "${{ secrets.DOCKERHUB_USERNAME }}" != "" -a "${{ secrets.DOCKERHUB_PASSWORD }}" != "" ]; then
+                DOCKERHUB_PUSH="true"
+                if [ -e "README.md" ]; then
+                  DOCKERHUB_README="true"
+                fi
               fi
             fi
+          fi
+          
+          # should we push to Github
+          GITHUB_PUSH="false"
+          if [ "${{ github.repository }}" == "${{ env.MAIN_REPO }}" ]; then
+              GITHUB_PUSH="true"
           fi
 
           # should we push to NCSA
@@ -101,7 +111,9 @@ jobs:
             if [ "$NCSAHUB_PUSH" == "true" ]; then
               IMAGES="${IMAGES}${NCSAHUB}/${IMAGE}:${tag},"
             fi
-            IMAGES="${IMAGES}ghcr.io/${OWNER_LC}/${IMAGE}:${tag},"
+            if [ "$GITHUB_PUSH" == "true" ]; then
+              IMAGES="${IMAGES}ghcr.io/${OWNER_LC}/${IMAGE}:${tag},"
+            fi
           done
           IMAGES="${IMAGES%,*}"
 
@@ -111,12 +123,14 @@ jobs:
           echo "DOCKERHUB_README=${DOCKERHUB_README}"
           echo "DOCKERHUB_PUSH=${DOCKERHUB_PUSH}"
           echo "NCSAHUB_PUSH=${NCSAHUB_PUSH}"
+          echo "GITHUB_PUSH=${GITHUB_PUSH}"
           echo "IMAGES=${IMAGES}"
 
           echo "BRANCH=${BRANCH}" >> $GITHUB_ENV
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
           echo "DOCKERHUB_README=${DOCKERHUB_README}" >> $GITHUB_ENV
           echo "DOCKERHUB_PUSH=${DOCKERHUB_PUSH}" >> $GITHUB_ENV
+          echo "GITHUB_PUSH=${GITHUB_PUSH}" >> $GITHUB_ENV
           echo "NCSAHUB_PUSH=${NCSAHUB_PUSH}" >> $GITHUB_ENV
           echo "IMAGES=${IMAGES}" >> $GITHUB_ENV
 
@@ -161,6 +175,7 @@ jobs:
 
       # build the docker images
       - name: Build and push docker
+        if: env.DOCKERHUB_PUSH == 'true' || env.NCSAHUB_PUSH == 'true' || env.GITHUB_PUSH == 'true'
         uses: docker/build-push-action@v3
         with:
           context: ./www
