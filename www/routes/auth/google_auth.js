@@ -4,32 +4,34 @@ var router = express.Router();
 
 var clientId = GOOGLE_CLIENT_ID;
 var clientSecret = GOOGLE_CLIENT_SECRET;
-var redirectUrl = 'urn:ietf:wg:oauth:2.0:oob';
+var redirectUrl = 'http://localhost:8001/login/google/callback';
 var auth = new googleAuth();
 var oauth2Client = new auth.OAuth2(clientId, clientSecret, redirectUrl);
 
 router.get('/login/google', checkIfLoggedIn, function (req, res, next) {
-
-    var authUrl = oauth2Client.generateAuthUrl({
+    const authUrl = oauth2Client.generateAuthUrl({
         access_type: 'offline',
-        scope: ['https://www.googleapis.com/auth/drive']
+        scope: ['https://www.googleapis.com/auth/youtube.readonly'],
+        prompt: 'consent' // Prompts the user to consent
     });
-
     res.redirect(authUrl);
 });
 
-router.post('/login/google', checkIfLoggedIn, function (req, res, next) {
+router.get('/login/google/callback', checkIfLoggedIn, (req, res) => {
+    const { code } = req.query;
+    if (!code) {
+        return res.status(400).send({ ERROR: 'Code not provided' });
+    }
 
-    oauth2Client.getToken(req.body.authorizeCode, function (err, token) {
-        if (err) {
-            res.send({'ERROR': err});
+    oauth2Client.getToken(code, (error, tokens) => {
+        if (error) {
+            return res.status(400).send({ ERROR: error.message });
         }
-        else {
-            setCredential(req, 'google_access_token', token.access_token);
-            res.send({'data': 'success'});
-        }
+        setCredential(req, 'google_access_token', tokens.access_token);
+        res.redirect('/query');
     });
-
 });
+
+
 
 module.exports = router;

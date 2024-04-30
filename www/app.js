@@ -30,6 +30,7 @@ SINGLE_USER = process.env.SINGLE_USER ? process.env.SINGLE_USER === 'true': true
 CLOWDER_ON = process.env.CLOWDER_ON ? process.env.CLOWDER_ON ==='true': false;
 TWITTER_ON = process.env.TWITTER_ON ? process.env.TWITTER_ON ==='true': true;
 REDDIT_ON = process.env.REDDIT_ON ? process.env.REDDIT_ON === 'true': true;
+GOOGLE_ON = process.env.GOOGLE_ON ? process.env.GOOGLE_ON === 'true': true;
 SHARE_EXPIRE_IN = process.env.SHARE_EXPIRE_IN ? process.env.SHARE_EXPIRE_IN : 1;
 CLOWDER_BASE_URL= process.env.CLOWDER_BASE_URL || "http://clowder.localhost/";
 BUCKET_NAME = process.env.BUCKET_NAME ? process.env.BUCKET_NAME: 'macroscope-smile';

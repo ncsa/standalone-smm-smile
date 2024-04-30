@@ -31,4 +31,15 @@ div(id="auth-panel")
                 img(src='bootstrap/img/logo/reddit-sm-logo.png', width="30px",height="30px")
                 | Reddit Temporarily Not Accessible
                 img(src="bootstrap/img/logo/checkbox.png", class="export-success", width="30px", style="display:none;")
+    div(class="reddit-auth", id="google-auth")
+        if GOOGLE_ON
+            a(class="btn btn-primary btn-block auth-button", href="login/google")
+                img(src='bootstrap/img/logo/youtube-sm-logo.png', width="30px",height="30px")
+                | Authorize with your Youtube account
+                img(src="bootstrap/img/logo/checkbox.png", class="export-success", width="30px", style="display:none;")
+        else
+            a(class="btn btn-primary btn-block auth-button", href="login/google" disabled)
+                img(src='bootstrap/img/logo/youtube-sm-logo.png', width="30px",height="30px")
+                | Youtube Temporarily Not Accessible
+                img(src="bootstrap/img/logo/checkbox.png", class="export-success", width="30px", style="display:none;")
     button(id="auth-next", style="", class="pull-right") next
