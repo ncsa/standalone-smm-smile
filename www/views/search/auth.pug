@@ -19,7 +19,6 @@ div(id="auth-panel")
             a(class="btn btn-primary btn-block auth-button", href="login/twitterV2" disabled)
                 img(src='bootstrap/img/logo/x-sm-logo.png', width="30px", height="30px")
                 | Twitter/X Temporarily Not Accessible
-                img(src="bootstrap/img/logo/checkbox.png", class="export-success", width="30px", style="display:none;")
     div(class="reddit-auth", id="reddit-auth")
         if REDDIT_ON
             a(class="btn btn-primary btn-block auth-button", href="login/reddit")
@@ -30,8 +29,7 @@ div(id="auth-panel")
             a(class="btn btn-primary btn-block auth-button", href="login/reddit" disabled)
                 img(src='bootstrap/img/logo/reddit-sm-logo.png', width="30px",height="30px")
                 | Reddit Temporarily Not Accessible
-                img(src="bootstrap/img/logo/checkbox.png", class="export-success", width="30px", style="display:none;")
-    div(class="reddit-auth", id="google-auth")
+    div(class="google-auth", id="google-auth")
         if GOOGLE_ON
             a(class="btn btn-primary btn-block auth-button", href="login/google")
                 img(src='bootstrap/img/logo/youtube-sm-logo.png', width="30px",height="30px")
@@ -41,5 +39,4 @@ div(id="auth-panel")
             a(class="btn btn-primary btn-block auth-button", href="login/google" disabled)
                 img(src='bootstrap/img/logo/youtube-sm-logo.png', width="30px",height="30px")
                 | Youtube Temporarily Not Accessible
-                img(src="bootstrap/img/logo/checkbox.png", class="export-success", width="30px", style="display:none;")
     button(id="auth-next", style="", class="pull-right") next

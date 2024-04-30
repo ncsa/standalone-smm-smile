@@ -1,6 +1,6 @@
 function authorize(platform){
     // showing the check mark
-    $("#" + platform + "-auth").find('img').show();
+    $("#google-auth").find(".export-success").show();
 
     // toggle the second auth panel
     $("#unauthorized").find("." + platform + "-auth").hide();
@@ -20,21 +20,26 @@ function authorize(platform){
         $("#social-media option[value='redditPost']").removeAttr('disabled');
         $("#social-media option[value='redditComment']").removeAttr('disabled');
     }
+    // else if (platform === 'google') {
+    //
+    // }
 }
-
 
 $(document).ready(function () {
     $.ajax({
-        type:'get',
-        url:"authorized",
-        success: function(data){
-            if ('ERROR' in data){
+        type: 'get',
+        url: "authorized",
+        success: function(data) {
+            if ('ERROR' in data) {
                 $("#error").val(JSON.stringify(data));
                 $("#warning").modal("show");
-            }
-            else{
-                var platforms = ['twitter', 'twitterV2', 'reddit'];
-                $.each(platforms, function (i, platform) {
+            } else {
+                // Dynamically find authorization elements
+                $('[id$="-auth"]').each(function () {
+                    var platformId = $(this).attr('id'); // e.g., "reddit-auth"
+                    var platform = platformId.replace('-auth', ''); // Removes '-auth', leaves "reddit"
+
+                    // Check if data contains the platform and if it is authorized
                     if (data[platform]) {
                         authorize(platform);
                     }
@@ -43,6 +48,7 @@ $(document).ready(function () {
         }
     });
 });
+
 
 $("#auth-next").on("click", function () {
     $("#auth-panel").hide();

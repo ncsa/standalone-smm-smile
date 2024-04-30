@@ -48,11 +48,8 @@ html
     body(onload="init();")
         <!-- top bar -->
         include ../components/topbar.pug
-        include ../components/export.pug
-        include ../components/terminate.pug
         include ../components/warning.pug
         include ../components/clientside-warning.pug
-        include ../components/cookie.pug
         include auth.pug
 
         div(class="searchPage",id="searchPage",style="display:none;")
@@ -95,6 +92,7 @@ html
                     //img(id="twitter-authorized", src='bootstrap/img/logo/twitter-sm-logo.png', width="30px",height="30px", style="margin-right:10px;display:none;")
                     img(id="twitterV2-authorized", src='bootstrap/img/logo/x-sm-logo.png', width="30px",height="30px", style="margin-right:10px;display:none;")
                     img(id="reddit-authorized",src='bootstrap/img/logo/reddit-sm-logo.png', width="30px",height="30px", style="margin-right:10px;display:none;")
+                    img(id="google-authorized",src='bootstrap/img/logo/youtube-sm-logo.png', width="30px",height="30px", style="margin-right:10px;display:none;")
 
             <!-- search --->
             div(class="row")
