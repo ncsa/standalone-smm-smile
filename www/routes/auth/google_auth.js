@@ -12,7 +12,7 @@ router.get('/login/google', checkIfLoggedIn, function (req, res, next) {
     const authUrl = oauth2Client.generateAuthUrl({
         access_type: 'offline',
         scope: ['https://www.googleapis.com/auth/youtube.readonly'],
-        prompt: 'consent' // Prompts the user to consent
+        // prompt: 'consent' // Prompts the user to consent
     });
     res.redirect(authUrl);
 });
@@ -28,6 +28,7 @@ router.get('/login/google/callback', checkIfLoggedIn, (req, res) => {
             return res.status(400).send({ ERROR: error.message });
         }
         setCredential(req, 'google_access_token', tokens.access_token);
+        setCredential(req, 'google_refresh_token', tokens.refresh_token);
         res.redirect('/query');
     });
 });
