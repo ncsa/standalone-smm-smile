@@ -56,24 +56,10 @@ html
             <!-- logo -->
             div(class="row" id="header",style="")
                 img(src="bootstrap/img/logo/queryPage-logo.png",width="500px",style="display:block;margin:auto auto;")
-            //div(class="citation-notice fixed-width")
-            //    button(class="close") &times;
-            //    p Due to issues with receiving a consistent stream of data from Twitter's API, our historical streamed
-            //        |  Twitter search/database has been deprecated. Please use the remaining Twitter non-historical
-            //        |  search feature.
-            //
-            //div(class="citation-notice fixed-width")
-            //    button(class="close") &times;
-            //    p Crimson Hexagon is now part of Brandwatch and due to this change the connection to Crimson Hexagon has
-            //        |  been deprecated.
-
             <!-- secondary auth panel -->
             div(class="row", id="second-auth",style="display:block;margin:auto auto;margin-top:50px;text-align:center;color:#333;")
                 div(id="unauthorized", style="display:inline-block;")
                     p(style="display:inline-block;margin:10px 10px;") Click the icon to authorize:
-                    //div(class="twitter-auth",style="display:inline-block;")
-                    //    a(target="_blank", href="login/twitter")
-                    //        img(src='bootstrap/img/logo/twitter-sm-logo.png', width="30px",height="30px", style="margin-right:10px")
                     if TWITTER_ON
                         div(class="twitterV2-auth",style="display:inline-block;")
                             a(href="login/twitterV2")
@@ -89,7 +75,6 @@ html
 
                 div(id="authorized",style="display:inline-block;")
                     p(style="display:inline-block;margin:10px 10px;") You have already authorized:
-                    //img(id="twitter-authorized", src='bootstrap/img/logo/twitter-sm-logo.png', width="30px",height="30px", style="margin-right:10px;display:none;")
                     img(id="twitterV2-authorized", src='bootstrap/img/logo/x-sm-logo.png', width="30px",height="30px", style="margin-right:10px;display:none;")
                     img(id="reddit-authorized",src='bootstrap/img/logo/reddit-sm-logo.png', width="30px",height="30px", style="margin-right:10px;display:none;")
                     img(id="google-authorized",src='bootstrap/img/logo/youtube-sm-logo.png', width="30px",height="30px", style="margin-right:10px;display:none;")
@@ -99,12 +84,6 @@ html
                 div(id="tabs")
                     boolean(data-toggle="tooltip", data-placement="top", data-html="true")
                     select(class="selectpicker show-tick" id="social-media" title="Choose a Data Source..." data-width="220px")
-                        //optgroup(label="Search Twitter")
-                        //    option(data-icon="fab fa-twitter" value="queryTweet" disabled) Tweets
-                        //    option(data-icon="fas fa-user" value="getTimeline" disabled) User timeline
-                        //optgroup(label="Partial Historical Database")
-                        //    option(data-icon="fab fa-reddit-square" value="pushshiftPost") Historical Reddit Posts
-                        //    option(data-icon="fas fa-comment-dots" value="pushshiftComment") Historical Reddit Comments
                         optgroup(label="Search Twitter/X V2")
                             option(data-icon="fab fa-twitter" value="queryTweetV2" disabled) Tweets
                         optgroup(label="Search Reddit")
@@ -195,4 +174,3 @@ html
 
         script(src="bootstrap/js/customized/query_auth.js")
         script(src="bootstrap/js/customized/detect_cookie.js")
-        //script(src="bootstrap/js/customized/hotkeys.js").

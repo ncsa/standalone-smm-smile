@@ -20,9 +20,9 @@ function authorize(platform){
         $("#social-media option[value='redditPost']").removeAttr('disabled');
         $("#social-media option[value='redditComment']").removeAttr('disabled');
     }
-    // else if (platform === 'google') {
-    //
-    // }
+    else if (platform === 'google') {
+        $("#social-media option[value='youtubeSearch']").removeAttr('disabled');
+    }
 }
 
 $(document).ready(function () {
