@@ -21,7 +21,7 @@ function authorize(platform){
         $("#social-media option[value='redditComment']").removeAttr('disabled');
     }
     else if (platform === 'google') {
-        $("#social-media option[value='youtubeSearch']").removeAttr('disabled');
+        $("#social-media option[value='queryYoutube']").removeAttr('disabled');
     }
 }
 

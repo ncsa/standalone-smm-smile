@@ -466,7 +466,7 @@ function submitSearchbox(searchboxID, filenameID, dryrun = false){
 		params = parameters.psComment;
 	}
 	else if (queryTerm === 'queryYoutube'){
-		pages = 10;
+		pages = 2; // TODO change me to 10 later
 		if (dryrun) pages = 1;
 		queryString = `{
 		  youtube {
