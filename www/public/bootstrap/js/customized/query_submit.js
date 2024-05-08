@@ -470,7 +470,7 @@ function submitSearchbox(searchboxID, filenameID, dryrun = false){
 		if (dryrun) pages = 1;
 		queryString = `{
 		  youtube {
-			search(q: "${keyword}", maxPages:${pages}) {
+			search(q: "${keyword}") {
 			  kind
 			  etag
 			  id{
