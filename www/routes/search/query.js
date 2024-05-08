@@ -369,7 +369,7 @@ function removeInvalidToken(req, platform) {
         removeCredential(req, 'twt_v2_access_token');
     } else if (platform === 'reddit') {
         removeCredential(req, 'rd_access_token');
-    } else if (platform === 'google') {
+    } else if (platform === 'youtube') {
         removeCredential(req, 'google_access_token');
         removeCredential(req, 'google_refresh_token');
     }
@@ -402,14 +402,14 @@ function checkAuthorized(req) {
             twitter: false,
             twitterV2: false,
             reddit: false,
-            google: false
+            youtube: false
         };
 
         var obj = await retrieveCredentials(req);
         if (obj && 'twt_access_token_key' in obj && 'twt_access_token_secret' in obj) response['twitter'] = true;
         if (obj && 'twt_v2_access_token' in obj) response['twitterV2'] = true;
         if (obj && 'rd_access_token' in obj) response['reddit'] = true;
-        if (obj && 'google_access_token' in obj && 'google_refresh_token') response['google'] = true;
+        if (obj && 'google_access_token' in obj && 'google_refresh_token') response['youtube'] = true;
         resolve(response);
     });
 }

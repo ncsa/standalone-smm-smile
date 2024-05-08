@@ -767,7 +767,7 @@ function renderPreview(rendering,prefix){
 		});
 	}
 	else if (prefix === 'youtube-Search') {
-		<h4>Preview of search results coming soon...</h4>
+		$("#grid").append(`<h4>Preview of YouTube search results coming soon...</h4>`);
 	}
 
 	$("#rendering").show();

@@ -1,6 +1,6 @@
 function authorize(platform){
     // showing the check mark
-    $("#google-auth").find(".export-success").show();
+    $("#youtube-auth").find(".export-success").show();
 
     // toggle the second auth panel
     $("#unauthorized").find("." + platform + "-auth").hide();
@@ -20,7 +20,7 @@ function authorize(platform){
         $("#social-media option[value='redditPost']").removeAttr('disabled');
         $("#social-media option[value='redditComment']").removeAttr('disabled');
     }
-    else if (platform === 'google') {
+    else if (platform === 'youtube') {
         $("#social-media option[value='queryYoutube']").removeAttr('disabled');
     }
 }
