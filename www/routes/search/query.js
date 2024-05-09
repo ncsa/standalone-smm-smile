@@ -405,7 +405,6 @@ function checkAuthorized(req) {
             youtube: false
         };
         var obj = await retrieveCredentials(req);
-        console.log(obj);
 
         if (obj && 'twt_access_token_key' in obj && 'twt_access_token_secret' in obj) response['twitter'] = true;
         if (obj && 'twt_v2_access_token' in obj) response['twitterV2'] = true;
