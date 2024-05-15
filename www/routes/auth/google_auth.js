@@ -4,7 +4,7 @@ var router = express.Router();
 
 var clientId = GOOGLE_CLIENT_ID;
 var clientSecret = GOOGLE_CLIENT_SECRET;
-var redirectUrl = 'http://localhost:8001/login/google/callback';
+var redirectUrl = GOOGLE_CALLBACK_URL;
 var auth = new googleAuth();
 var oauth2Client = new auth.OAuth2(clientId, clientSecret, redirectUrl);
 
