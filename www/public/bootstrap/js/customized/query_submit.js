@@ -767,7 +767,22 @@ function renderPreview(rendering,prefix){
 		});
 	}
 	else if (prefix === 'youtube-Search') {
-		$("#grid").append(`<h4>Preview of YouTube search results coming soon...</h4>`);
+		$.each(rendering, function(i,val){
+			var img_url = val && val.snippet && val.snippet.medium_thumbnails_url ? val.snippet.medium_thumbnails_url: "";
+			var created_at = val && val.snippet && val.snippet.publishedAt ? val.snippet.publishedAt: "Not Provided";
+			var channel = val && val.snippet && val.snippet.channelTitle ? val.snippet.channelTitle: "Not Provided";
+			var title = val && val.snippet && val.snippet.title ? val.snippet.title: "Not Provided";
+			var url = val && val.id && val.id.videoId ? `https://www.youtube.com/watch?v=${val.id.videoId}`: "";
+			$("#grid").append(`<div class="grid-element">
+									<img src="${img_url}" alt="preview-img" style="width:100%;"/>
+									<div class="text-block">
+										<p class="screenname"><b>${channel}</b></p>
+										<p class="utc">&nbsp;&bull;${created_at}</p>
+									</div>
+									<p class="text-block">${title}</p>
+									<a target="_blank" href="${url}">View on YouTube<i class="fas fa-share"></i></a>
+							</div>`);
+		});
 	}
 
 	$("#rendering").show();
