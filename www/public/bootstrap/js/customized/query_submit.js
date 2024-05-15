@@ -6,35 +6,42 @@ function submitQuery(textareaID,filenameID, dryrun = false){
 	var queryString = $(textareaID).val();
 	var queryTerm = $("#social-media").find(':selected').val();
 	var filename = $(filenameID).val();
-	
+
+	var prefix;
+	var params;
+	var pages;
 	if (queryTerm === 'queryTweet'){
-		var prefix = 'twitter-Tweet';
-		var params = parameters.tweet;
-		var pages = parseInt($("#tweet-count").val())/100;
+		prefix = 'twitter-Tweet';
+		params = parameters.tweet;
+		pages = parseInt($("#tweet-count").val())/100;
 	}else if (queryTerm === 'getTimeline'){
-		var prefix = 'twitter-Timeline';
-		var params = parameters.twtTimeline;
-		var pages = parseInt($("#twtTimeline-count").val())/200;
+		prefix = 'twitter-Timeline';
+		params = parameters.twtTimeline;
+		pages = parseInt($("#twtTimeline-count").val())/200;
 	}else if (queryTerm === 'queryReddit'){
-		var prefix = 'reddit-Search';
-		var params = parameters.rdSearch ;	
-		var pages = -999;
+		prefix = 'reddit-Search';
+		params = parameters.rdSearch ;
+		pages = -999;
 	}else if (queryTerm === 'redditPost'){
-		var prefix = 'reddit-Post';
-		var params = parameters.rdPost ;	
-		var pages = -999;		
+		prefix = 'reddit-Post';
+		params = parameters.rdPost ;
+		pages = -999;
 	}else if (queryTerm === 'redditComment'){
-		var prefix = 'reddit-Comment';
-		var params = parameters.rdComment ;	
-		var pages = -999;		
+		prefix = 'reddit-Comment';
+		params = parameters.rdComment ;
+		pages = -999;
 	}else if (queryTerm === 'pushshiftPost'){
-		var prefix = 'reddit-Historical-Post';
-		var params = parameters.psPost ;	
-		var pages = -999;		
+		prefix = 'reddit-Historical-Post';
+		params = parameters.psPost ;
+		pages = -999;
 	}else if (queryTerm === 'pushshiftComment'){
-		var prefix = 'reddit-Historical-Comment';
-		var params = parameters.psComment ;	
-		var pages = -999;		
+		prefix = 'reddit-Historical-Comment';
+		params = parameters.psComment ;
+		pages = -999;
+	}else if (queryTerm === 'youtubeSearch'){
+		prefix = 'youtube-Search';
+		params = parameters.youtubeSearch ;
+		pages = parseInt($("#youtube-count").val())/50;
 	}
 
 	if (dryrun){
@@ -108,19 +115,21 @@ function submitSearchbox(searchboxID, filenameID, dryrun = false){
     $(".loading").show();
 	
 	// escape doule quotation mark
-	var keyword = $(searchboxID).val();
-	keyword = keyword.replace(/[\"]+/g, `\\"`);
-
+	var keyword = $(searchboxID).val().replace(/[\"]+/g, `\\"`);
     var filename = $(filenameID).val();
-	
 	var queryTerm = $("#social-media").find(':selected').val();
-	
+	var pages;
+	var queryString;
+	var prefix;
+	var params;
+	var extra;
+
 	if (queryTerm === 'queryTweet'){
-		var pages = 18;
+		pages = 18;
 		if (dryrun) pages = 1;
-		var queryString = `{
+		queryString = `{
 							  twitter {
-								queryTweet(q:"` + keyword + `", count: 100){
+								queryTweet(q:"${keyword}", count: 100){
 								  id
 								  id_str
 								  created_at
@@ -171,15 +180,15 @@ function submitSearchbox(searchboxID, filenameID, dryrun = false){
 							  }
 							}
 							`;
-		var prefix = 'twitter-Tweet';
-		var params = parameters.tweet;
+		prefix = 'twitter-Tweet';
+		params = parameters.tweet;
 	}
 	else if (queryTerm === 'getTimeline'){
-        var pages = 5;
+        pages = 5;
         if (dryrun) pages = 1;
-		var queryString = `{
+		queryString = `{
 							  twitter{
-								getTimeline(screen_name:"` + keyword + `", count:200){
+								getTimeline(screen_name:"${keyword}", count:200){
 								  id
 								  id_str
 								  created_at
@@ -229,16 +238,16 @@ function submitSearchbox(searchboxID, filenameID, dryrun = false){
 								}
 							  }
 							}`;
-		var prefix = 'twitter-Timeline';
-		var params = parameters.twtTimeline;
+		prefix = 'twitter-Timeline';
+		params = parameters.twtTimeline;
 
 	}
 	else if (queryTerm === 'queryTweetV2'){
 		var additional_num = 100;
 		if (dryrun) additional_num = 0;
-		var queryString = `{
+		queryString = `{
 							  twitter {
-								queryTweetV2(q:"` + keyword + `", additional_num:` + additional_num + `){
+								queryTweetV2(q:"${keyword}", additional_num:${additional_num}){
 								  id
 								  text
 								  edit_history_tweet_ids
@@ -266,14 +275,14 @@ function submitSearchbox(searchboxID, filenameID, dryrun = false){
 							  }
 							}
 							`;
-		var prefix = 'twitterV2-Tweet';
-		var pages = -999;
-		var params = parameters.tweetV2;
+		prefix = 'twitterV2-Tweet';
+		pages = -999;
+		params = parameters.tweetV2;
 	}
 	else if (queryTerm === 'queryReddit'){
-		var queryString = `{
+		 queryString = `{
 								reddit{
-								search(query:"` + keyword +`",time:"all",sort:"relevance"){
+								search(query:"${keyword}",time:"all",sort:"relevance"){
 								  archived
 								  author_name
 								  brand_safe
@@ -310,16 +319,16 @@ function submitSearchbox(searchboxID, filenameID, dryrun = false){
 								}
 							  }
 							}`;
-		var prefix = 'reddit-Search';
-		var pages = -999;
-		var params = parameters.rdSearch;
+		prefix = 'reddit-Search';
+		pages = -999;
+		params = parameters.rdSearch;
 	}
 	else if (queryTerm === 'redditPost'){
-		var extra = 2000;
-		if (dryrun) extra=100;
-		var queryString = `{
+		extra = 2000;
+		if (dryrun) extra = 100;
+		queryString = `{
 							  reddit {
-								getNew(subredditName:"`+ keyword + `", extra: `+ extra + `){
+								getNew(subredditName:"${keyword}", extra:${extra}){
 								  archived
 								  author_name
 								  brand_safe
@@ -356,14 +365,14 @@ function submitSearchbox(searchboxID, filenameID, dryrun = false){
 								}
 							  }
 							}`;
-		var prefix = 'reddit-Post';
-		var pages = -999;
-		var params = parameters.rdPost;
+		prefix = 'reddit-Post';
+		pages = -999;
+		params = parameters.rdPost;
 	}
 	else if (queryTerm === 'pushshiftPost'){
-		var queryString = `{
+		 queryString = `{
 								reddit{
-									pushshiftPost(q:"`+ keyword + `"){
+									pushshiftPost(q:"${keyword}"){
 										author_name
 										created_utc
 										domain
@@ -387,16 +396,16 @@ function submitSearchbox(searchboxID, filenameID, dryrun = false){
 									}
 								}
 							}`;
-		var prefix = 'reddit-Historical-Post';
-		var pages = -999;
-		var params = parameters.psPost;
+		prefix = 'reddit-Historical-Post';
+		pages = -999;
+		params = parameters.psPost;
 	}
 	else if (queryTerm === 'redditComment'){
-		var extra = 2000;
+		extra = 2000;
 		if (dryrun) extra = 100;
-		var queryString = `{
+		queryString = `{
 							reddit{
-							getNewComments(subredditName:"`+keyword + `",extra:` + extra + `){
+							getNewComments(subredditName:"${keyword}",extra:${extra}){
 							  comment_author_name
 							  archived
 							  body
@@ -429,14 +438,14 @@ function submitSearchbox(searchboxID, filenameID, dryrun = false){
 							}
 						  }
 						}`;
-		var prefix = 'reddit-Comment';
-		var pages = -999;
-		var params = parameters.rdComment;
+		prefix = 'reddit-Comment';
+		pages = -999;
+		params = parameters.rdComment;
 	}
 	else if (queryTerm === 'pushshiftComment'){
-		var queryString = `{
+		 queryString = `{
 							  reddit {
-								pushshiftComment(q: "`+ keyword + `"){
+								pushshiftComment(q: "${keyword}"){
 								  comment_author_name
 								  author_flair_text
 								  author_flair_css_class
@@ -452,9 +461,53 @@ function submitSearchbox(searchboxID, filenameID, dryrun = false){
 								}
 							  }
 							}`;
-		var prefix = 'reddit-Historical-Comment';
-		var pages = -999;
-		var params = parameters.psComment;
+		prefix = 'reddit-Historical-Comment';
+		pages = -999;
+		params = parameters.psComment;
+	}
+	else if (queryTerm === 'queryYoutube'){
+		pages = 2; // TODO change me to 10 later
+		if (dryrun) pages = 1;
+		queryString = `{
+		  youtube {
+			search(q: "${keyword}") {
+			  kind
+			  etag
+			  id{
+				kind
+				videoId
+				channelId
+				playlistId
+			  }
+			  snippet{
+				publishedAt
+				channelId
+				title
+				description
+				default_thumbnails_url
+				default_thumbnails_width
+				default_thumbnails_height
+				medium_thumbnails_url
+				medium_thumbnails_width
+				medium_thumbnails_height
+				high_thumbnails_url
+				high_thumbnails_width
+				high_thumbnails_height
+				standard_thumbnails_url
+				standard_thumbnails_width
+				standard_thumbnails_height
+				maxres_thumbnails_url
+				maxres_thumbnails_width
+				high_thumbnails_height
+				channelTitle
+				liveBroadcastContent
+			  }
+			}
+		  }
+		}
+		`;
+		prefix = 'youtube-Search';
+		params = parameters.youtubeSearch;
 	}
 
 	if (dryrun){
@@ -711,6 +764,24 @@ function renderPreview(rendering,prefix){
 					<p class="text-block"><i class="fas fa-heart heart"></i>&nbsp;`+score +`</p>
 				</div>`);
 				
+		});
+	}
+	else if (prefix === 'youtube-Search') {
+		$.each(rendering, function(i,val){
+			var img_url = val && val.snippet && val.snippet.medium_thumbnails_url ? val.snippet.medium_thumbnails_url: "";
+			var created_at = val && val.snippet && val.snippet.publishedAt ? val.snippet.publishedAt: "Not Provided";
+			var channel = val && val.snippet && val.snippet.channelTitle ? val.snippet.channelTitle: "Not Provided";
+			var title = val && val.snippet && val.snippet.title ? val.snippet.title: "Not Provided";
+			var url = val && val.id && val.id.videoId ? `https://www.youtube.com/watch?v=${val.id.videoId}`: "";
+			$("#grid").append(`<div class="grid-element">
+									<img src="${img_url}" alt="preview-img" style="width:100%;"/>
+									<div class="text-block">
+										<p class="screenname"><b>${channel}</b></p>
+										<p class="utc">&nbsp;&bull;${created_at}</p>
+									</div>
+									<p class="text-block">${title}</p>
+									<a target="_blank" href="${url}">View on YouTube<i class="fas fa-share"></i></a>
+							</div>`);
 		});
 	}
 

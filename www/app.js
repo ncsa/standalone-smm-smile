@@ -30,6 +30,7 @@ SINGLE_USER = process.env.SINGLE_USER ? process.env.SINGLE_USER === 'true': true
 CLOWDER_ON = process.env.CLOWDER_ON ? process.env.CLOWDER_ON ==='true': false;
 TWITTER_ON = process.env.TWITTER_ON ? process.env.TWITTER_ON ==='true': true;
 REDDIT_ON = process.env.REDDIT_ON ? process.env.REDDIT_ON === 'true': true;
+GOOGLE_ON = process.env.GOOGLE_ON ? process.env.GOOGLE_ON === 'true': true;
 SHARE_EXPIRE_IN = process.env.SHARE_EXPIRE_IN ? process.env.SHARE_EXPIRE_IN : 1;
 CLOWDER_BASE_URL= process.env.CLOWDER_BASE_URL || "http://clowder.localhost/";
 BUCKET_NAME = process.env.BUCKET_NAME ? process.env.BUCKET_NAME: 'macroscope-smile';
@@ -61,6 +62,7 @@ if (process.env.DOCKERIZED === 'true') {
     DROPBOX_CLIENT_SECRET = process.env.DROPBOX_CLIENT_SECRET;
     GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
     GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
+    GOOGLE_CALLBACK_URL = process.env.GOOGLE_CALLBACK_URL;
 
     if (process.env.EMAIL_HOST === "" || process.env.EMAIL_HOST === undefined || process.env.EMAIL_HOST === null ||
         process.env.EMAIL_FROM_ADDRESS === "" || process.env.EMAIL_FROM_ADDRESS === undefined || process.env.EMAIL_FROM_ADDRESS === null) {
@@ -170,6 +172,7 @@ if (process.env.DOCKERIZED === 'true') {
     DROPBOX_CLIENT_SECRET = config.dropbox.client_secret;
     GOOGLE_CLIENT_ID = config.google.client_id;
     GOOGLE_CLIENT_SECRET = config.google.client_secret;
+    GOOGLE_CALLBACK_URL = config.google.callback_url;
 
     lambdaHandler = new LambdaHelper(AWS_ACCESSKEY, AWS_ACCESSKEYSECRET);
     batchHandler = new BatchHelper(AWS_ACCESSKEY, AWS_ACCESSKEYSECRET);
