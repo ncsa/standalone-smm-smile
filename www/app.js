@@ -35,6 +35,8 @@ SHARE_EXPIRE_IN = process.env.SHARE_EXPIRE_IN ? process.env.SHARE_EXPIRE_IN : 1;
 CLOWDER_BASE_URL= process.env.CLOWDER_BASE_URL || "http://clowder.localhost/";
 BUCKET_NAME = process.env.BUCKET_NAME ? process.env.BUCKET_NAME: 'macroscope-smile';
 SMILE_GRAPHQL_URL = process.env.SMILE_GRAPHQL_URL ? process.env.SMILE_GRAPHQL_URL: "http://localhost:5050/graphql";
+PRIVACY_POLICY_URL = process.env.PRIVACY_POLICY_URL ? process.env.PRIVACY_POLICY_URL: "https://www.vpaa.uillinois.edu/resources/web_privacy";
+TERM_OF_USE_URL = process.env.TERM_OF_USE_URL ? process.env.TERM_OF_USE_URL: "https://www.vpaa.uillinois.edu/resources/terms_of_use";
 email = true;
 
 /**

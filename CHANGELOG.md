@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - YouTube Authorization flow[#122](https://github.com/ncsa/standalone-smm-smile/issues/122)
 - YouTube basic keyword/hashtag search[#126](https://github.com/ncsa/standalone-smm-smile/issues/126)
+- Policies and footer year update[#134](https://github.com/ncsa/standalone-smm-smile/issues/134)
 
 ## [0.3.2] - 2024-01-23
 ### Added
