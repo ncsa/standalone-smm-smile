@@ -65,7 +65,7 @@ function init(){
 	// customize advance dropdown
 	$('#dropdownButton').on('click',function(){
 		if ($("#searchbox").val() !== '' && $("#searchbox").val() !== undefined){
-			if (queryTerm !==  "queryTweetV2"){
+			if (queryTerm !==  "queryTweetV2" && queryTerm !== "queryYoutube"){
 				$(this).parent().toggleClass('open');
 				if ($(this).parent().attr('class') === 'dropdown dropdown-lg open'){
 					// disable search and enable advanced search
@@ -140,7 +140,7 @@ function init(){
 				$("#input").val(`{\n\n` + Query +`\n\n}`);
 			}
 			else {
-				$("#modal-message").append(`<h4>We currently don't support advanced settings for search Twitter/X using V2 endpoints.</h4>`);
+				$("#modal-message").append(`<h4>We currently don't support advanced settings for this search function.</h4>`);
 				$("#alert").modal('show');
 				$("#searchbox").focus();
 			}
