@@ -28,7 +28,6 @@ router.get('/login/google/callback', checkIfLoggedIn, (req, res) => {
             return res.status(400).send({ ERROR: error.message });
         }
         setCredential(req, 'google_access_token', tokens.access_token);
-        setCredential(req, 'google_refresh_token', tokens.refresh_token);
         res.redirect('/query');
     });
 });

@@ -45,7 +45,6 @@ router.post('/query-dryrun', checkIfLoggedIn, function (req, res) {
                 'Content-Type': 'application/json',
                 'redditaccesstoken': obj['rd_access_token'],
                 'googleaccesstoken': obj['google_access_token'],
-                'googlerefreshtoken': obj['google_refresh_token'],
                 'twtaccesstokenkey': obj['twt_access_token_key'],
                 'twtaccesstokensecret': obj['twt_access_token_secret'],
                 'twtbearertoken': obj['twt_v2_access_token']
@@ -85,7 +84,6 @@ router.post('/query', checkIfLoggedIn, function (req, res) {
                         'Content-Type': 'application/json',
                         'redditaccesstoken': obj['rd_access_token'],
                         'googleaccesstoken': obj['google_access_token'],
-                        'googlerefreshtoken': obj['google_refresh_token'],
                         'twtaccesstokenkey': obj['twt_access_token_key'],
                         'twtaccesstokensecret': obj['twt_access_token_secret'],
                         'twtbearertoken': obj['twt_v2_access_token']
@@ -371,7 +369,6 @@ function removeInvalidToken(req, platform) {
         removeCredential(req, 'rd_access_token');
     } else if (platform === 'youtube') {
         removeCredential(req, 'google_access_token');
-        removeCredential(req, 'google_refresh_token');
     }
 }
 
@@ -409,7 +406,7 @@ function checkAuthorized(req) {
         if (obj && 'twt_access_token_key' in obj && 'twt_access_token_secret' in obj) response['twitter'] = true;
         if (obj && 'twt_v2_access_token' in obj) response['twitterV2'] = true;
         if (obj && 'rd_access_token' in obj) response['reddit'] = true;
-        if (obj && 'google_access_token' in obj && 'google_refresh_token' in obj) response['youtube'] = true;
+        if (obj && 'google_access_token' in obj) response['youtube'] = true;
         resolve(response);
     });
 }
