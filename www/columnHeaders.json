@@ -7,9 +7,7 @@
         "title",
         "_source.body",
         "_source.title",
-        "contents",
-        "snippet.title",
-        "snippet.description"
+        "contents"
     ],
     "network": [
         "user.screen_name",
@@ -25,9 +23,7 @@
         "title",
         "_source.body",
         "_source.title",
-        "contents",
-        "snippet.title",
-        "snippet.description"
+        "contents"
     ],
     "preprocess": [
         "text",
@@ -37,9 +33,7 @@
         "title",
         "_source.body",
         "_source.title",
-        "contents",
-        "snippet.title",
-        "snippet.description"
+        "contents"
     ],
     "classification": [
         "text",
@@ -49,8 +43,6 @@
         "body",
         "_source.body",
         "_source.title",
-        "contents",
-        "snippet.title",
-        "snippet.description"
+        "contents"
     ]
 }

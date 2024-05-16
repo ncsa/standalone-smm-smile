@@ -1,6 +1,6 @@
 function authorize(platform){
     // showing the check mark
-    $("#youtube-auth").find(".export-success").show();
+    $("#" + platform + "-auth").find('img').show();
 
     // toggle the second auth panel
     $("#unauthorized").find("." + platform + "-auth").hide();
@@ -20,26 +20,21 @@ function authorize(platform){
         $("#social-media option[value='redditPost']").removeAttr('disabled');
         $("#social-media option[value='redditComment']").removeAttr('disabled');
     }
-    else if (platform === 'youtube') {
-        $("#social-media option[value='queryYoutube']").removeAttr('disabled');
-    }
 }
+
 
 $(document).ready(function () {
     $.ajax({
-        type: 'get',
-        url: "authorized",
-        success: function(data) {
-            if ('ERROR' in data) {
+        type:'get',
+        url:"authorized",
+        success: function(data){
+            if ('ERROR' in data){
                 $("#error").val(JSON.stringify(data));
                 $("#warning").modal("show");
-            } else {
-                // Dynamically find authorization elements
-                $('[id$="-auth"]').each(function () {
-                    var platformId = $(this).attr('id'); // e.g., "reddit-auth"
-                    var platform = platformId.replace('-auth', ''); // Removes '-auth', leaves "reddit"
-
-                    // Check if data contains the platform and if it is authorized
+            }
+            else{
+                var platforms = ['twitter', 'twitterV2', 'reddit'];
+                $.each(platforms, function (i, platform) {
                     if (data[platform]) {
                         authorize(platform);
                     }
@@ -48,7 +43,6 @@ $(document).ready(function () {
         }
     });
 });
-
 
 $("#auth-next").on("click", function () {
     $("#auth-panel").hide();

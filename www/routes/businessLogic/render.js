@@ -111,9 +111,9 @@ router.post('/list', checkIfLoggedIn, function (req, res, next) {
     promise_array.push(s3.list_folders(req.user.email + '/GraphQL/reddit-Comment/'));
     promise_array.push(s3.list_folders(req.user.email + '/GraphQL/reddit-Historical-Post/'));
     promise_array.push(s3.list_folders(req.user.email + '/GraphQL/reddit-Historical-Comment/'));
-    promise_array.push(s3.list_folders(req.user.email + '/GraphQL/youtube-Search/'));
     promise_array.push(s3.list_folders(req.user.email + '/GraphQL/userspec-Others/'));
     Promise.all(promise_array).then(values => {
+
         directory['twitter-Tweet'] = values[0];
         directory['twitterV2-Tweet'] = values[1];
         directory['twitter-Timeline'] = values[2];
@@ -122,8 +122,8 @@ router.post('/list', checkIfLoggedIn, function (req, res, next) {
         directory['reddit-Comment'] = values[5];
         directory['reddit-Historical-Post'] = values[6];
         directory['reddit-Historical-Comment'] = values[7];
-        directory['youtube-Search'] = values[8];
-        directory['userspec-Others'] = values[9];
+        directory['userspec-Others'] = values[8];
+
         res.send(directory);
     }).catch(err => {
         res.send({ERROR: err});
@@ -141,7 +141,6 @@ router.post('/list-all', checkIfLoggedIn, function (req, res, next) {
     promise_array.push(s3.list_folders(req.user.email + '/GraphQL/reddit-Comment/'));
     promise_array.push(s3.list_folders(req.user.email + '/GraphQL/reddit-Historical-Post/'));
     promise_array.push(s3.list_folders(req.user.email + '/GraphQL/reddit-Historical-Comment/'));
-    promise_array.push(s3.list_folders(req.user.email + '/GraphQL/youtube-Search/'));
     promise_array.push(s3.list_folders(req.user.email + '/GraphQL/userspec-Others/'));
     var graphqlLength = promise_array.length;
 
@@ -176,8 +175,7 @@ router.post('/list-all', checkIfLoggedIn, function (req, res, next) {
         directory['GraphQL']['reddit-Comment'] = values[5];
         directory['GraphQL']['reddit-Historical-Post'] = values[6];
         directory['GraphQL']['reddit-Historical-Comment'] = values[7];
-        directory['GraphQL']['youtube-Search'] = values[8];
-        directory['GraphQL']['userspec-Others'] = values[9];
+        directory['GraphQL']['userspec-Others'] = values[8];
         for (i = 0; i < order.length; i++) {
             var parent = order[i]['parent'];
             var child = order[i]['child'];

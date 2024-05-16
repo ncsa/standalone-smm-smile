@@ -177,9 +177,6 @@ function formValid(searchID){
 				$("#alert").modal('show');
 				return false
 			}
-		}else if ($("#social-media option:selected").val() === 'queryYoutube'){
-			// TODO implement form check for advanced search
-			return true;
 		}
 	}
 	
