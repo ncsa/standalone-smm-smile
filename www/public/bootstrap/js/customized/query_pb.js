@@ -14,7 +14,8 @@ function init(){
         rdComment:{},
         rdPost:{},
         psPost:{},
-        psComment:{}
+        psComment:{},
+		youtubeSearch:{}
     };
 
     // initialization
@@ -64,7 +65,7 @@ function init(){
 	// customize advance dropdown
 	$('#dropdownButton').on('click',function(){
 		if ($("#searchbox").val() !== '' && $("#searchbox").val() !== undefined){
-			if (queryTerm !==  "queryTweetV2"){
+			if (queryTerm !==  "queryTweetV2" && queryTerm !== "queryYoutube"){
 				$(this).parent().toggleClass('open');
 				if ($(this).parent().attr('class') === 'dropdown dropdown-lg open'){
 					// disable search and enable advanced search
@@ -139,7 +140,7 @@ function init(){
 				$("#input").val(`{\n\n` + Query +`\n\n}`);
 			}
 			else {
-				$("#modal-message").append(`<h4>We currently don't support advanced settings for search Twitter/X using V2 endpoints.</h4>`);
+				$("#modal-message").append(`<h4>We currently don't support advanced settings for this search function.</h4>`);
 				$("#alert").modal('show');
 				$("#searchbox").focus();
 			}
@@ -181,7 +182,8 @@ function init(){
 		$(".reddit-comment").hide();
 		$(".pushshift-post").hide();
 		$(".pushshift-comment").hide();
-		
+		$(".youtube-search").hide();
+
 		$(".form-group.geocode").hide();
 		$(".form-group.dateRange").hide();
 		$(".form-group.rd-subreddit").hide();
@@ -256,6 +258,19 @@ function init(){
 			$("#searchbox").attr("placeholder","Keyword that you wish to search...");
             $("boolean").tooltip('hide');
 		}
+		else if ( queryTerm === 'queryYoutube'){
+			$(".youtube-search").show();
+			$("#searchbox").attr("placeholder","Keywords for the Youtube content that you wish to search...");
+
+			// tooltip to show YouTube rules
+			$("boolean").attr('data-original-title',
+				"YouTube keyword search supports boolean NOT (-) and OR (|) operators to exclude videos or to find videos " +
+				"that are associated with one of several search terms. Details please refer to the&nbsp" +
+				"<a href='https://developers.google.com/youtube/v3/docs/search/list#parameters' target='_blank'>" +
+				"API documentations</a>")
+			.tooltip('fixTitle')
+			.tooltip('show');
+		}
 	
 		Query = updateString(queryTerm,parameters);
 		$("#input").val(`{\n\n` + Query +`\n\n}`);
@@ -305,8 +320,7 @@ function init(){
                             $(".prompt-user").on("click", function(){
                                 $("#searchbox").val($(this).find(".prompt-screen-name").text());
 
-                                var keyword =  $("#searchbox").val();
-                                var keyword = keyword.replace(/[\"]+/g, `\\"`);
+                                var keyword =  $("#searchbox").val().replace(/[\"]+/g, `\\"`);
                                 parameters['twtTimeline']['screen_name:'] = keyword;
                                 parameters['tweet']['q:'] = keyword;
                                 parameters['twtTimeline']['screen_name:'] = keyword;
@@ -333,10 +347,8 @@ function init(){
                 }
             }
 
-            // escape doule quotation mark
-            var keyword =  $("#searchbox").val();
-            var keyword = keyword.replace(/[\"]+/g, `\\"`);
-
+            // escape double quotation mark
+            var keyword =  $("#searchbox").val().replace(/[\"]+/g, `\\"`);
             parameters['tweet']['q:'] = keyword;
             parameters['twtTimeline']['screen_name:'] = keyword;
 			parameters['tweetV2']['q:'] = keyword;
@@ -345,6 +357,7 @@ function init(){
             parameters['rdComment']['subredditName:'] = keyword;
             parameters['psPost']['q:'] = keyword;
             parameters['psComment']['q:'] = keyword;
+            parameters['youtubeSearch']['q:'] = keyword;
 
             Query =updateString(queryTerm,parameters);
             $("#input").val(`{\n\n` + Query +`\n\n}`);
@@ -824,14 +837,14 @@ function init(){
 		$("#input").val(`{\n\n` + Query +`\n\n}`);
 
 	});
-	
+
+	/*----------------------------------------------------- Youtube Search-------------------------------------------------------*/
+	// TODO implement advanced youtube search here
+
 	/*----------------------set intervals--------------------------------------------*/
 	$('input[name=histogram-interval]').change(function(){
 		setHitogramInterval($("input[name=histogram-interval]:checked").val());
 	});
-	
-	/*---------------------- toggle css effect on dropdown----------------------*/
-	
 }
 
 function epochTime(datestring){
@@ -865,7 +878,7 @@ function constructQuery(parameterObj){
 
 }
 		
-function updateString(queryTerm,parameters){
+function updateString(queryTerm, parameters){
 	var query = '';
 	if (queryTerm === 'getTimeline'){
 		query = `\ttwitter{\n\t\t`	+ queryTerm + `(` +  constructQuery(parameters.twtTimeline) +  `\n\t\t}\n\t}`;
@@ -890,6 +903,9 @@ function updateString(queryTerm,parameters){
 	}
 	else if (queryTerm === 'pushshiftComment'){
 		query =  `\treddit{\n\t\tpushshiftComment(`+  constructQuery(parameters.psComment) +  `\n\t\t}\n\t}`;  
+	}
+	else if (queryTerm === 'youtubeSearch'){
+		query = `\tyoutube{\n\t\tsearch(${constructQuery(parameters.youtubeSearch)}\n\t\t}\n\t}`;
 	}
 	
 	return query;
@@ -939,22 +955,25 @@ function setHitogramInterval(freq){
 	var filename = $("#sn-filename").val();
 	
 	var queryTerm = $("#social-media").find(':selected').val();
+	var prefix ;
 	if (queryTerm === 'queryTweet'){
-		var prefix = 'twitter-Tweet';
+		prefix = 'twitter-Tweet';
 	}else if (queryTerm === 'queryTweetV2'){
-		var prefix = 'twitterV2-Tweet';
+		prefix = 'twitterV2-Tweet';
 	}else if (queryTerm === 'getTimeline'){
-		var prefix = 'twitter-Timeline';
+		prefix = 'twitter-Timeline';
 	}else if (queryTerm === 'queryReddit'){
-		var prefix = 'reddit-Search';
+		prefix = 'reddit-Search';
 	}else if (queryTerm === 'redditPost'){
-		var prefix = 'reddit-Post';
+		prefix = 'reddit-Post';
 	}else if (queryTerm === 'redditComment'){
-		var prefix = 'reddit-Comment';
+		prefix = 'reddit-Comment';
 	}else if (queryTerm === 'pushshiftPost'){
-		var prefix = 'reddit-Historical-Post';
+		prefix = 'reddit-Historical-Post';
 	}else if (queryTerm === 'pushshiftComment'){
-		var prefix = 'reddit-Historical-Comment';
+		prefix = 'reddit-Historical-Comment';
+	}else if (queryTerm === 'youtubeSearch'){
+		prefix = 'youtube-Search';
 	}
 	
 	if (prefix === undefined || filename === '' || filename === undefined){

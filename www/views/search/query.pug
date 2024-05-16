@@ -48,35 +48,18 @@ html
     body(onload="init();")
         <!-- top bar -->
         include ../components/topbar.pug
-        include ../components/export.pug
-        include ../components/terminate.pug
         include ../components/warning.pug
         include ../components/clientside-warning.pug
-        include ../components/cookie.pug
         include auth.pug
 
         div(class="searchPage",id="searchPage",style="display:none;")
             <!-- logo -->
             div(class="row" id="header",style="")
                 img(src="bootstrap/img/logo/queryPage-logo.png",width="500px",style="display:block;margin:auto auto;")
-            //div(class="citation-notice fixed-width")
-            //    button(class="close") &times;
-            //    p Due to issues with receiving a consistent stream of data from Twitter's API, our historical streamed
-            //        |  Twitter search/database has been deprecated. Please use the remaining Twitter non-historical
-            //        |  search feature.
-            //
-            //div(class="citation-notice fixed-width")
-            //    button(class="close") &times;
-            //    p Crimson Hexagon is now part of Brandwatch and due to this change the connection to Crimson Hexagon has
-            //        |  been deprecated.
-
             <!-- secondary auth panel -->
             div(class="row", id="second-auth",style="display:block;margin:auto auto;margin-top:50px;text-align:center;color:#333;")
                 div(id="unauthorized", style="display:inline-block;")
                     p(style="display:inline-block;margin:10px 10px;") Click the icon to authorize:
-                    //div(class="twitter-auth",style="display:inline-block;")
-                    //    a(target="_blank", href="login/twitter")
-                    //        img(src='bootstrap/img/logo/twitter-sm-logo.png', width="30px",height="30px", style="margin-right:10px")
                     if TWITTER_ON
                         div(class="twitterV2-auth",style="display:inline-block;")
                             a(href="login/twitterV2")
@@ -85,12 +68,16 @@ html
                         div(class="reddit-auth",style="display:inline-block;")
                             a(href="login/reddit")
                                 img(src='bootstrap/img/logo/reddit-sm-logo.png', width="30px",height="30px", style="margin-right:10px")
+                    if GOOGLE_ON
+                        div(class="youtube-auth",style="display:inline-block;")
+                            a(href="login/google")
+                                img(src='bootstrap/img/logo/youtube-sm-logo.png', width="30px",height="30px", style="margin-right:10px")
 
                 div(id="authorized",style="display:inline-block;")
                     p(style="display:inline-block;margin:10px 10px;") You have already authorized:
-                    //img(id="twitter-authorized", src='bootstrap/img/logo/twitter-sm-logo.png', width="30px",height="30px", style="margin-right:10px;display:none;")
                     img(id="twitterV2-authorized", src='bootstrap/img/logo/x-sm-logo.png', width="30px",height="30px", style="margin-right:10px;display:none;")
                     img(id="reddit-authorized",src='bootstrap/img/logo/reddit-sm-logo.png', width="30px",height="30px", style="margin-right:10px;display:none;")
+                    img(id="youtube-authorized",src='bootstrap/img/logo/youtube-sm-logo.png', width="30px",height="30px", style="margin-right:10px;display:none;")
 
             <!-- search --->
             div(class="row")
@@ -99,16 +86,12 @@ html
                     select(class="selectpicker show-tick" id="social-media" title="Choose a Data Source..." data-width="220px")
                         optgroup(label="Search Twitter/X V2")
                             option(data-icon="fab fa-twitter" value="queryTweetV2" disabled) Tweets
-                        //optgroup(label="Search Twitter")
-                        //    option(data-icon="fab fa-twitter" value="queryTweet" disabled) Tweets
-                        //    option(data-icon="fas fa-user" value="getTimeline" disabled) User timeline
                         optgroup(label="Search Reddit")
                             option(data-icon="fab fa-reddit-alien" value="queryReddit" disabled) Search Reddit Posts
                             option(data-icon="fas fa-list-ul" value="redditPost" disabled) Posts in Subreddit
                             option(data-icon="far fa-comment" value="redditComment" disabled) Comments in Subreddit
-                        //optgroup(label="Partial Historical Database")
-                        //    option(data-icon="fab fa-reddit-square" value="pushshiftPost") Historical Reddit Posts
-                        //    option(data-icon="fas fa-comment-dots" value="pushshiftComment") Historical Reddit Comments
+                        optgroup(label="Search YouTube")
+                            option(data-icon="fab fa-youtube-square" value="queryYoutube" disabled) Search Videos
                     include searchbox.pug
 
             div(id="save-result")
@@ -191,4 +174,3 @@ html
 
         script(src="bootstrap/js/customized/query_auth.js")
         script(src="bootstrap/js/customized/detect_cookie.js")
-        //script(src="bootstrap/js/customized/hotkeys.js").

@@ -25,6 +25,7 @@ router.get('/query', checkIfLoggedIn, function (req, res) {
             SINGLE_USER: SINGLE_USER,
             CLOWDER_ON: CLOWDER_ON,
             REDDIT_ON: REDDIT_ON,
+            GOOGLE_ON: GOOGLE_ON,
             status: status,
         });
     })
@@ -43,6 +44,7 @@ router.post('/query-dryrun', checkIfLoggedIn, function (req, res) {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 'redditaccesstoken': obj['rd_access_token'],
+                'googleaccesstoken': obj['google_access_token'],
                 'twtaccesstokenkey': obj['twt_access_token_key'],
                 'twtaccesstokensecret': obj['twt_access_token_secret'],
                 'twtbearertoken': obj['twt_v2_access_token']
@@ -81,6 +83,7 @@ router.post('/query', checkIfLoggedIn, function (req, res) {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json',
                         'redditaccesstoken': obj['rd_access_token'],
+                        'googleaccesstoken': obj['google_access_token'],
                         'twtaccesstokenkey': obj['twt_access_token_key'],
                         'twtaccesstokensecret': obj['twt_access_token_secret'],
                         'twtbearertoken': obj['twt_v2_access_token']
@@ -88,7 +91,9 @@ router.post('/query', checkIfLoggedIn, function (req, res) {
 
                     var multiPostPromises = [];
                     if (parseInt(req.body.pages) !== -999) {
-                        if (req.body.prefix === 'twitter-Tweet' || req.body.prefix === 'twitter-Timeline') {
+                        if (req.body.prefix === 'twitter-Tweet'
+                            || req.body.prefix === 'twitter-Timeline'
+                            || req.body.prefix === 'youtube-Search') {
                             // post one time with all pages
                             multiPostPromises.push(gatherMultiPost(req, headers, parseInt(req.body.pages)));
                         } else {
@@ -362,6 +367,8 @@ function removeInvalidToken(req, platform) {
         removeCredential(req, 'twt_v2_access_token');
     } else if (platform === 'reddit') {
         removeCredential(req, 'rd_access_token');
+    } else if (platform === 'youtube') {
+        removeCredential(req, 'google_access_token');
     }
 }
 
@@ -392,12 +399,14 @@ function checkAuthorized(req) {
             twitter: false,
             twitterV2: false,
             reddit: false,
+            youtube: false
         };
-
         var obj = await retrieveCredentials(req);
+
         if (obj && 'twt_access_token_key' in obj && 'twt_access_token_secret' in obj) response['twitter'] = true;
         if (obj && 'twt_v2_access_token' in obj) response['twitterV2'] = true;
         if (obj && 'rd_access_token' in obj) response['reddit'] = true;
+        if (obj && 'google_access_token' in obj) response['youtube'] = true;
         resolve(response);
     });
 }
