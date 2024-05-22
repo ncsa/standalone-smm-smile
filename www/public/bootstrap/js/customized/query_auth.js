@@ -1,6 +1,6 @@
 function authorize(platform){
     // showing the check mark
-    $("#youtube-auth").find(".export-success").show();
+    $(`#${platform}-auth`).find(".export-success").show();
 
     // toggle the second auth panel
     $("#unauthorized").find("." + platform + "-auth").hide();
