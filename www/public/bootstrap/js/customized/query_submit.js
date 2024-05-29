@@ -872,6 +872,8 @@ function renderPreview(rendering,prefix){
 	else if (prefix === 'youtube-Search' || prefix === 'youtube-Search-Channel' || prefix === 'youtube-Search-Playlist'){
 		$.each(rendering, function(i,val){
 			var img_url = val && val.snippet && val.snippet.medium_thumbnails_url ? val.snippet.medium_thumbnails_url: "";
+			let imgElement = img_url ? `<img src="${img_url}" alt="preview-img" style="width:100%;"/>` : "";
+
 			var created_at = val && val.snippet && val.snippet.publishedAt ? val.snippet.publishedAt: "Not Provided";
 			var channel = val && val.snippet && val.snippet.channelTitle ? val.snippet.channelTitle: "Not Provided";
 			var title = val && val.snippet && val.snippet.title ? val.snippet.title: "Not Provided";
@@ -886,7 +888,7 @@ function renderPreview(rendering,prefix){
 				}
 			}
 			$("#grid").append(`<div class="grid-element">
-									<img src="${img_url}" alt="preview-img" style="width:100%;"/>
+									${imgElement}
 									<div class="text-block">
 										<p class="screenname"><b>${channel}</b></p>
 										<p class="utc">&nbsp;&bull;${created_at}</p>

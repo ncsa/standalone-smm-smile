@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - YouTube advanced search with temporal and geolocation filters [#136](https://github.com/ncsa/standalone-smm-smile/issues/136)
+- YouTube search channels and playlists [#127](https://github.com/ncsa/standalone-smm-smile/issues/127)
 - Include latest publications to the citations [#148](https://github.com/ncsa/standalone-smm-smile/issues/148)
 
 ### Fixed
