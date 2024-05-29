@@ -38,7 +38,7 @@ function submitQuery(textareaID,filenameID, dryrun = false){
 		prefix = 'reddit-Historical-Comment';
 		params = parameters.psComment ;
 		pages = -999;
-	}else if (queryTerm === 'youtubeSearch'){
+	}else if (queryTerm === 'queryYoutube'){
 		prefix = 'youtube-Search';
 		params = parameters.youtubeSearch ;
 		pages = parseInt($("#youtube-count").val())/50;
@@ -66,7 +66,12 @@ function submitQuery(textareaID,filenameID, dryrun = false){
                     renderPreview(data.rendering, prefix);
                     $("#saveButton").removeAttr("disabled");
                     $("#save-result").show();
-                }
+
+					// close dropdown menu
+					$("#dropdownButton").parent().toggleClass('open');
+					$("#simple-search-btn").prop('disabled',false);
+					pushAdvancedDropdown('off');
+				}
             },
             error: function(jqXHR, exception){
                 $("#error").val(jqXHR.responseText);

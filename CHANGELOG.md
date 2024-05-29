@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- YouTube advanced search with temporal and geolocation filters [#136](https://github.com/ncsa/standalone-smm-smile/issues/136)
+
 ### Fixed
 - YouTube search histogram switching interval [#143](https://github.com/ncsa/standalone-smm-smile/issues/143)
 - Reddit auth checkbox not visible [#144](https://github.com/ncsa/standalone-smm-smile/issues/144)
