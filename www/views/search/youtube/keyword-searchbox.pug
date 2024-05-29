@@ -41,25 +41,40 @@ div(class="youtube-search")
 			input(type="radio", name="ytDuration", value="short")
 			| short
 	div(class="form-group")
+		label(class="")
+			i(class="fas fa-filter")
+			| &nbsp;Advance Filter
+		input(type="checkbox", id="ytFilters", value="ytFilters", style="margin-left:0.5em;vertical-align:top;")
+	div(class="form-group ytFilters", style="display:none;")
 		label Channel ID
 		input(class="form-control", id="channelID", placeholder="e.g. UC_x5XG1OV2P6uZZ5FSM9Ttw")
-	div(class="form-group")
+	div(class="form-group ytFilters", style="display:none;")
 		label Relevance Language
 		input(class="form-control", id="relevanceLanguage", placeholder="ISO 639-1")
-	div(class="form-group")
+	div(class="form-group ytFilters", style="display:none;")
 		label Region Code
 		input(class="form-control", id="regionCode", placeholder="ISO 3166-1 alpha-2")
 	div(class="form-group")
-		div(class="col-md-6" style="display:inline-block;")
+		label(class="")
+			i(class="far fa-calendar-alt")
+			| &nbsp;Enable Date Range
+		input(type="checkbox", id="ytDateRange", value="ytDateRange", style="margin-left:0.5em;vertical-align:top;")
+	div(class="form-group ytDateRange", style="display:none;")
+		div(class="col-md-6", style="display:inline-block;")
 			label Published After
 			input(class="form-control", type="date", id="publishedAfter")
-		div(class="col-md-6" style="display:inline-block;")
+		div(class="col-md-6", style="display:inline-block;")
 			label Published Before
 			input(class="form-control", type="date", id="publishedBefore")
 	div(class="form-group")
+		label(class="")
+			i(class="fas fa-map-marker-alt")
+			| &nbsp;Enable Geo Search
+		input(type="checkbox", id="ytGeoSearch", value="ytGeoSearch", style="margin-left:0.5em;vertical-align:top;")
+	div(class="form-group ytGeoSearch", style="display:none;")
 		div(class="col-md-6" style="display:inline-block;")
 			label Location
-			input(class="form-control", id="ytLocation", placeholder="e.g. (37.42307,-122.08427)")
+			input(class="form-control", id="ytLocation", placeholder="e.g. 37.42307,-122.08427")
 		div(class="col-md-6" style="display:inline-block;")
 			label Radius
 			input(class="form-control", id="ytLocationRadius", placeholder="e.g. 1500m, 5km, 10000ft, 0.75mi")

@@ -867,46 +867,95 @@ function init(){
 		$("#input").val(`{\n\n` + Query +`\n\n}`);
 	});
 
-	$("#channelId").change(function(){
-		parameters['youtubeSearch']['channelId:'] = $(this).val();
-		Query =updateString(queryTerm,parameters);
-		$("#input").val(`{\n\n` + Query +`\n\n}`);
-	});
-	$("#regionCode").change(function(){
-		parameters['youtubeSearch']['regionCode:'] = $(this).val();
-		Query =updateString(queryTerm,parameters);
-		$("#input").val(`{\n\n` + Query +`\n\n}`);
-	});
-	$("#relevanceLanguage").change(function(){
-		parameters['youtubeSearch']['relevanceLanguage:'] = $(this).val();
-		Query =updateString(queryTerm,parameters);
-		$("#input").val(`{\n\n` + Query +`\n\n}`);
+	// advanced
+	$("#ytFilters").change(function() {
+		if ($("#ytFilters").is(':checked')) {
+			$(".form-group.ytFilters").show();
+			$("#channelId").change(function () {
+				parameters['youtubeSearch']['channelId:'] = $(this).val();
+				Query = updateString(queryTerm, parameters);
+				$("#input").val(`{\n\n` + Query + `\n\n}`);
+			});
+			$("#regionCode").change(function () {
+				parameters['youtubeSearch']['regionCode:'] = $(this).val();
+				Query = updateString(queryTerm, parameters);
+				$("#input").val(`{\n\n` + Query + `\n\n}`);
+			});
+			$("#relevanceLanguage").change(function () {
+				parameters['youtubeSearch']['relevanceLanguage:'] = $(this).val();
+				Query = updateString(queryTerm, parameters);
+				$("#input").val(`{\n\n` + Query + `\n\n}`);
+			});
+		}
+		else{
+			$(".form-group.ytFilters").hide();
+			parameters['youtubeSearch']['channelId:'] = '';
+			parameters['youtubeSearch']['regionCode:'] = '';
+			parameters['youtubeSearch']['relevanceLanguage:'] = '';
+			Query =updateString(queryTerm,parameters);
+			$("#input").val(`{\n\n` + Query +`\n\n}`);
+			if ( $('.dropdown.dropdown-lg.open').length ){
+				pushAdvancedDropdown('on');
+			}
+		}
 	});
 
 	// published range
-	$("#publishedAfter").change(function(){
-		let publishedAfter = new Date($("#publishedAfter").val());
-		parameters['youtubeSearch']['publishedAfter:'] =  publishedAfter.toISOString();
-		Query =updateString(queryTerm,parameters);
-		$("#input").val(`{\n\n` + Query +`\n\n}`);
-	});
-	$("#publishedBefore").change(function(){
-		let publishedBefore = new Date($("#publishedBefore").val());
-		parameters['youtubeSearch']['publishedBefore:'] =  publishedBefore.toISOString();
-		Query =updateString(queryTerm,parameters);
-		$("#input").val(`{\n\n` + Query +`\n\n}`);
+	$("#ytDateRange").change(function() {
+		if ($("#ytDateRange").is(':checked')) {
+			$(".form-group.ytDateRange").show();
+			$("#publishedAfter").change(function(){
+				let publishedAfter = new Date($("#publishedAfter").val());
+				parameters['youtubeSearch']['publishedAfter:'] =  publishedAfter.toISOString();
+				Query =updateString(queryTerm,parameters);
+				$("#input").val(`{\n\n` + Query +`\n\n}`);
+			});
+			$("#publishedBefore").change(function(){
+				let publishedBefore = new Date($("#publishedBefore").val());
+				parameters['youtubeSearch']['publishedBefore:'] =  publishedBefore.toISOString();
+				Query =updateString(queryTerm,parameters);
+				$("#input").val(`{\n\n` + Query +`\n\n}`);
+			});
+		}
+		else{
+			$(".form-group.ytDateRange").hide();
+			parameters['youtubeSearch']['publishedAfter:'] = '';
+			parameters['youtubeSearch']['publishedBefore:'] = '';
+			Query =updateString(queryTerm,parameters);
+			$("#input").val(`{\n\n` + Query +`\n\n}`);
+			if ( $('.dropdown.dropdown-lg.open').length ){
+				pushAdvancedDropdown('on');
+			}
+		}
 	});
 
+
 	// location
-	$("#ytLocation").change(function(){
-		parameters['youtubeSearch']['location:'] = $("#ytLocation").val();
-		Query =updateString(queryTerm,parameters);
-		$("#input").val(`{\n\n` + Query +`\n\n}`);
-	});
-	$("#ytLocationRadius").change(function(){
-		parameters['youtubeSearch']['locationRadius:'] = $("#ytLocationRadius").val();
-		Query =updateString(queryTerm,parameters);
-		$("#input").val(`{\n\n` + Query +`\n\n}`);
+	$("#ytGeoSearch").change(function(){
+		if ($("#ytGeoSearch").is(':checked')) {
+			$(".form-group.ytGeoSearch").show();
+			$("#ytLocation").change(function(){
+				parameters['youtubeSearch']['location:'] = $("#ytLocation").val();
+				Query =updateString(queryTerm,parameters);
+				$("#input").val(`{\n\n` + Query +`\n\n}`);
+			});
+			$("#ytLocationRadius").change(function(){
+				parameters['youtubeSearch']['locationRadius:'] = $("#ytLocationRadius").val();
+				Query =updateString(queryTerm,parameters);
+				$("#input").val(`{\n\n` + Query +`\n\n}`);
+			});
+		}
+		else {
+			$(".form-group.ytGeoSearch").hide();
+			parameters['youtubeSearch']['location:'] = '';
+			parameters['youtubeSearch']['locationRadius:'] = '';
+			Query =updateString(queryTerm,parameters);
+			$("#input").val(`{\n\n` + Query +`\n\n}`);
+			if ( $('.dropdown.dropdown-lg.open').length ){
+				pushAdvancedDropdown('on');
+			}
+		}
+
 	});
 
 	/*----------------------set intervals--------------------------------------------*/
