@@ -137,7 +137,7 @@ function init(){
 
 				parameters['youtubeSearch']['q:'] = keyword;
 				parameters['youtubeSearch']['order:'] = "relevance";
-				parameters['youtubeSearch']['duration:'] = "any";
+				parameters['youtubeSearch']['videoDuration:'] = "any";
 				parameters['youtubeSearch']['fields'] = "\n\t\t\tkind\n\t\t\tetag\n\t\t\tid{\n\t\t\t\tkind\n\t\t\t\tvideoId\n\t\t\t\tchannelId\n\t\t\t\tplaylistId\n\t\t\t}" +
 					"\n\t\t\tsnippet{\n\t\t\t\tpublishedAt\n\t\t\t\tchannelId\n\t\t\t\ttitle\n\t\t\t\tdescription\n\t\t\t\tdefault_thumbnails_url" +
 					"\n\t\t\t\tdefault_thumbnails_width\n\t\t\t\tdefault_thumbnails_height\n\t\t\t\tmedium_thumbnails_url\n\t\t\t\tmedium_thumbnails_width" +
@@ -862,7 +862,7 @@ function init(){
 
 	// duration
 	$("input[name='ytDuration']").change(function(){
-		parameters['youtubeSearch']['duration:'] = $(this).val();
+		parameters['youtubeSearch']['videoDuration:'] = $(this).val();
 		Query =updateString(queryTerm,parameters);
 		$("#input").val(`{\n\n` + Query +`\n\n}`);
 	});
@@ -885,12 +885,14 @@ function init(){
 
 	// published range
 	$("#publishedAfter").change(function(){
-		parameters['youtubeSearch']['publishedAfter:'] = $("#publishedAfter").val();
+		let publishedAfter = new Date($("#publishedAfter").val());
+		parameters['youtubeSearch']['publishedAfter:'] =  publishedAfter.toISOString();
 		Query =updateString(queryTerm,parameters);
 		$("#input").val(`{\n\n` + Query +`\n\n}`);
 	});
 	$("#publishedBefore").change(function(){
-		parameters['youtubeSearch']['publishedBefore:'] = $("#publishedBefore").val();
+		let publishedBefore = new Date($("#publishedBefore").val());
+		parameters['youtubeSearch']['publishedBefore:'] =  publishedBefore.toISOString();
 		Query =updateString(queryTerm,parameters);
 		$("#input").val(`{\n\n` + Query +`\n\n}`);
 	});
