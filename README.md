@@ -83,3 +83,15 @@ You can find the deployed python code in [smm-analytics repository](https://open
 - Set the environment variable ```GA_KEY``` and provide the value of your Google Analytics 4 key.
 
 Please contact the **[SRTI lab](https://srtilab.techservices.illinois.edu/about/)** to request assistance on setting up the SMILE server.
+
+
+#### Generate GraphQL Docs
+1. Install `npm install -g @2fd/graphdoc`
+2. Update package.json to include the following script:
+```json
+    "graphdoc": {
+      "endpoint": "http://localhost:5050/graphql",
+      "output": "./public/graphql-doc/schema"
+    }
+```
+3. Run `graphdoc --force`
