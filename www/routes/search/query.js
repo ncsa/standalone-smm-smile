@@ -93,7 +93,9 @@ router.post('/query', checkIfLoggedIn, function (req, res) {
                     if (parseInt(req.body.pages) !== -999) {
                         if (req.body.prefix === 'twitter-Tweet'
                             || req.body.prefix === 'twitter-Timeline'
-                            || req.body.prefix === 'youtube-Search') {
+                            || req.body.prefix === 'youtube-Search'
+                            || req.body.prefix === 'youtube-Search-Channel'
+                            || req.body.prefix === 'youtube-Search-Playlist') {
                             // post one time with all pages
                             multiPostPromises.push(gatherMultiPost(req, headers, parseInt(req.body.pages)));
                         } else {
