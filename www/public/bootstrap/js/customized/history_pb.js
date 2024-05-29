@@ -94,7 +94,13 @@ $.getScript("bootstrap/js/customized/view_helperFunc.js", function(){
                                     var secondLevel = 'User Imported Data';
                                 }
                                 else if (key1 === 'youtube-Search') {
-                                    var secondLevel = 'YouTube Search Results';
+                                    var secondLevel = 'YouTube Videos';
+                                }
+                                else if (key1 === 'youtube-Search-Channel') {
+                                    var secondLevel = 'YouTube Channels';
+                                }
+                                else if (key1 === 'youtube-Search-Playlist') {
+                                    var secondLevel = 'YouTube Playlists';
                                 }
                                 else if (key1 === 'networkx') {
                                     var secondLevel = 'Python NetworkX';
