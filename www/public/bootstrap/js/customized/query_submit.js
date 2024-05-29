@@ -871,11 +871,20 @@ function renderPreview(rendering,prefix){
 	}
 	else if (prefix === 'youtube-Search' || prefix === 'youtube-Search-Channel' || prefix === 'youtube-Search-Playlist'){
 		$.each(rendering, function(i,val){
-			var img_url = val && val.snippet && val.snippet.default_thumbnails_url ? val.snippet.default_thumbnails_url: "";
+			var img_url = val && val.snippet && val.snippet.medium_thumbnails_url ? val.snippet.medium_thumbnails_url: "";
 			var created_at = val && val.snippet && val.snippet.publishedAt ? val.snippet.publishedAt: "Not Provided";
 			var channel = val && val.snippet && val.snippet.channelTitle ? val.snippet.channelTitle: "Not Provided";
 			var title = val && val.snippet && val.snippet.title ? val.snippet.title: "Not Provided";
-			var url = val && val.id && val.id.videoId ? `https://www.youtube.com/watch?v=${val.id.videoId}`: "";
+			let url = "";
+			if (val && val.id) {
+				if (val.id.videoId) {
+					url = `https://www.youtube.com/watch?v=${val.id.videoId}`;
+				} else if (val.id.channelId) {
+					url = `https://www.youtube.com/channel/${val.id.channelId}`;
+				} else if (val.id.playlistId) {
+					url = `https://www.youtube.com/playlist?list=${val.id.playlistId}`;
+				}
+			}
 			$("#grid").append(`<div class="grid-element">
 									<img src="${img_url}" alt="preview-img" style="width:100%;"/>
 									<div class="text-block">
