@@ -429,7 +429,7 @@ nav-tabs li a:hover{
 
 .grid-element{
 	width:calc(31%);
-	height:400px;
+	min-height:400px;
 	float:left;
 	margin:8px 8px;
 	background-color:#f5f5f5;

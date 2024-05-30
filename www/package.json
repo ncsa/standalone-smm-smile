@@ -1,6 +1,6 @@
 {
   "name": "smile_server",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "",
   "main": "app.js",
   "dependencies": {
@@ -43,6 +43,10 @@
     "local-test-windows": "set DOCKERIZED=false && npm test",
     "start": " forever app.js",
     "docker-start": "node app.js"
+  },
+  "graphdoc": {
+    "endpoint": "http://localhost:5050/graphql",
+    "output": "./public/graphql-doc/schema"
   },
   "author": "Chen Wang <cwang138@illinois>",
   "license": "MIT"

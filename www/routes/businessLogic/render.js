@@ -112,6 +112,8 @@ router.post('/list', checkIfLoggedIn, function (req, res, next) {
     promise_array.push(s3.list_folders(req.user.email + '/GraphQL/reddit-Historical-Post/'));
     promise_array.push(s3.list_folders(req.user.email + '/GraphQL/reddit-Historical-Comment/'));
     promise_array.push(s3.list_folders(req.user.email + '/GraphQL/youtube-Search/'));
+    promise_array.push(s3.list_folders(req.user.email + '/GraphQL/youtube-Search-Channel/'));
+    promise_array.push(s3.list_folders(req.user.email + '/GraphQL/youtube-Search-Playlist/'));
     promise_array.push(s3.list_folders(req.user.email + '/GraphQL/userspec-Others/'));
     Promise.all(promise_array).then(values => {
         directory['twitter-Tweet'] = values[0];
@@ -123,7 +125,9 @@ router.post('/list', checkIfLoggedIn, function (req, res, next) {
         directory['reddit-Historical-Post'] = values[6];
         directory['reddit-Historical-Comment'] = values[7];
         directory['youtube-Search'] = values[8];
-        directory['userspec-Others'] = values[9];
+        directory['youtube-Search-Channel'] = values[9];
+        directory['youtube-Search-Playlist'] = values[10];
+        directory['userspec-Others'] = values[11];
         res.send(directory);
     }).catch(err => {
         res.send({ERROR: err});
@@ -142,6 +146,8 @@ router.post('/list-all', checkIfLoggedIn, function (req, res, next) {
     promise_array.push(s3.list_folders(req.user.email + '/GraphQL/reddit-Historical-Post/'));
     promise_array.push(s3.list_folders(req.user.email + '/GraphQL/reddit-Historical-Comment/'));
     promise_array.push(s3.list_folders(req.user.email + '/GraphQL/youtube-Search/'));
+    promise_array.push(s3.list_folders(req.user.email + '/GraphQL/youtube-Search-Channel/'));
+    promise_array.push(s3.list_folders(req.user.email + '/GraphQL/youtube-Search-Playlist/'));
     promise_array.push(s3.list_folders(req.user.email + '/GraphQL/userspec-Others/'));
     var graphqlLength = promise_array.length;
 
@@ -177,7 +183,9 @@ router.post('/list-all', checkIfLoggedIn, function (req, res, next) {
         directory['GraphQL']['reddit-Historical-Post'] = values[6];
         directory['GraphQL']['reddit-Historical-Comment'] = values[7];
         directory['GraphQL']['youtube-Search'] = values[8];
-        directory['GraphQL']['userspec-Others'] = values[9];
+        directory['GraphQL']['youtube-Search-Channel'] = values[9];
+        directory['GraphQL']['youtube-Search-Playlist'] = values[10];
+        directory['GraphQL']['userspec-Others'] = values[11];
         for (i = 0; i < order.length; i++) {
             var parent = order[i]['parent'];
             var child = order[i]['child'];
