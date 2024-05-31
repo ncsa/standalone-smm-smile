@@ -222,6 +222,8 @@ function init(){
 		$(".pushshift-post").hide();
 		$(".pushshift-comment").hide();
 		$(".youtube-search").hide();
+		$(".youtube-search-playlist").hide();
+		$(".youtube-search-channel").hide();
 
 		$(".form-group.geocode").hide();
 		$(".form-group.dateRange").hide();
@@ -298,7 +300,9 @@ function init(){
             $("boolean").tooltip('hide');
 		}
 		else if ( queryTerm === 'queryYoutube' || queryTerm === 'queryYoutubeChannel' || queryTerm === 'queryYoutubePlaylist'){
-			$(".youtube-search").show();
+			if (queryTerm === 'queryYoutube') $(".youtube-search").show();
+			if (queryTerm === 'queryYoutubeChannel') $(".youtube-search-channel").show();
+			if (queryTerm === 'queryYoutubePlaylist') $(".youtube-search-playlist").show();
 			$("#searchbox").attr("placeholder","Keywords for the Youtube content that you wish to search...");
 
 			// tooltip to show YouTube rules
@@ -992,15 +996,11 @@ function init(){
 			$(".form-group.ytGeoSearch").show();
 			$("#ytLocation").change(function(){
 				parameters['youtubeSearch']['location:'] = $("#ytLocation").val();
-				parameters['youtubeSearchChannel']['location:'] = $("#ytLocation").val();
-				parameters['youtubeSearchPlaylist']['location:'] = $("#ytLocation").val();
 				Query =updateString(queryTerm,parameters);
 				$("#input").val(`{\n\n` + Query +`\n\n}`);
 			});
 			$("#ytLocationRadius").change(function(){
 				parameters['youtubeSearch']['locationRadius:'] = $("#ytLocationRadius").val();
-				parameters['youtubeSearchChannel']['locationRadius:'] = $("#ytLocationRadius").val();
-				parameters['youtubeSearchPlaylist']['locationRadius:'] = $("#ytLocationRadius").val();
 				Query =updateString(queryTerm,parameters);
 				$("#input").val(`{\n\n` + Query +`\n\n}`);
 			});
@@ -1008,11 +1008,7 @@ function init(){
 		else {
 			$(".form-group.ytGeoSearch").hide();
 			parameters['youtubeSearch']['location:'] = '';
-			parameters['youtubeSearchChannel']['location:'] = '';
-			parameters['youtubeSearchPlaylist']['location:'] = '';
 			parameters['youtubeSearch']['locationRadius:'] = '';
-			parameters['youtubeSearchChannel']['locationRadius:'] = '';
-			parameters['youtubeSearchPlaylist']['locationRadius:'] = '';
 			Query =updateString(queryTerm,parameters);
 			$("#input").val(`{\n\n` + Query +`\n\n}`);
 			if ( $('.dropdown.dropdown-lg.open').length ){
