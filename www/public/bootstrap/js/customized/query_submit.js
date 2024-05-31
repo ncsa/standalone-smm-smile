@@ -869,23 +869,17 @@ function renderPreview(rendering,prefix){
 				
 		});
 	}
-	else if (prefix === 'youtube-Search' || prefix === 'youtube-Search-Channel' || prefix === 'youtube-Search-Playlist'){
+	else if (prefix === 'youtube-Search'){
 		$.each(rendering, function(i,val){
 			var img_url = val && val.snippet && val.snippet.medium_thumbnails_url ? val.snippet.medium_thumbnails_url: "";
-			let imgElement = img_url ? `<img src="${img_url}" alt="preview-img" style="width:100%;"/>` : "";
+			let imgElement = img_url ? `<img src="${img_url}" alt="video-img" style="width:100%;"/>` : "";
 
 			var created_at = val && val.snippet && val.snippet.publishedAt ? val.snippet.publishedAt: "Not Provided";
 			var channel = val && val.snippet && val.snippet.channelTitle ? val.snippet.channelTitle: "Not Provided";
 			var title = val && val.snippet && val.snippet.title ? val.snippet.title: "Not Provided";
 			let url = "";
 			if (val && val.id) {
-				if (val.id.videoId) {
-					url = `https://www.youtube.com/watch?v=${val.id.videoId}`;
-				} else if (val.id.channelId) {
-					url = `https://www.youtube.com/channel/${val.id.channelId}`;
-				} else if (val.id.playlistId) {
-					url = `https://www.youtube.com/playlist?list=${val.id.playlistId}`;
-				}
+				url = `https://www.youtube.com/watch?v=${val.id.videoId}`;
 			}
 			$("#grid").append(`<div class="grid-element">
 									${imgElement}
@@ -897,6 +891,37 @@ function renderPreview(rendering,prefix){
 									<a target="_blank" href="${url}">View on YouTube<i class="fas fa-share"></i></a>
 							</div>`);
 		});
+	}
+	else if (prefix === 'youtube-Search-Channel' || prefix === 'youtube-Search-Playlist'){
+		$.each(rendering, function(i,val){
+
+			var img_url = val && val.snippet && val.snippet.medium_thumbnails_url ? val.snippet.medium_thumbnails_url: "";
+			let imgElement = img_url ? `<img src="${img_url}" alt="channel-logo" class="user-img"/>` : "";
+
+			var created_at = val && val.snippet && val.snippet.publishedAt ? val.snippet.publishedAt: "Not Provided";
+			var channel = val && val.snippet && val.snippet.channelTitle ? val.snippet.channelTitle: "Not Provided";
+			var title = val && val.snippet && val.snippet.title ? val.snippet.title: "Not Provided";
+			var description = val && val.snippet && val.snippet.description ? val.snippet.description: "Not Provided";
+			let url = "";
+			if (val && val.id) {
+				if (val.id.channelId) {
+					url = `https://www.youtube.com/channel/${val.id.channelId}`;
+				} else if (val.id.playlistId) {
+					url = `https://www.youtube.com/playlist?list=${val.id.playlistId}`;
+				}
+			}
+
+			$("#grid").append(`<div class="grid-element">
+									${imgElement}
+									<div class="text-block">
+										<p class="screenname"><b>${channel}<b></p> 
+										<p class="utc">&nbsp;&bull;`+ created_at +`</p>
+									</div>
+									<p class="text-block">${title}</p>
+									<p class="text-block">${description}</p>
+									<a target="_blank" href="${url}">View on YouTube<i class="fas fa-share"></i></a>
+							</div>`);
+			});
 	}
 
 	$("#rendering").show();
