@@ -53,7 +53,7 @@ function submitQuery(textareaID, filenameID, dryrun = false) {
     } else if (queryTerm === 'youtubeMostPopular') {
         prefix = 'youtube-Most-Popular';
         params = parameters.youtubeMostPopular;
-        pages = parseInt($("#youtube-count").val()) / 50;
+        pages = parseInt($("#youtube-most-popular-count").val()) / 50;
     }
 
     if (dryrun) {

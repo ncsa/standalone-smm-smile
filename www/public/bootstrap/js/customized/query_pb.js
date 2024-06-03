@@ -67,7 +67,7 @@ function init(){
 			
 	// customize advance dropdown
 	$('#dropdownButton').on('click',function(){
-		if ($("#searchbox").val() !== '' && $("#searchbox").val() !== undefined){
+		if (($("#searchbox").val() !== '' && $("#searchbox").val() !== undefined) || queryTerm ===  "youtubeMostPopular"){
 			if (queryTerm !==  "queryTweetV2"){
 				$(this).parent().toggleClass('open');
 				if ($(this).parent().attr('class') === 'dropdown dropdown-lg open'){
@@ -80,7 +80,7 @@ function init(){
 				}
 
 				// initialize the advanced panel
-				// escape doule quotation mark
+				// escape double quotation mark
 				var keyword =  $("#searchbox").val().replace(/[\"]+/g, `\\"`);
 
 				parameters['tweet']['q:'] = keyword;
@@ -148,9 +148,6 @@ function init(){
 					"\n\t\t\t\tstandard_thumbnails_url\n\t\t\t\tstandard_thumbnails_width\n\t\t\t\tstandard_thumbnails_height\n\t\t\t\tmaxres_thumbnails_url" +
 					"\n\t\t\t\tmaxres_thumbnails_width\n\t\t\t\thigh_thumbnails_height\n\t\t\t\tchannelTitle\n\t\t\t\tliveBroadcastContent\n\t\t\t}";
 
-				Query =updateString(queryTerm,parameters);
-				$("#input").val(`{\n\n` + Query +`\n\n}`);
-
 				parameters['youtubeSearchChannel']['q:'] = keyword;
 				parameters['youtubeSearchChannel']['type:'] = "channel";
 				parameters['youtubeSearchChannel']['order:'] = "relevance";
@@ -161,9 +158,6 @@ function init(){
 					"\n\t\t\t\tmedium_thumbnails_height\n\t\t\t\thigh_thumbnails_url\n\t\t\t\thigh_thumbnails_width\n\t\t\t\thigh_thumbnails_height" +
 					"\n\t\t\t\tstandard_thumbnails_url\n\t\t\t\tstandard_thumbnails_width\n\t\t\t\tstandard_thumbnails_height\n\t\t\t\tmaxres_thumbnails_url" +
 					"\n\t\t\t\tmaxres_thumbnails_width\n\t\t\t\thigh_thumbnails_height\n\t\t\t\tchannelTitle\n\t\t\t\tliveBroadcastContent\n\t\t\t}";
-
-				Query =updateString(queryTerm,parameters);
-				$("#input").val(`{\n\n` + Query +`\n\n}`);
 
 				parameters['youtubeSearchPlaylist']['q:'] = keyword;
 				parameters['youtubeSearchPlaylist']['type:'] = "playlist";
@@ -176,8 +170,34 @@ function init(){
 					"\n\t\t\t\tstandard_thumbnails_url\n\t\t\t\tstandard_thumbnails_width\n\t\t\t\tstandard_thumbnails_height\n\t\t\t\tmaxres_thumbnails_url" +
 					"\n\t\t\t\tmaxres_thumbnails_width\n\t\t\t\thigh_thumbnails_height\n\t\t\t\tchannelTitle\n\t\t\t\tliveBroadcastContent\n\t\t\t}";
 
+				parameters['youtubeMostPopular']['regionCode:'] = keyword;
+				parameters['youtubeMostPopular']['chart:'] = "mostPopular";
+				parameters['youtubeMostPopular']['fields'] = "\n\t\t\tkind\n\t\t\tetag\n\t\t\tid\n\t\t\tsnippet{\n\t\t\t\t" +
+					"publishedAt\n\t\t\t\tchannelId\n\t\t\t\ttitle\n\t\t\t\tdescription\n\t\t\t\tdefault_thumbnails_url" +
+					"\n\t\t\t\tdefault_thumbnails_width\n\t\t\t\tdefault_thumbnails_height\n\t\t\t\tmedium_thumbnails_url" +
+					"\n\t\t\t\tmedium_thumbnails_width\n\t\t\t\tmedium_thumbnails_height\n\t\t\t\thigh_thumbnails_url" +
+					"\n\t\t\t\thigh_thumbnails_width\n\t\t\t\thigh_thumbnails_height\n\t\t\t\tstandard_thumbnails_url" +
+					"\n\t\t\t\tstandard_thumbnails_width\n\t\t\t\tstandard_thumbnails_height\n\t\t\t\tmaxres_thumbnails_url" +
+					"\n\t\t\t\tmaxres_thumbnails_width\n\t\t\t\tmaxres_thumbnails_height\n\t\t\t\tchannelTitle\n\t\t\t\t" +
+					"tags\n\t\t\t\tcategoryId\n\t\t\t\tliveBroadcastContent\n\t\t\t\tdefaultLanguage\n\t\t\t\t" +
+					"localized_title\n\t\t\t\tlocalized_description\n\t\t\t\tlocalized_description\n\t\t\t\t" +
+					"defaultAudioLanguage\n\t\t\t}\n\t\t\tcontentDetails{\n\t\t\t\tduration\n\t\t\t\tdimension" +
+					"\n\t\t\t\tdefinition\n\t\t\t\tcaption\n\t\t\t\tlicensedContent\n\t\t\t\tregionRestriction_allowed" +
+					"\n\t\t\t\tregionRestriction_blocked\n\t\t\t\tprojection\n\t\t\t\thasCustomThumbnail\n\t\t\t}\n\t\t\t" +
+					"status{\n\t\t\t\tuploadStatus\n\t\t\t\tfailureReason\n\t\t\t\trejectionReason\n\t\t\t\tprivacyStatus" +
+					"\n\t\t\t\tpublishAt\n\t\t\t\tlicense\n\t\t\t\tembeddable\n\t\t\t\tpublicStatsViewable\n\t\t\t\t" +
+					"madeForKids\n\t\t\t\tselfDeclaredMadeForKids\n\t\t\t}\n\t\t\tstatistics{\n\t\t\t\tviewCount" +
+					"\n\t\t\t\tlikeCount\n\t\t\t\tdislikeCount\n\t\t\t\tfavoriteCount\n\t\t\t\tcommentCount\n\t\t\t}" +
+					"\n\t\t\tplayer{\n\t\t\t\tembedHtml\n\t\t\t\tembedHeight\n\t\t\t\tembedWidth\n\t\t\t}\n\t\t\t" +
+					"topicDetails{\n\t\t\t\ttopicIds\n\t\t\t\trelevantTopicIds\n\t\t\t\ttopicCategories\n\t\t\t}" +
+					"\n\t\t\trecordingDetails{\n\t\t\t\trecordingDate\n\t\t\t}\n\t\t\tliveStreamingDetails{\n\t\t\t\t" +
+					"actualStartTime\n\t\t\t\tactualEndTime\n\t\t\t\tscheduledStartTime\n\t\t\t\tscheduledEndTime" +
+					"\n\t\t\t\tconcurrentViewers\n\t\t\t\tactiveLiveChatId\n\t\t\t}"
+
 				Query =updateString(queryTerm,parameters);
 				$("#input").val(`{\n\n` + Query +`\n\n}`);
+
+
 			}
 			else {
 				$("#modal-message").append(`<h4>We currently don't support advanced settings for this search function.</h4>`);
@@ -417,6 +437,7 @@ function init(){
             parameters['youtubeSearch']['q:'] = keyword;
             parameters['youtubeSearchChannel']['q:'] = keyword;
             parameters['youtubeSearchPlaylist']['q:'] = keyword;
+            parameters['youtubeMostPopular']['regionCode:'] = keyword;
 
             Query =updateString(queryTerm,parameters);
             $("#input").val(`{\n\n` + Query +`\n\n}`);
@@ -425,6 +446,25 @@ function init(){
 	.click(function(){
         $(this).siblings(".prompt").show();
     });
+
+	// Update keywords
+	$("#searchbox").change(function() {
+		var keyword =  $("#searchbox").val().replace(/[\"]+/g, `\\"`);
+		parameters['tweet']['q:'] = keyword;
+		parameters['twtTimeline']['screen_name:'] = keyword;
+		parameters['tweetV2']['q:'] = keyword;
+		parameters['rdSearch']['query:'] = keyword;
+		parameters['rdPost']['subredditName:']= keyword;
+		parameters['rdComment']['subredditName:'] = keyword;
+		parameters['psPost']['q:'] = keyword;
+		parameters['psComment']['q:'] = keyword;
+		parameters['youtubeSearch']['q:'] = keyword;
+		parameters['youtubeSearchChannel']['q:'] = keyword;
+		parameters['youtubeSearchPlaylist']['q:'] = keyword;
+		parameters['youtubeMostPopular']['regionCode:'] = keyword;
+		Query =updateString(queryTerm,parameters);
+		$("#input").val(`{\n\n` + Query +`\n\n}`);
+	})
 
 	/*---------------------------------------------query tweet ------------------------------------------------------------------------*/
 	// toggle date range checkbox
@@ -1031,6 +1071,27 @@ function init(){
 		}
 
 	});
+
+	/*---------------------------------------------- Youtube Most popular---------------------------------------*/
+	$("#youtube-most-popular-count").change(function(){
+		Query =updateString(queryTerm,parameters);
+		$("#input").val(`{\n\n` + Query +`\n\n}`);
+	});
+
+	// localized language
+	$("#ytHl").change(function(){
+		parameters['youtubeMostPopular']['hl:'] = $(this).val();
+		Query =updateString(queryTerm,parameters);
+		$("#input").val(`{\n\n` + Query +`\n\n}`);
+	});
+
+	// video category
+	$("#ytVideoCategoryId").change(function () {
+		parameters['youtubeMostPopular']['videoCategoryId:'] = $(this).val();
+		Query = updateString(queryTerm, parameters);
+		$("#input").val(`{\n\n` + Query + `\n\n}`);
+	});
+
 
 	/*----------------------set intervals--------------------------------------------*/
 	$('input[name=histogram-interval]').change(function(){
