@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.5] - 2024-06-03
+### Added
+- YouTube most popular videos [#128](https://github.com/ncsa/standalone-smm-smile/issues/128)
+
+### Fixed
+- YouTube preview grid not aligned properly; and turn off geolocation filter for channel and playlist [#153](https://github.com/ncsa/standalone-smm-smile/issues/153)
+- Escape html tag when displaying YouTube results
+
 ## [0.3.4] - 2024-05-29
 ### Added
 - YouTube advanced search with temporal and geolocation filters [#136](https://github.com/ncsa/standalone-smm-smile/issues/136)

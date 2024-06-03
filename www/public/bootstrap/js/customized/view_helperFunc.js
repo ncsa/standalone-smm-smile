@@ -61,22 +61,23 @@ function arrayToTable(array, tableID) {
     });
     tableContent += `</tr></thead><tbody>`;
 
-    // set table content
+    // Set table content
     $.each(array.slice(1), function (i, val) {
         tableContent += "<tr>";
-        var rowLength = 0 ;
+        var rowLength = 0;
         $.each(val, function (j, cval) {
-            // trim the content to 140 character maximum
+            // Trim the content to 140 character maximum and escape HTML
             if (cval === undefined || cval.length === 0) {
                 cval = '';
+            } else {
+                cval = escapeHtml(cval);
+                if (cval.length >= 140) {
+                    cval = cval.slice(0, 140) + '...';
+                }
             }
-            else if (cval.length >= 140) {
-                cval = cval.slice(0, 140) + '...';
-            }
-            tableContent += `<td>` + cval + "</td>"
+            tableContent += `<td>` + cval + "</td>";
             rowLength = j;
         });
-
         // fix bug
         if (rowLength < tableRowLength -1){
             for (var e = 0; e < (tableRowLength -1) - rowLength; e ++) {
@@ -86,18 +87,19 @@ function arrayToTable(array, tableID) {
 
         tableContent += "</tr>";
     });
+
     tableContent += "</tbody></table></div>"
 
     return tableContent
 }
 
-function extractHeader1(array) {
-    var headerContent = '';
-    column_header = array[0];
-    $.each(column_header, function (i, val) {
-        headerContent += `<label class=checkbox-inline" style="font-weight:normal;"><input type="checkbox" value=` + val + ` style="margin-right:3px;">` + val + `</label>`;
-    });
-    return headerContent;
+// Function to escape HTML tags
+function escapeHtml(str) {
+    return str.replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
 }
 
 function extractHeader2(array) {

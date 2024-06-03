@@ -33,22 +33,19 @@ function formValid(searchID){
 	// https://developer.twitter.com/en/docs/tweets/search/guides/standard-operators
 	var regx = /^[\":?)(#@A-Za-z0-9_ _+-_&_|]+$/;
 	if ($("#social-media option:selected").val() === ''){
-		
 		$("#modal-message").append(`<h4>Please select a platform!</h4>`);
 		$("#alert").modal('show');
 		$("#social-media").focus();
-		return false
-		
-	}else if (!regx.test($("#searchbox").val()) || $("#searchbox").val()>=500){
-		
+		return false;
+	} else if ($("#social-media option:selected").val() !== 'youtubeMostPopular' &&
+		(!regx.test($("#searchbox").val()) || $("#searchbox").val().length >= 500)) {
 		$("#modal-message").append(`<h4>Please type in search keyword in the form of <i>English words, number, operators, 
-									and/or combinations</i> of them!<br><b>Length shouldn't exceed 500 characters!</b></h4>`);
+                                and/or combinations</i> of them!<br><b>Length shouldn't exceed 500 characters!</b></h4>`);
 		$("#alert").modal('show');
 		$("#searchbox").focus();
-		return false
-		
+		return false;
 	}
-	
+
 	// extra search for advanced
 	if (searchID === '#input'){
 		if ($("#social-media option:selected").val() === 'queryTweet'){
@@ -177,9 +174,13 @@ function formValid(searchID){
 				$("#alert").modal('show');
 				return false
 			}
-		}else if ($("#social-media option:selected").val() === 'queryYoutube'){
-			// TODO implement form check for advanced search
-			return true;
+		}else if ($("#social-media option:selected").val() === 'queryYoutube' || $("#social-media option:selected").val() === 'queryYoutubePlaylist' || $("#social-media option:selected").val() === 'queryYoutubeChannel'){
+			if ($("#ytDateRange").is(':checked') &&
+				($("#publishedAfter").val() === '' || $("#publishedBefore").val() === '' || $("#publishedAfter").val()>$("#publishedBefore").val())){
+				$("#modal-message").append(`<h4>Please sepecify a date range, and the publishing after date cannot be later than the publishing before date!</h4>`);
+				$("#alert").modal('show');
+				return false
+			}
 		}
 	}
 	

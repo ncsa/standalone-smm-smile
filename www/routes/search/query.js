@@ -95,7 +95,9 @@ router.post('/query', checkIfLoggedIn, function (req, res) {
                             || req.body.prefix === 'twitter-Timeline'
                             || req.body.prefix === 'youtube-Search'
                             || req.body.prefix === 'youtube-Search-Channel'
-                            || req.body.prefix === 'youtube-Search-Playlist') {
+                            || req.body.prefix === 'youtube-Search-Playlist'
+                            || req.body.prefix === 'youtube-Most-Popular'
+                        ) {
                             // post one time with all pages
                             multiPostPromises.push(gatherMultiPost(req, headers, parseInt(req.body.pages)));
                         } else {
