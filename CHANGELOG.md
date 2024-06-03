@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - YouTube preview grid not aligned properly; and turn off geolocation filter for channel and playlist [#153](https://github.com/ncsa/standalone-smm-smile/issues/153)
+- Escape html tag when displaying YouTube results
 
 ## [0.3.4] - 2024-05-29
 ### Added
