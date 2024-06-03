@@ -102,6 +102,9 @@ $.getScript("bootstrap/js/customized/view_helperFunc.js", function(){
                                 else if (key1 === 'youtube-Search-Playlist') {
                                     var secondLevel = 'YouTube Playlists';
                                 }
+                                else if (key1 === 'youtube-Most-Popular') {
+                                    var secondLevel = 'YouTube Most Popular Videos';
+                                }
                                 else if (key1 === 'networkx') {
                                     var secondLevel = 'Python NetworkX';
                                 }

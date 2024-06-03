@@ -18,6 +18,7 @@ function init(){
 		youtubeSearch:{},
 		youtubeSearchChannel:{},
 		youtubeSearchPlaylist:{},
+		youtubeMostPopular:{},
     };
 
     // initialization
@@ -224,6 +225,7 @@ function init(){
 		$(".youtube-search").hide();
 		$(".youtube-search-playlist").hide();
 		$(".youtube-search-channel").hide();
+		$(".youtube-most-popular").hide();
 
 		$(".form-group.geocode").hide();
 		$(".form-group.dateRange").hide();
@@ -311,6 +313,18 @@ function init(){
 				"that are associated with one of several search terms. Details please refer to the&nbsp" +
 				"<a href='https://developers.google.com/youtube/v3/docs/search/list#parameters' target='_blank'>" +
 				"API documentations</a>")
+			.tooltip('fixTitle')
+			.tooltip('show');
+		}
+		else if ( queryTerm === 'youtubeMostPopular'){
+			$(".youtube-most-popular").show();
+			$("#searchbox").attr("placeholder","Enter region code or leave blank for worldwide videos...");
+
+			// tooltip to show region code rules
+			$("boolean").attr('data-original-title',
+				"You can find the region code information in the ISO 3166-2 standard. For more details, please refer to the " +
+				"<a href='https://en.wikipedia.org/wiki/ISO_3166-2' target='_blank'>" +
+				"ISO 3166-2 Wikipedia page</a>.")
 			.tooltip('fixTitle')
 			.tooltip('show');
 		}
@@ -1090,6 +1104,9 @@ function updateString(queryTerm, parameters){
 	else if (queryTerm === 'queryYoutubePlaylist'){
 		query = `\tyoutube{\n\t\tsearch(${constructQuery(parameters.youtubeSearchPlaylist)}\n\t\t}\n\t}`;
 	}
+	else if (queryTerm === 'youtubeMostPopular'){
+		query = `\tyoutube{\n\t\tvideos(${constructQuery(parameters.youtubeMostPopular)}\n\t\t}\n\t}`;
+	}
 	
 	return query;
 }
@@ -1162,7 +1179,9 @@ function setHitogramInterval(freq){
 		prefix = 'youtube-Search-Channel';
 	}else if (queryTerm === 'queryYoutubePlaylist'){
 		prefix = 'youtube-Search-Playlist';
-	}
+	}else if (queryTerm === 'youtubeMostPopular'){
+	prefix = 'youtube-Most-Popular';
+}
 	
 	if (prefix === undefined || filename === '' || filename === undefined){
 		$("#modal-message").append(`<h4>Incomplete information for histogram. Please make sure you have specified a data source, as well as retrieved data first.</h4>`);

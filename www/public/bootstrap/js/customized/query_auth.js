@@ -24,6 +24,7 @@ function authorize(platform){
         $("#social-media option[value='queryYoutube']").removeAttr('disabled');
         $("#social-media option[value='queryYoutubeChannel']").removeAttr('disabled');
         $("#social-media option[value='queryYoutubePlaylist']").removeAttr('disabled');
+        $("#social-media option[value='youtubeMostPopular']").removeAttr('disabled');
     }
 }
 
