@@ -1,148 +1,150 @@
-function submitQuery(textareaID,filenameID, dryrun = false){
-	currPreviewNum = 0;
+function submitQuery(textareaID, filenameID, dryrun = false) {
+    currPreviewNum = 0;
     $("#save-result").hide();
     $(".loading").show();
 
-	var queryString = $(textareaID).val();
-	var queryTerm = $("#social-media").find(':selected').val();
-	var filename = $(filenameID).val();
+    var queryString = $(textareaID).val();
+    var queryTerm = $("#social-media").find(':selected').val();
+    var filename = $(filenameID).val();
 
-	var prefix;
-	var params;
-	var pages;
-	if (queryTerm === 'queryTweet'){
-		prefix = 'twitter-Tweet';
-		params = parameters.tweet;
-		pages = parseInt($("#tweet-count").val())/100;
-	}else if (queryTerm === 'getTimeline'){
-		prefix = 'twitter-Timeline';
-		params = parameters.twtTimeline;
-		pages = parseInt($("#twtTimeline-count").val())/200;
-	}else if (queryTerm === 'queryReddit'){
-		prefix = 'reddit-Search';
-		params = parameters.rdSearch ;
-		pages = -999;
-	}else if (queryTerm === 'redditPost'){
-		prefix = 'reddit-Post';
-		params = parameters.rdPost ;
-		pages = -999;
-	}else if (queryTerm === 'redditComment'){
-		prefix = 'reddit-Comment';
-		params = parameters.rdComment ;
-		pages = -999;
-	}else if (queryTerm === 'pushshiftPost'){
-		prefix = 'reddit-Historical-Post';
-		params = parameters.psPost ;
-		pages = -999;
-	}else if (queryTerm === 'pushshiftComment'){
-		prefix = 'reddit-Historical-Comment';
-		params = parameters.psComment ;
-		pages = -999;
-	}else if (queryTerm === 'queryYoutube'){
-		prefix = 'youtube-Search';
-		params = parameters.youtubeSearch ;
-		pages = parseInt($("#youtube-count").val())/50;
-	}
-	else if (queryTerm === 'queryYoutubeChannel'){
-		prefix = 'youtube-Search-Channel';
-		params = parameters.youtubeSearchChannel ;
-		pages = parseInt($("#youtube-count").val())/50;
-	}
-	else if (queryTerm === 'queryYoutubePlaylist'){
-		prefix = 'youtube-Search-Playlist';
-		params = parameters.youtubeSearchPlaylist ;
-		pages = parseInt($("#youtube-count").val())/50;
-	}
+    var prefix;
+    var params;
+    var pages;
+    if (queryTerm === 'queryTweet') {
+        prefix = 'twitter-Tweet';
+        params = parameters.tweet;
+        pages = parseInt($("#tweet-count").val()) / 100;
+    } else if (queryTerm === 'getTimeline') {
+        prefix = 'twitter-Timeline';
+        params = parameters.twtTimeline;
+        pages = parseInt($("#twtTimeline-count").val()) / 200;
+    } else if (queryTerm === 'queryReddit') {
+        prefix = 'reddit-Search';
+        params = parameters.rdSearch;
+        pages = -999;
+    } else if (queryTerm === 'redditPost') {
+        prefix = 'reddit-Post';
+        params = parameters.rdPost;
+        pages = -999;
+    } else if (queryTerm === 'redditComment') {
+        prefix = 'reddit-Comment';
+        params = parameters.rdComment;
+        pages = -999;
+    } else if (queryTerm === 'pushshiftPost') {
+        prefix = 'reddit-Historical-Post';
+        params = parameters.psPost;
+        pages = -999;
+    } else if (queryTerm === 'pushshiftComment') {
+        prefix = 'reddit-Historical-Comment';
+        params = parameters.psComment;
+        pages = -999;
+    } else if (queryTerm === 'queryYoutube') {
+        prefix = 'youtube-Search';
+        params = parameters.youtubeSearch;
+        pages = parseInt($("#youtube-count").val()) / 50;
+    } else if (queryTerm === 'queryYoutubeChannel') {
+        prefix = 'youtube-Search-Channel';
+        params = parameters.youtubeSearchChannel;
+        pages = parseInt($("#youtube-count").val()) / 50;
+    } else if (queryTerm === 'queryYoutubePlaylist') {
+        prefix = 'youtube-Search-Playlist';
+        params = parameters.youtubeSearchPlaylist;
+        pages = parseInt($("#youtube-count").val()) / 50;
+    } else if (queryTerm === 'youtubeMostPopular') {
+        prefix = 'youtube-Most-Popular';
+        params = parameters.youtubeMostPopular;
+        pages = parseInt($("#youtube-most-popular-count").val()) / 50;
+    }
 
-	if (dryrun){
-		$("#instruction").hide();
+    if (dryrun) {
+        $("#instruction").hide();
         $("#histogram-panel").hide();
         $("#rendering").hide();
 
         $.ajax({
-            url:'query-dryrun',
-            type:"post",
-            data:{
-            	"query":queryString,
-                "prefix":prefix
+            url: 'query-dryrun',
+            type: "post",
+            data: {
+                "query": queryString,
+                "prefix": prefix
             },
-            success:function(data){
+            success: function (data) {
                 $(".loading").hide();
-                if ('ERROR' in data){
+                if ('ERROR' in data) {
                     $("#error").val(JSON.stringify(data));
                     $("#warning").modal('show');
-                }else{
+                } else {
                     $("#rendering").find("button").show();
                     renderPreview(data.rendering, prefix);
                     $("#saveButton").removeAttr("disabled");
                     $("#save-result").show();
 
-					// close dropdown menu
-					$("#dropdownButton").parent().toggleClass('open');
-					$("#simple-search-btn").prop('disabled',false);
-					pushAdvancedDropdown('off');
-				}
+                    // close dropdown menu
+                    $("#dropdownButton").parent().toggleClass('open');
+                    $("#simple-search-btn").prop('disabled', false);
+                    pushAdvancedDropdown('off');
+                }
             },
-            error: function(jqXHR, exception){
+            error: function (jqXHR, exception) {
                 $("#error").val(jqXHR.responseText);
                 $("#warning").modal('show');
             }
         });
-    }
-	else {
+    } else {
         $.ajax({
-            url:'query',
-            type:"post",
-            data:{"query":queryString,
-                "filename":filename,
-                "params":JSON.stringify(params),
-                "pages":pages,
-                "prefix":prefix
+            url: 'query',
+            type: "post",
+            data: {
+                "query": queryString,
+                "filename": filename,
+                "params": JSON.stringify(params),
+                "pages": pages,
+                "prefix": prefix
             },
-            success:function(data){
+            success: function (data) {
                 $(".loading").hide();
-                if ('ERROR' in data){
+                if ('ERROR' in data) {
                     $("#error").val(JSON.stringify(data));
                     $("#warning").modal('show');
                     $("#save-result").show();
-                }else{
+                } else {
                     renderDownload(data.URLs, data.fname);
 
                     $("#rendering").find("button").show();
                     renderPreview(data.rendering, prefix);
-                    if ('histogram' in data){
+                    if ('histogram' in data) {
                         $("#histogram-panel").show();
                         renderHistogram(data.histogram);
                     }
                 }
             },
-            error: function(jqXHR, exception){
+            error: function (jqXHR, exception) {
                 $("#error").val(jqXHR.responseText);
                 $("#warning").modal('show');
             }
         });
     }
-} 
+}
 
-function submitSearchbox(searchboxID, filenameID, dryrun = false){
-	currPreviewNum = 0;
+function submitSearchbox(searchboxID, filenameID, dryrun = false) {
+    currPreviewNum = 0;
     $("#save-result").hide();
     $(".loading").show();
-	
-	// escape doule quotation mark
-	var keyword = $(searchboxID).val().replace(/[\"]+/g, `\\"`);
-    var filename = $(filenameID).val();
-	var queryTerm = $("#social-media").find(':selected').val();
-	var pages;
-	var queryString;
-	var prefix;
-	var params;
-	var extra;
 
-	if (queryTerm === 'queryTweet'){
-		pages = 18;
-		if (dryrun) pages = 1;
-		queryString = `{
+    // escape doule quotation mark
+    var keyword = $(searchboxID).val().replace(/[\"]+/g, `\\"`);
+    var filename = $(filenameID).val();
+    var queryTerm = $("#social-media").find(':selected').val();
+    var pages;
+    var queryString;
+    var prefix;
+    var params;
+    var extra;
+
+    if (queryTerm === 'queryTweet') {
+        pages = 18;
+        if (dryrun) pages = 1;
+        queryString = `{
 							  twitter {
 								queryTweet(q:"${keyword}", count: 100){
 								  id
@@ -195,13 +197,12 @@ function submitSearchbox(searchboxID, filenameID, dryrun = false){
 							  }
 							}
 							`;
-		prefix = 'twitter-Tweet';
-		params = parameters.tweet;
-	}
-	else if (queryTerm === 'getTimeline'){
+        prefix = 'twitter-Tweet';
+        params = parameters.tweet;
+    } else if (queryTerm === 'getTimeline') {
         pages = 5;
         if (dryrun) pages = 1;
-		queryString = `{
+        queryString = `{
 							  twitter{
 								getTimeline(screen_name:"${keyword}", count:200){
 								  id
@@ -253,14 +254,13 @@ function submitSearchbox(searchboxID, filenameID, dryrun = false){
 								}
 							  }
 							}`;
-		prefix = 'twitter-Timeline';
-		params = parameters.twtTimeline;
+        prefix = 'twitter-Timeline';
+        params = parameters.twtTimeline;
 
-	}
-	else if (queryTerm === 'queryTweetV2'){
-		var additional_num = 100;
-		if (dryrun) additional_num = 0;
-		queryString = `{
+    } else if (queryTerm === 'queryTweetV2') {
+        var additional_num = 100;
+        if (dryrun) additional_num = 0;
+        queryString = `{
 							  twitter {
 								queryTweetV2(q:"${keyword}", additional_num:${additional_num}){
 								  id
@@ -290,12 +290,11 @@ function submitSearchbox(searchboxID, filenameID, dryrun = false){
 							  }
 							}
 							`;
-		prefix = 'twitterV2-Tweet';
-		pages = -999;
-		params = parameters.tweetV2;
-	}
-	else if (queryTerm === 'queryReddit'){
-		 queryString = `{
+        prefix = 'twitterV2-Tweet';
+        pages = -999;
+        params = parameters.tweetV2;
+    } else if (queryTerm === 'queryReddit') {
+        queryString = `{
 								reddit{
 								search(query:"${keyword}",time:"all",sort:"relevance"){
 								  archived
@@ -334,14 +333,13 @@ function submitSearchbox(searchboxID, filenameID, dryrun = false){
 								}
 							  }
 							}`;
-		prefix = 'reddit-Search';
-		pages = -999;
-		params = parameters.rdSearch;
-	}
-	else if (queryTerm === 'redditPost'){
-		extra = 2000;
-		if (dryrun) extra = 100;
-		queryString = `{
+        prefix = 'reddit-Search';
+        pages = -999;
+        params = parameters.rdSearch;
+    } else if (queryTerm === 'redditPost') {
+        extra = 2000;
+        if (dryrun) extra = 100;
+        queryString = `{
 							  reddit {
 								getNew(subredditName:"${keyword}", extra:${extra}){
 								  archived
@@ -380,12 +378,11 @@ function submitSearchbox(searchboxID, filenameID, dryrun = false){
 								}
 							  }
 							}`;
-		prefix = 'reddit-Post';
-		pages = -999;
-		params = parameters.rdPost;
-	}
-	else if (queryTerm === 'pushshiftPost'){
-		 queryString = `{
+        prefix = 'reddit-Post';
+        pages = -999;
+        params = parameters.rdPost;
+    } else if (queryTerm === 'pushshiftPost') {
+        queryString = `{
 								reddit{
 									pushshiftPost(q:"${keyword}"){
 										author_name
@@ -411,14 +408,13 @@ function submitSearchbox(searchboxID, filenameID, dryrun = false){
 									}
 								}
 							}`;
-		prefix = 'reddit-Historical-Post';
-		pages = -999;
-		params = parameters.psPost;
-	}
-	else if (queryTerm === 'redditComment'){
-		extra = 2000;
-		if (dryrun) extra = 100;
-		queryString = `{
+        prefix = 'reddit-Historical-Post';
+        pages = -999;
+        params = parameters.psPost;
+    } else if (queryTerm === 'redditComment') {
+        extra = 2000;
+        if (dryrun) extra = 100;
+        queryString = `{
 							reddit{
 							getNewComments(subredditName:"${keyword}",extra:${extra}){
 							  comment_author_name
@@ -453,12 +449,11 @@ function submitSearchbox(searchboxID, filenameID, dryrun = false){
 							}
 						  }
 						}`;
-		prefix = 'reddit-Comment';
-		pages = -999;
-		params = parameters.rdComment;
-	}
-	else if (queryTerm === 'pushshiftComment'){
-		 queryString = `{
+        prefix = 'reddit-Comment';
+        pages = -999;
+        params = parameters.rdComment;
+    } else if (queryTerm === 'pushshiftComment') {
+        queryString = `{
 							  reddit {
 								pushshiftComment(q: "${keyword}"){
 								  comment_author_name
@@ -476,14 +471,13 @@ function submitSearchbox(searchboxID, filenameID, dryrun = false){
 								}
 							  }
 							}`;
-		prefix = 'reddit-Historical-Comment';
-		pages = -999;
-		params = parameters.psComment;
-	}
-	else if (queryTerm === 'queryYoutube'){
-		pages = 2; // TODO change me to 10 later
-		if (dryrun) pages = 1;
-		queryString = `{
+        prefix = 'reddit-Historical-Comment';
+        pages = -999;
+        params = parameters.psComment;
+    } else if (queryTerm === 'queryYoutube') {
+        pages = 2; // TODO change me to 10 later
+        if (dryrun) pages = 1;
+        queryString = `{
 		  youtube {
 			search(q: "${keyword}", type:"video") {
 			  kind
@@ -521,13 +515,12 @@ function submitSearchbox(searchboxID, filenameID, dryrun = false){
 		  }
 		}
 		`;
-		prefix = 'youtube-Search';
-		params = parameters.youtubeSearch;
-	}
-	else if (queryTerm === 'queryYoutubeChannel'){
-		pages = 2; // TODO change me to 10 later
-		if (dryrun) pages = 1;
-		queryString = `{
+        prefix = 'youtube-Search';
+        params = parameters.youtubeSearch;
+    } else if (queryTerm === 'queryYoutubeChannel') {
+        pages = 2; // TODO change me to 10 later
+        if (dryrun) pages = 1;
+        queryString = `{
 		  youtube {
 			search(q: "${keyword}", type:"channel") {
 			  kind
@@ -565,13 +558,12 @@ function submitSearchbox(searchboxID, filenameID, dryrun = false){
 		  }
 		}
 		`;
-		prefix = 'youtube-Search-Channel';
-		params = parameters.youtubeSearchChannel;
-	}
-	else if (queryTerm === 'queryYoutubePlaylist'){
-		pages = 2; // TODO change me to 10 later
-		if (dryrun) pages = 1;
-		queryString = `{
+        prefix = 'youtube-Search-Channel';
+        params = parameters.youtubeSearchChannel;
+    } else if (queryTerm === 'queryYoutubePlaylist') {
+        pages = 2; // TODO change me to 10 later
+        if (dryrun) pages = 1;
+        queryString = `{
 		  youtube {
 			search(q: "${keyword}", type:"playlist") {
 			  kind
@@ -609,78 +601,178 @@ function submitSearchbox(searchboxID, filenameID, dryrun = false){
 		  }
 		}
 		`;
-		prefix = 'youtube-Search-Playlist';
-		params = parameters.youtubeSearchPlaylist;
-	}
+        prefix = 'youtube-Search-Playlist';
+        params = parameters.youtubeSearchPlaylist;
+    } else if (queryTerm === 'youtubeMostPopular') {
+        pages = 2; // TODO change me to 10 later
+        if (dryrun) pages = 1;
 
-	if (dryrun){
-		$("#instruction").hide();
+        var segmentString = `videos(chart: "mostPopular", regionCode: "${keyword}") {`;
+        if (keyword === ""){
+            segmentString = `videos(chart: "mostPopular") {`
+        }
+        queryString = `{
+          youtube {
+            ${segmentString}
+              kind
+              etag
+              id
+              snippet {
+                publishedAt
+                channelId
+                title
+                description
+                default_thumbnails_url
+                default_thumbnails_width
+                default_thumbnails_height
+                medium_thumbnails_url
+                medium_thumbnails_width
+                medium_thumbnails_height
+                high_thumbnails_url
+                high_thumbnails_width
+                high_thumbnails_height
+                standard_thumbnails_url
+                standard_thumbnails_width
+                standard_thumbnails_height
+                maxres_thumbnails_url
+                maxres_thumbnails_width
+                maxres_thumbnails_height
+                channelTitle
+                tags
+                categoryId
+                liveBroadcastContent
+                defaultLanguage
+                localized_title
+                localized_description
+                localized_description
+                defaultAudioLanguage
+              }
+              contentDetails {
+                duration
+                dimension
+                definition
+                caption
+                licensedContent
+                regionRestriction_allowed
+                regionRestriction_blocked
+                projection
+                hasCustomThumbnail
+              }
+              status {
+                uploadStatus
+                failureReason
+                rejectionReason
+                privacyStatus
+                publishAt
+                license
+                embeddable
+                publicStatsViewable
+                madeForKids
+                selfDeclaredMadeForKids
+              }
+              statistics {
+                viewCount
+                likeCount
+                dislikeCount
+                favoriteCount
+                commentCount
+              }
+              player {
+                embedHtml
+                embedHeight
+                embedWidth
+              }
+              topicDetails {
+                topicIds
+                relevantTopicIds
+                topicCategories
+              }
+              recordingDetails {
+                recordingDate
+              }
+              liveStreamingDetails {
+                actualStartTime
+                actualEndTime
+                scheduledStartTime
+                scheduledEndTime
+                concurrentViewers
+                activeLiveChatId
+              }
+            }
+          }
+        }
+        `;
+        prefix = 'youtube-Most-Popular';
+        params = parameters.youtubeMostPopular;
+    }
+
+    if (dryrun) {
+        $("#instruction").hide();
         $("#histogram-panel").hide();
         $("#rendering").hide();
 
         $.ajax({
-            url:"query-dryrun",
-            type:"post",
-            data:{
-            	"query":queryString,
-                "prefix":prefix
+            url: "query-dryrun",
+            type: "post",
+            data: {
+                "query": queryString,
+                "prefix": prefix
             },
-            success:function(data){
+            success: function (data) {
                 $(".loading").hide();
-                if ('ERROR' in data){
+                if ('ERROR' in data) {
                     $("#error").val(JSON.stringify(data));
                     $("#warning").modal('show');
-                }else{
+                } else {
                     $("#rendering").find("button").hide();
                     renderPreview(data.rendering, prefix);
                     $("#saveButton").removeAttr("disabled");
                     $("#save-result").show();
                 }
             },
-            error: function(jqXHR, exception){
+            error: function (jqXHR, exception) {
                 $("#error").val(jqXHR.responseText);
                 $("#warning").modal('show');
             }
         });
-	}
-	else{
+    } else {
         $.ajax({
-            url:"query",
-            type:"post",
-            data:{
-            	"query":queryString,
-                "filename":filename,
-                "params":JSON.stringify(params),
-                "pages":pages,
-                "prefix":prefix
+            url: "query",
+            type: "post",
+            data: {
+                "query": queryString,
+                "filename": filename,
+                "params": JSON.stringify(params),
+                "pages": pages,
+                "prefix": prefix
             },
-            success:function(data){
+            success: function (data) {
                 $(".loading").hide();
-                if ('ERROR' in data){
+                if ('ERROR' in data) {
                     $("#error").val(JSON.stringify(data));
                     $("#warning").modal('show');
                     $("#save-result").show();
-                }else{
+                } else {
                     renderDownload(data.URLs, data.fname);
                     $("#rendering").find("button").show();
                     renderPreview(data.rendering, prefix);
-                    if ('histogram' in data){
+                    if ('histogram' in data) {
                         $("#histogram-panel").show();
                         renderHistogram(data.histogram);
                     }
                 }
             },
-            error: function(jqXHR, exception){
+            error: function (jqXHR, exception) {
                 $("#error").val(jqXHR.responseText);
                 $("#warning").modal('show');
             }
         });
-	}
+    }
 }
 
-function renderHistogram(histogram){
+function renderHistogram(histogram) {
     $("#img-container").empty();
-	$("#img-container").append(`<div class="x_content">
+    $("#img-container").append(`<div class="x_content">
 									<div class="note">
 										<li><b>click, drag, and mouseover</b> the graph will give you more information</li>
 										<li><b>hover</b> over top-right corner of the chart will present various operations</li>
@@ -691,197 +783,192 @@ function renderHistogram(histogram){
 										</li>
 									</div>
 								</div>
-								<div class="x_content">`+histogram+`</div>`);
+								<div class="x_content">` + histogram + `</div>`);
 }
 
-function renderDownload(URLs){
-	$("#save-result").hide();
-    $("#download").attr('href',URLs[0]);
-    $("#download-json").attr('href',URLs[1]);
-	$("#instruction").show();
+function renderDownload(URLs) {
+    $("#save-result").hide();
+    $("#download").attr('href', URLs[0]);
+    $("#download-json").attr('href', URLs[1]);
+    $("#instruction").show();
 }
 
-function renderPreview(rendering,prefix){
+function renderPreview(rendering, prefix) {
     $("#grid").empty();
-	// construct previews
-	if (prefix === 'twitter-Tweet' || prefix === 'twitter-Timeline'){
-		$.each(rendering, function(i,val){
-			if (val.user !== undefined){
-				var img_url = val.user.profile_image_url || 'http://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png';
-				var user_name = val.user.name || 'Not Provided';
-				var screen_name =  val.user.screen_name || 'Not Provided';
-			}else{	
-				var img_url = 'http://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png';
-				var user_name = 'Not Provided';
-				var screen_name = 'NotProvided';
-			}
-			
-			var created_at = val.created_at || 'Not Provided' ;
-			
-			if (val.retweet_count !== undefined){
-				var retweet_count = val.retweet_count;
-			}
-			else{
-				var retweet_count = 'Not Provided';
-			}
-			
-			if (val.favorite_count !== undefined){
-				var favorite_count = val.favorite_count;
-			}else{
-				var favorite_count = 'Not Provided';
-			}
-			
-			if (val.text !== undefined){
-				var text = val.text;
-			}else{
-				var text = 'Not Provided';
-			}
-			
-			$("#grid").append(`<div class="grid-element">
+    // construct previews
+    if (prefix === 'twitter-Tweet' || prefix === 'twitter-Timeline') {
+        $.each(rendering, function (i, val) {
+            if (val.user !== undefined) {
+                var img_url = val.user.profile_image_url || 'http://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png';
+                var user_name = val.user.name || 'Not Provided';
+                var screen_name = val.user.screen_name || 'Not Provided';
+            } else {
+                var img_url = 'http://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png';
+                var user_name = 'Not Provided';
+                var screen_name = 'NotProvided';
+            }
+
+            var created_at = val.created_at || 'Not Provided';
+
+            if (val.retweet_count !== undefined) {
+                var retweet_count = val.retweet_count;
+            } else {
+                var retweet_count = 'Not Provided';
+            }
+
+            if (val.favorite_count !== undefined) {
+                var favorite_count = val.favorite_count;
+            } else {
+                var favorite_count = 'Not Provided';
+            }
+
+            if (val.text !== undefined) {
+                var text = val.text;
+            } else {
+                var text = 'Not Provided';
+            }
+
+            $("#grid").append(`<div class="grid-element">
 									<img src="` + img_url + `" class="user-img"/>
 									<div class="text-block">
 										<p class="username"><b>` + user_name + `‏<b></p> 
-										<p class="screenname"><i>&nbsp;&bull;@`+ screen_name + `</i></p>
-										<p class="utc">&nbsp;&bull;`+ created_at +`</p>
+										<p class="screenname"><i>&nbsp;&bull;@` + screen_name + `</i></p>
+										<p class="utc">&nbsp;&bull;` + created_at + `</p>
 									</div>
-									<p class="text-block">`+ text + `</p>
-									<p class="text-block"><i class="fas fa-retweet" style="color:#94dc41;"></i>&nbsp;`+ retweet_count +
-									`&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-heart heart"></i>&nbsp;` +favorite_count +`</p>
+									<p class="text-block">` + text + `</p>
+									<p class="text-block"><i class="fas fa-retweet" style="color:#94dc41;"></i>&nbsp;` + retweet_count +
+                `&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-heart heart"></i>&nbsp;` + favorite_count + `</p>
 							</div>`);
-		});
-	}
-	else if (prefix === 'twitterV2-Tweet'){
-		$.each(rendering, function(i,val){
-			var img_url = 'http://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png';
-			var author_id = val.author_id || 'Not Provided';
-			var created_at = val.created_at || 'Not Provided' ;
-			var text = val.text || 'Not Provided'
+        });
+    } else if (prefix === 'twitterV2-Tweet') {
+        $.each(rendering, function (i, val) {
+            var img_url = 'http://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png';
+            var author_id = val.author_id || 'Not Provided';
+            var created_at = val.created_at || 'Not Provided';
+            var text = val.text || 'Not Provided'
 
-			$("#grid").append(`<div class="grid-element">
+            $("#grid").append(`<div class="grid-element">
 									<img src="` + img_url + `" class="user-img" alt="user-img"/>
 									<div class="text-block">
 										<p class="screenname"><b>` + author_id + `‏<b></p>
 										<br>
-										<p class="utc">&nbsp;&bull;`+ created_at +`</p>
+										<p class="utc">&nbsp;&bull;` + created_at + `</p>
 									</div>
-									<p class="text-block">`+ text + `</p>
+									<p class="text-block">` + text + `</p>
 							</div>`);
-		});
-	}
-	else if (prefix === 'reddit-Search' || prefix === 'reddit-Post' || prefix === 'reddit-Historical-Post'){
-		$.each(rendering, function(i,val){
-			
-			if (val.author_name !== undefined){
-				var author_name = val.author_name;
-			}else if (val._source !== undefined){
-				var author_name = val._source.author_name || 'Not Provided';
-			}else{
-				var author_name = 'Not Provided';
-			}
-			
-			if (val.subreddit_name_prefixed !== undefined){
-				var subreddit_name_prefixed = val.subreddit_name_prefixed;
-			}else if (val._source !== undefined){
-				var subreddit_name_prefixed = val._source.subreddit_name_prefixed || 'Not Provided';
-			}else{
-				var subreddit_name_prefixed = 'Not Provided';
-			}
+        });
+    } else if (prefix === 'reddit-Search' || prefix === 'reddit-Post' || prefix === 'reddit-Historical-Post') {
+        $.each(rendering, function (i, val) {
 
-			if (val.title !== undefined){
-				var title = val.title;
-			}else if (val._source !== undefined){
-				var title = val._source.title || 'Not Provided';
-			}else{
-				var title = 'Not Provided';
-			}
-			
-			if (val.permalink !== undefined){
-				var permalink = val.permalink;
-			}else if (val._source !== undefined){
-				var permalink = val._source.permalink || '';
-			}else{
-				var permalink = '';
-			}
-			
-			if (val.score !== undefined){
-				var score = val.score;
-			}else if (val._source !== undefined){
-				var score = val._source.score || 'Not Provided';
-			}else{
-				var score = 'Not Provided';
-			}
-			
-			if (val.created_utc !== undefined){
-				var created_utc = timeConverter(val.created_utc);
-			}else if (val._source !== undefined && val._source.created_utc !== undefined){
-				var created_utc = timeConverter(val._source.created_utc);
-			}else{
-				var created_utc = 'Not Provided';
-			}
-			
-			$("#grid").append(`<div class="grid-element">
+            if (val.author_name !== undefined) {
+                var author_name = val.author_name;
+            } else if (val._source !== undefined) {
+                var author_name = val._source.author_name || 'Not Provided';
+            } else {
+                var author_name = 'Not Provided';
+            }
+
+            if (val.subreddit_name_prefixed !== undefined) {
+                var subreddit_name_prefixed = val.subreddit_name_prefixed;
+            } else if (val._source !== undefined) {
+                var subreddit_name_prefixed = val._source.subreddit_name_prefixed || 'Not Provided';
+            } else {
+                var subreddit_name_prefixed = 'Not Provided';
+            }
+
+            if (val.title !== undefined) {
+                var title = val.title;
+            } else if (val._source !== undefined) {
+                var title = val._source.title || 'Not Provided';
+            } else {
+                var title = 'Not Provided';
+            }
+
+            if (val.permalink !== undefined) {
+                var permalink = val.permalink;
+            } else if (val._source !== undefined) {
+                var permalink = val._source.permalink || '';
+            } else {
+                var permalink = '';
+            }
+
+            if (val.score !== undefined) {
+                var score = val.score;
+            } else if (val._source !== undefined) {
+                var score = val._source.score || 'Not Provided';
+            } else {
+                var score = 'Not Provided';
+            }
+
+            if (val.created_utc !== undefined) {
+                var created_utc = timeConverter(val.created_utc);
+            } else if (val._source !== undefined && val._source.created_utc !== undefined) {
+                var created_utc = timeConverter(val._source.created_utc);
+            } else {
+                var created_utc = 'Not Provided';
+            }
+
+            $("#grid").append(`<div class="grid-element">
 					<div class="text-block">
 						<p class="username"><b>` + author_name + `‏<b></p> 
-						<p class="screenname">&nbsp;&bull;`+ subreddit_name_prefixed + `</p>
+						<p class="screenname">&nbsp;&bull;` + subreddit_name_prefixed + `</p>
 						<p class="utc">&nbsp;&bull;` + created_utc + `</p>
 					</div>
 					<a target="_blank" href="https://www.reddit.com` + permalink + `">`
-						+ title + `</a>
-					<p class="text-block"><i class="fas fa-heart heart"></i>&nbsp;`+score +`</p>
+                + title + `</a>
+					<p class="text-block"><i class="fas fa-heart heart"></i>&nbsp;` + score + `</p>
 				</div>`);
-				
-		});
-	}
-	else if (prefix === 'reddit-Comment' || prefix === 'reddit-Historical-Comment'){
-		$.each(rendering, function(i,val){
-			var author_name = val.comment_author_name || 'Not Provided';
-			var subreddit_name_prefixed = val.subreddit_name_prefixed || 'NotProvided';
-			var body = val.body || 'Not Provided';
-			if (body.length >= 200){
-				body = body.slice(0,200) + '...';
-			}
 
-			if (val.link_permalink === undefined || val.link_permalink === ""){
-                var permalink = 'https://reddit.com';
+        });
+    } else if (prefix === 'reddit-Comment' || prefix === 'reddit-Historical-Comment') {
+        $.each(rendering, function (i, val) {
+            var author_name = val.comment_author_name || 'Not Provided';
+            var subreddit_name_prefixed = val.subreddit_name_prefixed || 'NotProvided';
+            var body = val.body || 'Not Provided';
+            if (body.length >= 200) {
+                body = body.slice(0, 200) + '...';
             }
-            else{
-                var permalink = val.link_permalink;
-			}
 
-			var score = val.comment_score || 'Not Provided';
-			if (val.comment_created !== undefined){
-				var created_utc = timeConverter(val.comment_created);
-			}else{
-				var created_utc = 'Not Provided';
-			}
-			
-			$("#grid").append(`<div class="grid-element">
+            if (val.link_permalink === undefined || val.link_permalink === "") {
+                var permalink = 'https://reddit.com';
+            } else {
+                var permalink = val.link_permalink;
+            }
+
+            var score = val.comment_score || 'Not Provided';
+            if (val.comment_created !== undefined) {
+                var created_utc = timeConverter(val.comment_created);
+            } else {
+                var created_utc = 'Not Provided';
+            }
+
+            $("#grid").append(`<div class="grid-element">
 					<div class="text-block">
 						<p class="username"><b>` + author_name + `‏<b></p> 
-						<p class="screenname">&nbsp;&bull;`+ subreddit_name_prefixed + `</p>
+						<p class="screenname">&nbsp;&bull;` + subreddit_name_prefixed + `</p>
 						<p class="utc">&nbsp;&bull;` + created_utc + `</p>
 					</div>
-					<p class="text-block">`+ body + `</p>
+					<p class="text-block">` + body + `</p>
 					<a target="_blank" href="` + permalink + `">Go to this Reddit Thread&nbsp;
 						<i class="fas fa-share"></i></a>
-					<p class="text-block"><i class="fas fa-heart heart"></i>&nbsp;`+score +`</p>
+					<p class="text-block"><i class="fas fa-heart heart"></i>&nbsp;` + score + `</p>
 				</div>`);
-				
-		});
-	}
-	else if (prefix === 'youtube-Search'){
-		$.each(rendering, function(i,val){
-			var img_url = val && val.snippet && val.snippet.medium_thumbnails_url ? val.snippet.medium_thumbnails_url: "";
-			let imgElement = img_url ? `<img src="${img_url}" alt="video-img" style="width:100%;"/>` : "";
 
-			var created_at = val && val.snippet && val.snippet.publishedAt ? val.snippet.publishedAt: "Not Provided";
-			var channel = val && val.snippet && val.snippet.channelTitle ? val.snippet.channelTitle: "Not Provided";
-			var title = val && val.snippet && val.snippet.title ? val.snippet.title: "Not Provided";
-			let url = "";
-			if (val && val.id) {
-				url = `https://www.youtube.com/watch?v=${val.id.videoId}`;
-			}
-			$("#grid").append(`<div class="grid-element">
+        });
+    } else if (prefix === 'youtube-Search' || prefix === 'youtube-Most-Popular') {
+        $.each(rendering, function (i, val) {
+            var img_url = val && val.snippet && val.snippet.medium_thumbnails_url ? val.snippet.medium_thumbnails_url : "";
+            let imgElement = img_url ? `<img src="${img_url}" alt="video-img" style="width:100%;"/>` : "";
+
+            var created_at = val && val.snippet && val.snippet.publishedAt ? val.snippet.publishedAt : "Not Provided";
+            var channel = val && val.snippet && val.snippet.channelTitle ? val.snippet.channelTitle : "Not Provided";
+            var title = val && val.snippet && val.snippet.title ? val.snippet.title : "Not Provided";
+            let url = "";
+            if (val && val.id) {
+                let videoId = (typeof val.id === 'string') ? val.id : val.id.videoId;
+                url = `https://www.youtube.com/watch?v=${videoId}`;
+            }
+            $("#grid").append(`<div class="grid-element">
 									${imgElement}
 									<div class="text-block">
 										<p class="screenname"><b>${channel}</b></p>
@@ -890,92 +977,91 @@ function renderPreview(rendering,prefix){
 									<p class="text-block">${title}</p>
 									<a target="_blank" href="${url}">View on YouTube<i class="fas fa-share"></i></a>
 							</div>`);
-		});
-	}
-	else if (prefix === 'youtube-Search-Channel' || prefix === 'youtube-Search-Playlist'){
-		$.each(rendering, function(i,val){
+        });
+    } else if (prefix === 'youtube-Search-Channel' || prefix === 'youtube-Search-Playlist') {
+        $.each(rendering, function (i, val) {
 
-			var img_url = val && val.snippet && val.snippet.medium_thumbnails_url ? val.snippet.medium_thumbnails_url: "";
-			let imgElement = img_url ? `<img src="${img_url}" alt="channel-logo" class="user-img"/>` : "";
+            var img_url = val && val.snippet && val.snippet.medium_thumbnails_url ? val.snippet.medium_thumbnails_url : "";
+            let imgElement = img_url ? `<img src="${img_url}" alt="channel-logo" class="user-img"/>` : "";
 
-			var created_at = val && val.snippet && val.snippet.publishedAt ? val.snippet.publishedAt: "Not Provided";
-			var channel = val && val.snippet && val.snippet.channelTitle ? val.snippet.channelTitle: "Not Provided";
-			var title = val && val.snippet && val.snippet.title ? val.snippet.title: "Not Provided";
-			var description = val && val.snippet && val.snippet.description ? val.snippet.description: "Not Provided";
-			let url = "";
-			if (val && val.id) {
-				if (val.id.channelId) {
-					url = `https://www.youtube.com/channel/${val.id.channelId}`;
-				} else if (val.id.playlistId) {
-					url = `https://www.youtube.com/playlist?list=${val.id.playlistId}`;
-				}
-			}
+            var created_at = val && val.snippet && val.snippet.publishedAt ? val.snippet.publishedAt : "Not Provided";
+            var channel = val && val.snippet && val.snippet.channelTitle ? val.snippet.channelTitle : "Not Provided";
+            var title = val && val.snippet && val.snippet.title ? val.snippet.title : "Not Provided";
+            var description = val && val.snippet && val.snippet.description ? val.snippet.description : "Not Provided";
+            let url = "";
+            if (val && val.id) {
+                if (val.id.channelId) {
+                    url = `https://www.youtube.com/channel/${val.id.channelId}`;
+                } else if (val.id.playlistId) {
+                    url = `https://www.youtube.com/playlist?list=${val.id.playlistId}`;
+                }
+            }
 
-			$("#grid").append(`<div class="grid-element">
+            $("#grid").append(`<div class="grid-element">
 									${imgElement}
 									<div class="text-block">
 										<p class="screenname"><b>${channel}<b></p> 
-										<p class="utc">&nbsp;&bull;`+ created_at +`</p>
+										<p class="utc">&nbsp;&bull;` + created_at + `</p>
 									</div>
 									<p class="text-block">${title}</p>
 									<p class="text-block">${description}</p>
 									<a target="_blank" href="${url}">View on YouTube<i class="fas fa-share"></i></a>
 							</div>`);
-			});
-	}
+        });
+    }
 
-	$("#rendering").show();
+    $("#rendering").show();
 }
 
-function renderPreviewPagination(whichButton){
-	
-	if (whichButton === 'prev'){
-		currPreviewNum -= 100;
-	}else if (whichButton === 'next'){
-		currPreviewNum += 100;
-	}
+function renderPreviewPagination(whichButton) {
 
-	// the .json URL is hidden in the download modal
-	var fileURL = $("#download-json").attr('href');
-	$.ajax({
-		url:"render-json",
-		type:"post",
-		data:{
-			"fileURL":fileURL,
-			"begin": currPreviewNum
-			},
-		success:function(data){
-			if ('ERROR' in data){
-					$("#error").val(JSON.stringify(data));
-					$("#warning").modal('show');
-					$(".loading").hide();
-					
-					// if failed, revert the currNumber back
-					if (whichButton == 'prev'){
-						currPreviewNum += 100;
-					}else if (whichButton == 'next'){
-						currPreviewNum -= 100;
-					}
-			}else{
-				$("#grid").empty();
-				renderPreview(data.preview, data.prefix);
-			}
-		},
-		error: function(jqXHR, exception){	
-				$("#error").val(jqXHR.responseText);
-				$("#warning").modal('show');
-			} 
-	});
+    if (whichButton === 'prev') {
+        currPreviewNum -= 100;
+    } else if (whichButton === 'next') {
+        currPreviewNum += 100;
+    }
+
+    // the .json URL is hidden in the download modal
+    var fileURL = $("#download-json").attr('href');
+    $.ajax({
+        url: "render-json",
+        type: "post",
+        data: {
+            "fileURL": fileURL,
+            "begin": currPreviewNum
+        },
+        success: function (data) {
+            if ('ERROR' in data) {
+                $("#error").val(JSON.stringify(data));
+                $("#warning").modal('show');
+                $(".loading").hide();
+
+                // if failed, revert the currNumber back
+                if (whichButton == 'prev') {
+                    currPreviewNum += 100;
+                } else if (whichButton == 'next') {
+                    currPreviewNum -= 100;
+                }
+            } else {
+                $("#grid").empty();
+                renderPreview(data.preview, data.prefix);
+            }
+        },
+        error: function (jqXHR, exception) {
+            $("#error").val(jqXHR.responseText);
+            $("#warning").modal('show');
+        }
+    });
 }
-	
-function timeConverter(UNIX_timestamp){
-  var a = new Date(UNIX_timestamp * 1000);
-  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  var year = a.getFullYear();
-  var month = months[a.getMonth()];
-  var date = a.getDate();
-  var hour = a.getHours();
-  var min = a.getMinutes();
-  var sec = a.getSeconds();
-  return date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+
+function timeConverter(UNIX_timestamp) {
+    var a = new Date(UNIX_timestamp * 1000);
+    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var year = a.getFullYear();
+    var month = months[a.getMonth()];
+    var date = a.getDate();
+    var hour = a.getHours();
+    var min = a.getMinutes();
+    var sec = a.getSeconds();
+    return date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec;
 }
