@@ -336,7 +336,7 @@ function init(){
 			.tooltip('fixTitle')
 			.tooltip('show');
 		}
-		else if ( queryTerm === 'youtubeMostPopular'){
+		else if (queryTerm === 'youtubeMostPopular'){
 			$(".youtube-most-popular").show();
 			$("#searchbox").attr("placeholder","Enter region code or leave blank for worldwide videos...");
 
