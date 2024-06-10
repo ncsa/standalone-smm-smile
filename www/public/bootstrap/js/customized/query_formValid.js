@@ -174,7 +174,11 @@ function formValid(searchID){
 				$("#alert").modal('show');
 				return false
 			}
-		}else if ($("#social-media option:selected").val() === 'queryYoutube' || $("#social-media option:selected").val() === 'queryYoutubePlaylist' || $("#social-media option:selected").val() === 'queryYoutubeChannel'){
+		}else if ($("#social-media option:selected").val() === 'queryYoutube'
+			|| $("#social-media option:selected").val() === 'queryYoutubePlaylist'
+			|| $("#social-media option:selected").val() === 'queryYoutubeChannel'
+			|| $("#social-media option:selected").val() === 'youtubeCreatorVideos'
+		){
 			if ($("#ytDateRange").is(':checked') &&
 				($("#publishedAfter").val() === '' || $("#publishedBefore").val() === '' || $("#publishedAfter").val()>$("#publishedBefore").val())){
 				$("#modal-message").append(`<h4>Please sepecify a date range, and the publishing after date cannot be later than the publishing before date!</h4>`);

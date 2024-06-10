@@ -19,6 +19,7 @@ function init(){
 		youtubeSearchChannel:{},
 		youtubeSearchPlaylist:{},
 		youtubeMostPopular:{},
+		youtubeCreatorVideos:{},
     };
 
     // initialization
@@ -138,37 +139,29 @@ function init(){
 				parameters['psComment']['fields']=`\n\t\t\tcomment_author_name\n\t\t\tbody\n\t\t\tcomment_created\n\t\t\tid\n\t\t\tlink_id\n\t\t\tparent_id`+
 					`\n\t\t\tcomment_score\n\t\t\tsubreddit_display_name\n\t\t\tsubreddit_name_prefixed\n\t\t\tsubreddit_id`;
 
-				parameters['youtubeSearch']['q:'] = keyword;
-				parameters['youtubeSearch']['order:'] = "relevance";
-				parameters['youtubeSearch']['videoDuration:'] = "any";
-				parameters['youtubeSearch']['fields'] = "\n\t\t\tkind\n\t\t\tetag\n\t\t\tid{\n\t\t\t\tkind\n\t\t\t\tvideoId\n\t\t\t\tchannelId\n\t\t\t\tplaylistId\n\t\t\t}" +
+				const youtubeCommonFields = "\n\t\t\tkind\n\t\t\tetag\n\t\t\tid{\n\t\t\t\tkind\n\t\t\t\tvideoId\n\t\t\t\tchannelId\n\t\t\t\tplaylistId\n\t\t\t}" +
 					"\n\t\t\tsnippet{\n\t\t\t\tpublishedAt\n\t\t\t\tchannelId\n\t\t\t\ttitle\n\t\t\t\tdescription\n\t\t\t\tdefault_thumbnails_url" +
 					"\n\t\t\t\tdefault_thumbnails_width\n\t\t\t\tdefault_thumbnails_height\n\t\t\t\tmedium_thumbnails_url\n\t\t\t\tmedium_thumbnails_width" +
 					"\n\t\t\t\tmedium_thumbnails_height\n\t\t\t\thigh_thumbnails_url\n\t\t\t\thigh_thumbnails_width\n\t\t\t\thigh_thumbnails_height" +
 					"\n\t\t\t\tstandard_thumbnails_url\n\t\t\t\tstandard_thumbnails_width\n\t\t\t\tstandard_thumbnails_height\n\t\t\t\tmaxres_thumbnails_url" +
 					"\n\t\t\t\tmaxres_thumbnails_width\n\t\t\t\thigh_thumbnails_height\n\t\t\t\tchannelTitle\n\t\t\t\tliveBroadcastContent\n\t\t\t}";
+
+				parameters['youtubeSearch']['q:'] = keyword;
+				parameters['youtubeSearch']['order:'] = "relevance";
+				parameters['youtubeSearch']['videoDuration:'] = "any";
+				parameters['youtubeSearch']['fields'] = youtubeCommonFields;
 
 				parameters['youtubeSearchChannel']['q:'] = keyword;
 				parameters['youtubeSearchChannel']['type:'] = "channel";
 				parameters['youtubeSearchChannel']['order:'] = "relevance";
 				parameters['youtubeSearchChannel']['videoDuration:'] = "any";
-				parameters['youtubeSearchChannel']['fields'] = "\n\t\t\tkind\n\t\t\tetag\n\t\t\tid{\n\t\t\t\tkind\n\t\t\t\tvideoId\n\t\t\t\tchannelId\n\t\t\t\tplaylistId\n\t\t\t}" +
-					"\n\t\t\tsnippet{\n\t\t\t\tpublishedAt\n\t\t\t\tchannelId\n\t\t\t\ttitle\n\t\t\t\tdescription\n\t\t\t\tdefault_thumbnails_url" +
-					"\n\t\t\t\tdefault_thumbnails_width\n\t\t\t\tdefault_thumbnails_height\n\t\t\t\tmedium_thumbnails_url\n\t\t\t\tmedium_thumbnails_width" +
-					"\n\t\t\t\tmedium_thumbnails_height\n\t\t\t\thigh_thumbnails_url\n\t\t\t\thigh_thumbnails_width\n\t\t\t\thigh_thumbnails_height" +
-					"\n\t\t\t\tstandard_thumbnails_url\n\t\t\t\tstandard_thumbnails_width\n\t\t\t\tstandard_thumbnails_height\n\t\t\t\tmaxres_thumbnails_url" +
-					"\n\t\t\t\tmaxres_thumbnails_width\n\t\t\t\thigh_thumbnails_height\n\t\t\t\tchannelTitle\n\t\t\t\tliveBroadcastContent\n\t\t\t}";
+				parameters['youtubeSearchChannel']['fields'] = youtubeCommonFields;
 
 				parameters['youtubeSearchPlaylist']['q:'] = keyword;
 				parameters['youtubeSearchPlaylist']['type:'] = "playlist";
 				parameters['youtubeSearchPlaylist']['order:'] = "relevance";
 				parameters['youtubeSearchPlaylist']['videoDuration:'] = "any";
-				parameters['youtubeSearchPlaylist']['fields'] = "\n\t\t\tkind\n\t\t\tetag\n\t\t\tid{\n\t\t\t\tkind\n\t\t\t\tvideoId\n\t\t\t\tchannelId\n\t\t\t\tplaylistId\n\t\t\t}" +
-					"\n\t\t\tsnippet{\n\t\t\t\tpublishedAt\n\t\t\t\tchannelId\n\t\t\t\ttitle\n\t\t\t\tdescription\n\t\t\t\tdefault_thumbnails_url" +
-					"\n\t\t\t\tdefault_thumbnails_width\n\t\t\t\tdefault_thumbnails_height\n\t\t\t\tmedium_thumbnails_url\n\t\t\t\tmedium_thumbnails_width" +
-					"\n\t\t\t\tmedium_thumbnails_height\n\t\t\t\thigh_thumbnails_url\n\t\t\t\thigh_thumbnails_width\n\t\t\t\thigh_thumbnails_height" +
-					"\n\t\t\t\tstandard_thumbnails_url\n\t\t\t\tstandard_thumbnails_width\n\t\t\t\tstandard_thumbnails_height\n\t\t\t\tmaxres_thumbnails_url" +
-					"\n\t\t\t\tmaxres_thumbnails_width\n\t\t\t\thigh_thumbnails_height\n\t\t\t\tchannelTitle\n\t\t\t\tliveBroadcastContent\n\t\t\t}";
+				parameters['youtubeSearchPlaylist']['fields'] = youtubeCommonFields;
 
 				parameters['youtubeMostPopular']['regionCode:'] = keyword;
 				parameters['youtubeMostPopular']['chart:'] = "mostPopular";
@@ -194,9 +187,13 @@ function init(){
 					"actualStartTime\n\t\t\t\tactualEndTime\n\t\t\t\tscheduledStartTime\n\t\t\t\tscheduledEndTime" +
 					"\n\t\t\t\tconcurrentViewers\n\t\t\t\tactiveLiveChatId\n\t\t\t}"
 
+				parameters['youtubeCreatorVideos']['handle:'] = keyword;
+				parameters['youtubeCreatorVideos']['order:'] = "relevance";
+				parameters['youtubeCreatorVideos']['videoDuration:'] = "any";
+				parameters['youtubeCreatorVideos']['fields'] = youtubeCommonFields;
+
 				Query =updateString(queryTerm,parameters);
 				$("#input").val(`{\n\n` + Query +`\n\n}`);
-
 
 			}
 			else {
@@ -321,20 +318,34 @@ function init(){
 			$("#searchbox").attr("placeholder","Keyword that you wish to search...");
             $("boolean").tooltip('hide');
 		}
-		else if ( queryTerm === 'queryYoutube' || queryTerm === 'queryYoutubeChannel' || queryTerm === 'queryYoutubePlaylist'){
+		else if ( queryTerm === 'queryYoutube' || queryTerm === 'queryYoutubeChannel' || queryTerm === 'queryYoutubePlaylist'
+			|| queryTerm === 'youtubeCreatorVideos'){
+
+			var placeholderText = "Keywords for the Youtube content that you wish to search...";
 			if (queryTerm === 'queryYoutube') $(".youtube-search").show();
 			if (queryTerm === 'queryYoutubeChannel') $(".youtube-search-channel").show();
 			if (queryTerm === 'queryYoutubePlaylist') $(".youtube-search-playlist").show();
-			$("#searchbox").attr("placeholder","Keywords for the Youtube content that you wish to search...");
+			if (queryTerm === 'youtubeCreatorVideos') {
+				$(".youtube-creator-videos").show();
+				placeholderText = "A single YouTuber creator handle. e.g. MrBeast"
+			}
+			$("#searchbox").attr("placeholder", placeholderText);
 
-			// tooltip to show YouTube rules
-			$("boolean").attr('data-original-title',
-				"YouTube keyword search supports boolean NOT (-) and OR (|) operators to exclude videos or to find videos " +
-				"that are associated with one of several search terms. Details please refer to the&nbsp" +
-				"<a href='https://developers.google.com/youtube/v3/docs/search/list#parameters' target='_blank'>" +
-				"API documentations</a>")
-			.tooltip('fixTitle')
-			.tooltip('show');
+			// tooltip to show YouTube search rules
+			if (queryTerm !== 'youtubeCreatorVideos'){
+				$("boolean").attr('data-original-title',
+					"YouTube keyword search supports boolean NOT (-) and OR (|) operators to exclude videos or to find videos " +
+					"that are associated with one of several search terms. Details please refer to the&nbsp" +
+					"<a href='https://developers.google.com/youtube/v3/docs/search/list#parameters' target='_blank'>" +
+					"API documentations</a>")
+				.tooltip('fixTitle')
+				.tooltip('show');
+			}
+			else{
+				$("boolean").attr('data-original-title', "")
+				.tooltip('fixTitle')
+				.tooltip('hide');
+			}
 		}
 		else if (queryTerm === 'youtubeMostPopular'){
 			$(".youtube-most-popular").show();
@@ -937,7 +948,7 @@ function init(){
 
 	});
 
-	/*----------------------------------------------------- Youtube Search-------------------------------------------------------*/
+	/*--------------------- Youtube Search Videos, channel, playlist, video by creator-----------------------------*/
 	// count
 	$("#youtube-count").change(function(){
 		Query =updateString(queryTerm,parameters);
@@ -948,6 +959,7 @@ function init(){
 		parameters['youtubeSearch']['order:'] = $(this).val();
 		parameters['youtubeSearchChannel']['order:'] = $(this).val();
 		parameters['youtubeSearchPlaylist']['order:'] = $(this).val();
+		parameters['youtubeCreatorVideos']['order:'] = $(this).val();
 		Query =updateString(queryTerm,parameters);
 		$("#input").val(`{\n\n` + Query +`\n\n}`);
 	});
@@ -957,6 +969,7 @@ function init(){
 		parameters['youtubeSearch']['videoDuration:'] = $(this).val();
 		parameters['youtubeSearchChannel']['videoDuration:'] = $(this).val();
 		parameters['youtubeSearchPlaylist']['videoDuration:'] = $(this).val();
+		parameters['youtubeCreatorVideos']['videoDuration:'] = $(this).val();
 		Query =updateString(queryTerm,parameters);
 		$("#input").val(`{\n\n` + Query +`\n\n}`);
 	});
@@ -1015,6 +1028,7 @@ function init(){
 				parameters['youtubeSearch']['publishedAfter:'] =  publishedAfter.toISOString();
 				parameters['youtubeSearchChannel']['publishedAfter:'] =  publishedAfter.toISOString();
 				parameters['youtubeSearchPlaylist']['publishedAfter:'] =  publishedAfter.toISOString();
+				parameters['youtubeCreatorVideos']['publishedAfter:'] =  publishedAfter.toISOString();
 				Query =updateString(queryTerm,parameters);
 				$("#input").val(`{\n\n` + Query +`\n\n}`);
 			});
@@ -1023,6 +1037,7 @@ function init(){
 				parameters['youtubeSearch']['publishedBefore:'] =  publishedBefore.toISOString();
 				parameters['youtubeSearchChannel']['publishedBefore:'] =  publishedBefore.toISOString();
 				parameters['youtubeSearchPlaylist']['publishedBefore:'] =  publishedBefore.toISOString();
+				parameters['youtubeCreatorVideos']['publishedBefore:'] =  publishedBefore.toISOString();
 				Query =updateString(queryTerm,parameters);
 				$("#input").val(`{\n\n` + Query +`\n\n}`);
 			});
@@ -1032,9 +1047,13 @@ function init(){
 			parameters['youtubeSearch']['publishedAfter:'] = '';
 			parameters['youtubeSearchChannel']['publishedAfter:'] = '';
 			parameters['youtubeSearchPlaylist']['publishedAfter:'] = '';
-			parameters['youtubeSearchChannel']['publishedBefore:'] = '';
+			parameters['youtubeCreatorVideos']['publishedAfter:'] = '';
+
 			parameters['youtubeSearch']['publishedBefore:'] = '';
+			parameters['youtubeSearchChannel']['publishedBefore:'] = '';
 			parameters['youtubeSearchPlaylist']['publishedBefore:'] = '';
+			parameters['youtubeCreatorVideos']['publishedBefore:'] = '';
+
 			Query =updateString(queryTerm,parameters);
 			$("#input").val(`{\n\n` + Query +`\n\n}`);
 			if ( $('.dropdown.dropdown-lg.open').length ){
@@ -1050,11 +1069,13 @@ function init(){
 			$(".form-group.ytGeoSearch").show();
 			$("#ytLocation").change(function(){
 				parameters['youtubeSearch']['location:'] = $("#ytLocation").val();
+				parameters['youtubeCreatorVideos']['location:'] = $("#ytLocation").val();
 				Query =updateString(queryTerm,parameters);
 				$("#input").val(`{\n\n` + Query +`\n\n}`);
 			});
 			$("#ytLocationRadius").change(function(){
 				parameters['youtubeSearch']['locationRadius:'] = $("#ytLocationRadius").val();
+				parameters['youtubeCreatorVideos']['locationRadius:'] = $("#ytLocationRadius").val();
 				Query =updateString(queryTerm,parameters);
 				$("#input").val(`{\n\n` + Query +`\n\n}`);
 			});
@@ -1062,7 +1083,9 @@ function init(){
 		else {
 			$(".form-group.ytGeoSearch").hide();
 			parameters['youtubeSearch']['location:'] = '';
+			parameters['youtubeCreatorVideos']['location:'] = '';
 			parameters['youtubeSearch']['locationRadius:'] = '';
+			parameters['youtubeCreatorVideos']['locationRadius:'] = '';
 			Query =updateString(queryTerm,parameters);
 			$("#input").val(`{\n\n` + Query +`\n\n}`);
 			if ( $('.dropdown.dropdown-lg.open').length ){
@@ -1072,7 +1095,7 @@ function init(){
 
 	});
 
-	/*---------------------------------------------- Youtube Most popular---------------------------------------*/
+	/*---------------------------------------------- Youtube most popular---------------------------------------*/
 	$("#youtube-most-popular-count").change(function(){
 		Query =updateString(queryTerm,parameters);
 		$("#input").val(`{\n\n` + Query +`\n\n}`);
@@ -1168,6 +1191,9 @@ function updateString(queryTerm, parameters){
 	else if (queryTerm === 'youtubeMostPopular'){
 		query = `\tyoutube{\n\t\tvideos(${constructQuery(parameters.youtubeMostPopular)}\n\t\t}\n\t}`;
 	}
+	else if (queryTerm === 'youtubeCreatorVideos'){
+		query = `\tyoutube{\n\t\tvideosByHandle(${constructQuery(parameters.youtubeCreatorVideos)}\n\t\t}\n\t}`;
+	}
 	
 	return query;
 }
@@ -1241,8 +1267,10 @@ function setHitogramInterval(freq){
 	}else if (queryTerm === 'queryYoutubePlaylist'){
 		prefix = 'youtube-Search-Playlist';
 	}else if (queryTerm === 'youtubeMostPopular'){
-	prefix = 'youtube-Most-Popular';
-}
+		prefix = 'youtube-Most-Popular';
+	}else if (queryTerm === 'youtubeCreatorVideos'){
+		prefix = 'youtube-Creator-Videos'
+	}
 	
 	if (prefix === undefined || filename === '' || filename === undefined){
 		$("#modal-message").append(`<h4>Incomplete information for histogram. Please make sure you have specified a data source, as well as retrieved data first.</h4>`);
