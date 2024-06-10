@@ -94,16 +94,19 @@ $.getScript("bootstrap/js/customized/view_helperFunc.js", function(){
                                     var secondLevel = 'User Imported Data';
                                 }
                                 else if (key1 === 'youtube-Search') {
-                                    var secondLevel = 'YouTube Videos';
+                                    var secondLevel = 'YouTube Videos Search Results';
                                 }
                                 else if (key1 === 'youtube-Search-Channel') {
-                                    var secondLevel = 'YouTube Channels';
+                                    var secondLevel = 'YouTube Channels Search Results';
                                 }
                                 else if (key1 === 'youtube-Search-Playlist') {
-                                    var secondLevel = 'YouTube Playlists';
+                                    var secondLevel = 'YouTube Playlists Search Results';
                                 }
                                 else if (key1 === 'youtube-Most-Popular') {
                                     var secondLevel = 'YouTube Most Popular Videos';
+                                }
+                                else if (key1 === 'youtube-Creator-Videos') {
+                                    var secondLevel = 'YouTube Creator\'s Videos';
                                 }
                                 else if (key1 === 'networkx') {
                                     var secondLevel = 'Python NetworkX';

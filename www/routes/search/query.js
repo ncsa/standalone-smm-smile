@@ -97,6 +97,7 @@ router.post('/query', checkIfLoggedIn, function (req, res) {
                             || req.body.prefix === 'youtube-Search-Channel'
                             || req.body.prefix === 'youtube-Search-Playlist'
                             || req.body.prefix === 'youtube-Most-Popular'
+                            || req.body.prefix === 'youtube-Creator-Videos'
                         ) {
                             // post one time with all pages
                             multiPostPromises.push(gatherMultiPost(req, headers, parseInt(req.body.pages)));
