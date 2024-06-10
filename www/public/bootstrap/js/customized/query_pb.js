@@ -341,6 +341,11 @@ function init(){
 				.tooltip('fixTitle')
 				.tooltip('show');
 			}
+			else{
+				$("boolean").attr('data-original-title', "")
+				.tooltip('fixTitle')
+				.tooltip('hide');
+			}
 		}
 		else if (queryTerm === 'youtubeMostPopular'){
 			$(".youtube-most-popular").show();
