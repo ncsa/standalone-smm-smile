@@ -19,8 +19,6 @@ $.getScript("bootstrap/js/customized/view_helperFunc.js", function(){
                         $("#error").val(JSON.stringify(data));
                         $("#warning").modal('show');
                     } else {
-                        console.log(data);
-
                         var firstLevelEntryNum = {
                             "Twitter": 0,
                             "Reddit": 0,

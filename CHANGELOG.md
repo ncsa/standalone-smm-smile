@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - YouTube gather video from creator [#125](https://github.com/ncsa/standalone-smm-smile/issues/125)
+- Add hierarchy to the social media platform listing in history page [#162](https://github.com/ncsa/standalone-smm-smile/issues/162)
 
 ### Changed
 - Update graphql documentation [#163](https://github.com/ncsa/standalone-smm-smile/issues/163)
