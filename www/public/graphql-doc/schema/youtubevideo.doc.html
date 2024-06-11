@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="./styles/graphdoc.css" />
-    <title>twtMedia</title>
+    <title>youtubeVideo</title>
     <link href="https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700" rel="stylesheet"><link type="text/css" rel="stylesheet" href="./assets/code.css" /><link type="text/css" rel="stylesheet" href="./assets/require-by.css" />
 </head>
 <body class="slds-scrollable--y">
@@ -210,7 +210,7 @@
                 twtHashtagsV2
             </a>
         </li>
-        <li class="slds-is-active" title="twtMedia">
+        <li  title="twtMedia">
             <a href="twtmedia.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 twtMedia
             </a>
@@ -340,7 +340,7 @@
                 youtubeSnippet
             </a>
         </li>
-        <li  title="youtubeVideo">
+        <li class="slds-is-active" title="youtubeVideo">
             <a href="youtubevideo.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 youtubeVideo
             </a>
@@ -416,7 +416,7 @@
     </div>
     <div class="container">
         <p class="slds-text-title--caps slds-text-color--weak">OBJECT</p>
-        <h1 class="slds-text-heading--large">twtMedia</h1>
+        <h1 class="slds-text-heading--large">youtubeVideo</h1>
         <div class="slds-text-body--regular"></div>
     </div>
 </section>
@@ -428,7 +428,7 @@
             </a>
             GraphQL Schema definition
         </h2>
-        <code class="highlight"><ul class="code" style="padding-left:42px"><li><span class="keyword operator ts">type</span> <span class="identifier">twtMedia</span> {</li><li></li><li><span class="tab"><span class="meta">display_url</span>: <a class="support type" href="string.doc.html">String</a> </span></li><li></li><li><span class="tab"><span class="meta">expanded_url</span>: <a class="support type" href="string.doc.html">String</a> </span></li><li></li><li><span class="tab"><span class="meta">id</span>: <a class="support type" href="string.doc.html">String</a> </span></li><li></li><li><span class="tab"><span class="meta">id_str</span>: <a class="support type" href="string.doc.html">String</a> </span></li><li></li><li><span class="tab"><span class="meta">indices</span>: [<a class="support type" href="int.doc.html">Int</a>] </span></li><li></li><li><span class="tab"><span class="meta">media_url</span>: <a class="support type" href="string.doc.html">String</a> </span></li><li></li><li><span class="tab"><span class="meta">media_url_https</span>: <a class="support type" href="string.doc.html">String</a> </span></li><li></li><li><span class="tab"><span class="meta">source_status_id</span>: <a class="support type" href="string.doc.html">String</a> </span></li><li></li><li><span class="tab"><span class="meta">source_status_id_str</span>: <a class="support type" href="string.doc.html">String</a> </span></li><li></li><li><span class="tab"><span class="meta">type</span>: <a class="support type" href="string.doc.html">String</a> </span></li><li></li><li><span class="tab"><span class="meta">url</span>: <a class="support type" href="string.doc.html">String</a> </span></li><li>}</li></ul></code>
+        <code class="highlight"><ul class="code" style="padding-left:42px"><li><span class="keyword operator ts">type</span> <span class="identifier">youtubeVideo</span> {</li><li></li><li><span class="tab"><span class="meta">kind</span>: <a class="support type" href="string.doc.html">String</a> </span></li><li></li><li><span class="tab"><span class="meta">etag</span>: <a class="support type" href="string.doc.html">String</a> </span></li><li></li><li><span class="tab"><span class="meta">id</span>: <a class="support type" href="string.doc.html">String</a> </span></li><li></li><li><span class="tab"><span class="meta">snippet</span>: <a class="support type" href="videosnippet.doc.html">videoSnippet</a> </span></li><li></li><li><span class="tab"><span class="meta">contentDetails</span>: <a class="support type" href="videocontent.doc.html">videoContent</a> </span></li><li></li><li><span class="tab"><span class="meta">status</span>: <a class="support type" href="videostatus.doc.html">videoStatus</a> </span></li><li></li><li><span class="tab"><span class="meta">statistics</span>: <a class="support type" href="videostatistics.doc.html">videoStatistics</a> </span></li><li></li><li><span class="tab"><span class="meta">player</span>: <a class="support type" href="videoplayer.doc.html">videoPlayer</a> </span></li><li></li><li><span class="tab"><span class="meta">topicDetails</span>: <a class="support type" href="videotopic.doc.html">videoTopic</a> </span></li><li></li><li><span class="tab"><span class="meta">recordingDetails</span>: <a class="support type" href="videorecording.doc.html">videoRecording</a> </span></li><li></li><li><span class="tab"><span class="meta">fileDetails</span>: <a class="support type" href="videofile.doc.html">videoFile</a> </span></li><li></li><li><span class="tab"><span class="meta">processingDetails</span>: <a class="support type" href="videoprocessing.doc.html">videoProcessing</a> </span></li><li></li><li><span class="tab"><span class="meta">suggestions</span>: <a class="support type" href="videosuggestion.doc.html">videoSuggestion</a> </span></li><li></li><li><span class="tab"><span class="meta">liveStreamingDetails</span>: <a class="support type" href="videolive.doc.html">videoLive</a> </span></li><li>}</li></ul></code>
     </div>
 </section>
 <section>
@@ -439,7 +439,11 @@
             </a>
             Require by
         </h2>
-        <ul class="require-by"><li><a href="twtentity.doc.html" title="twtEntity - entity of a tweet or user">twtEntity<em>entity of a tweet or user</em></a><li><li><a href="twtextendedentity.doc.html" title="twtExtendedEntity - entity of a tweet or user">twtExtendedEntity<em>entity of a tweet or user</em></a><li></ul>
+        <ul class="require-by"><li><a href="youtubequery.doc.html" title="youtubeQuery - A search result contains information about a YouTube video, channel, or playlist that matches the 
+    search parameters specified in an API request. While a search result points to a uniquely identifiable resource, 
+    like a video, it does not have its own persistent data.">youtubeQuery<em>A search result contains information about a YouTube video, channel, or playlist that matches the 
+    search parameters specified in an API request. While a search result points to a uniquely identifiable resource, 
+    like a video, it does not have its own persistent data.</em></a><li></ul>
     </div>
 </section>
 <footer>
