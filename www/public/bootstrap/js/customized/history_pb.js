@@ -13,128 +13,117 @@ $.getScript("bootstrap/js/customized/view_helperFunc.js", function(){
                 if (data) {
                     if ('ERROR' in data) {
                         $("#loading").hide();
-
                         $("#search-tag-results").empty();
                         $("#import-background").hide();
                         $("#search-background").show();
-
                         $("#error").val(JSON.stringify(data));
                         $("#warning").modal('show');
                     } else {
-                        // first level
+                        console.log(data);
+
+                        // first level setup
                         $.each(data, function (key, val) {
+                            var firstLevel;
                             if (key === 'ML') {
-                                var firstLevel = 'Machine Learning';
+                                firstLevel = 'Machine Learning';
+                            } else if (key === 'NLP') {
+                                firstLevel = 'Nature Language Processing';
+                            } else if (key === 'NW') {
+                                firstLevel = 'Network Visualization and Analysis';
+                            } else if (key === 'GraphQL') {
+                                firstLevel = 'Social Media Data';
+                            } else {
+                                firstLevel = key;
                             }
-                            else if (key === 'NLP') {
-                                var firstLevel = 'Nature Language Processing';
-                            }
-                            else if (key === 'NW') {
-                                var firstLevel = 'Network Visualization and Analysis';
-                            }
-                            else if (key === 'GraphQL') {
-                                var firstLevel = 'Social Media Data';
-                            }
-                            else {
-                                var firstLevel = key
-                            }
+
                             $(".nav.nav-sidebar").append(
                                 `<li>
-                                    <a onclick="toggle(this,` + key + `);" id="` + key + `-btn">
-                                        <i class="fas fa-minus"></i>&nbsp;`
-                                + firstLevel + `</a>
+                                    <a onclick="toggle(this,${key});" id="${key}-btn">
+                                        <i class="fas fa-minus"></i>&nbsp${firstLevel}
+                                    </a>
                                 </li>
-                                <ul class="nav child_menu" style="display:block;" id="` + key + `"></ul>`);
+                                <ul class="nav child_menu" style="display:block;" id="${key}"></ul>`);
 
-                            // second level
-                            $.each(val, function (key1, val1) {
-                                if (key1 === 'feature') {
-                                    var secondLevel = 'Feature Selection';
-                                }
-                                else if (key1 === 'clustering') {
-                                    var secondLevel = 'Unsupervised Learning (clustering)';
-                                }
-                                else if (key1 === 'preprocessing') {
-                                    var secondLevel = 'NLP Preprocessing';
-                                }
-                                else if (key1 === 'autophrase') {
-                                    var secondLevel = 'Automated Phrase Mining';
-                                }
-                                else if (key1 === 'sentiment') {
-                                    var secondLevel = 'Sentiment Analysis';
-                                }
-                                else if (key1 === 'topic') {
-                                    var secondLevel = 'Topic Modeling';
-                                }
-                                else if (key1 === 'twitter-Tweet') {
-                                    var secondLevel = 'Twitter Tweet';
-                                }
-                                else if (key1 === 'twitterV2-Tweet') {
-                                    var secondLevel = 'Twitter V2 Tweet';
-                                }
-                                else if (key1 === 'twitter-Timeline') {
-                                    var secondLevel = 'Twitter User Timeline';
-                                }
-                                else if (key1 === 'reddit-Search') {
-                                    var secondLevel = 'Reddit Search Posts Title';
-                                }
-                                else if (key1 === 'reddit-Post') {
-                                    var secondLevel = 'Subreddit Posts Title';
-                                }
-                                else if (key1 === 'reddit-Comment') {
-                                    var secondLevel = 'Subreddit Comment';
-                                }
-                                else if (key1 === 'reddit-Historical-Post') {
-                                    var secondLevel = 'Reddit Historical Post';
-                                }
-                                else if (key1 === 'reddit-Historical-Comment') {
-                                    var secondLevel = 'Reddit Historical Comment';
-                                }
-                                else if (key1 === 'userspec-Others') {
-                                    var secondLevel = 'User Imported Data';
-                                }
-                                else if (key1 === 'youtube-Search') {
-                                    var secondLevel = 'YouTube Videos Search Results';
-                                }
-                                else if (key1 === 'youtube-Search-Channel') {
-                                    var secondLevel = 'YouTube Channels Search Results';
-                                }
-                                else if (key1 === 'youtube-Search-Playlist') {
-                                    var secondLevel = 'YouTube Playlists Search Results';
-                                }
-                                else if (key1 === 'youtube-Most-Popular') {
-                                    var secondLevel = 'YouTube Most Popular Videos';
-                                }
-                                else if (key1 === 'youtube-Creator-Videos') {
-                                    var secondLevel = 'YouTube Creator\'s Videos';
-                                }
-                                else if (key1 === 'networkx') {
-                                    var secondLevel = 'Python NetworkX';
-                                }
-                                else if (key1 === 'classification') {
-                                    var secondLevel = 'Text Classification';
-                                }
-                                else {
-                                    var secondLevel = key1;
-                                }
-                                var secondLevelEntryNum = Object.keys(val1).length || 0;
-
+                            // Setup second level for GraphQL
+                            if (key === 'GraphQL') {
                                 $("#" + key).append(
                                     `<li>
-                                            <a onclick="toggle(this,'#` + key1 + `');" id="` + key1 + `-btn">
-                                                <i class="fas fa-plus"></i>&nbsp;`
-                                    + secondLevel + ` (` + secondLevelEntryNum + `)</a>
-                                            <ul class="nav child_menu" style="display:none;" id="` + key1 + `"></ul>
+                                        <a onclick="toggle(this,'#GraphQL-Reddit');" id="GraphQL-Reddit-btn">
+                                            <i class="fas fa-plus"></i>&nbsp;Reddit
+                                        </a>
+                                        <ul class="nav child_menu" style="display:none;" id="GraphQL-Reddit"></ul>
+                                    </li>
+                                    <li>
+                                        <a onclick="toggle(this,'#GraphQL-YouTube');" id="GraphQL-YouTube-btn">
+                                            <i class="fas fa-plus"></i>&nbsp;YouTube
+                                        </a>
+                                        <ul class="nav child_menu" style="display:none;" id="GraphQL-YouTube"></ul>
+                                    </li>
+                                    <li>
+                                        <a onclick="toggle(this,'#GraphQL-Twitter');" id="GraphQL-Twitter-btn">
+                                            <i class="fas fa-plus"></i>&nbsp;Twitter
+                                        </a>
+                                        <ul class="nav child_menu" style="display:none;" id="GraphQL-Twitter"></ul>
+                                    </li>`);
+                                    }
+                                });
+
+                        // Fill in each category
+                        $.each(data, function (key, val) {
+                            if (key === 'GraphQL') {
+                                $.each(val, function (key1, val1) {
+                                    var secondLevel, parentElement;
+                                    if (key1.toLowerCase().includes('twitter')) {
+                                        secondLevel = 'Twitter';
+                                        parentElement = '#GraphQL-Twitter';
+                                    } else if (key1.toLowerCase().includes('reddit')) {
+                                        secondLevel = 'Reddit';
+                                        parentElement = '#GraphQL-Reddit';
+                                    } else if (key1.toLowerCase().includes('youtube')) {
+                                        secondLevel = 'YouTube';
+                                        parentElement = '#GraphQL-YouTube';
+                                    } else {
+                                        secondLevel = key1;
+                                        parentElement = '#' + key;
+                                    }
+                                    var secondLevelEntryNum = Object.keys(val1).length || 0;
+
+                                    $(parentElement).append(
+                                        `<li>
+                                            <a onclick="toggle(this,'#GraphQL-${secondLevel}-${key1}');" id="GraphQL-${secondLevel}-${key1}-btn">
+                                                <i class="fas fa-plus"></i>&nbsp;${key1} (${secondLevelEntryNum})
+                                            </a>
+                                            <ul class="nav child_menu" style="display:none;" id="GraphQL-${secondLevel}-${key1}"></ul>
                                         </li>`);
 
-                                $.each(val1, function (key2, val2) {
-                                    $("#" + key1).append(
-                                        `<li id="` + key1 + "-" + key2 + `">
-                                            <a class="historyTabs" onclick="submitHistory(this, '` + val2 + `');">` + key2 + `</a>
-								    </li>`);
+                                    $.each(val1, function (key2, val2) {
+                                        $("#GraphQL-" + secondLevel + "-" + key1).append(
+                                            `<li id="GraphQL-${key1}-${key2}">
+                                                <a class="historyTabs" onclick="submitHistory(this, '${val2}');">${key2}</a>
+                                            </li>`);
+                                    });
                                 });
-                            });
+                            } else {
+                                $.each(val, function (key1, val1) {
+                                    var secondLevelEntryNum = Object.keys(val1).length || 0;
+                                    $("#" + key).append(
+                                        `<li>
+                                            <a onclick="toggle(this,'#${key1}');" id="${key1}-btn">
+                                                <i class="fas fa-plus"></i>&nbsp;${key1} (${secondLevelEntryNum})
+                                            </a>
+                                            <ul class="nav child_menu" style="display:none;" id="${key1}"></ul>
+                                        </li>`);
+
+                                    $.each(val1, function (key2, val2) {
+                                        $("#" + key1).append(
+                                            `<li id="${key1}-${key2}">
+                                                <a class="historyTabs" onclick="submitHistory(this, '${val2}');">${key2}</a>
+                                            </li>`);
+                                    });
+                                });
+                            }
                         });
+
                         $("#historyListLoading").hide();
                         $("#historyLogo").show();
                         listTag();
@@ -146,6 +135,7 @@ $.getScript("bootstrap/js/customized/view_helperFunc.js", function(){
                 $("#warning").modal('show');
             }
         });
+
     });
 
     $("#deleteButton").on('click', function (e) {
