@@ -21,6 +21,23 @@ $.getScript("bootstrap/js/customized/view_helperFunc.js", function(){
                     } else {
                         console.log(data);
 
+                        var firstLevelEntryNum = {
+                            "Twitter": 0,
+                            "Reddit": 0,
+                            "YouTube": 0
+                        };
+
+                        // Count the entries for GraphQL
+                        $.each(data.GraphQL, function (key1, val1) {
+                            if (key1.toLowerCase().includes('twitter')) {
+                                firstLevelEntryNum.Twitter += Object.keys(val1).length;
+                            } else if (key1.toLowerCase().includes('reddit')) {
+                                firstLevelEntryNum.Reddit += Object.keys(val1).length;
+                            } else if (key1.toLowerCase().includes('youtube')) {
+                                firstLevelEntryNum.YouTube += Object.keys(val1).length;
+                            }
+                        });
+
                         // first level setup
                         $.each(data, function (key, val) {
                             var firstLevel;
@@ -44,24 +61,24 @@ $.getScript("bootstrap/js/customized/view_helperFunc.js", function(){
                                 </li>
                                 <ul class="nav child_menu" style="display:block;" id="${key}"></ul>`);
 
-                            // Setup second level for GraphQL
+                            // Setup second level for GraphQL with entry counts
                             if (key === 'GraphQL') {
                                 $("#" + key).append(
                                     `<li>
                                         <a onclick="toggle(this,'#GraphQL-Reddit');" id="GraphQL-Reddit-btn">
-                                            <i class="fas fa-plus"></i>&nbsp;Reddit
+                                            <i class="fas fa-plus"></i>&nbsp;Reddit (${firstLevelEntryNum.Reddit})
                                         </a>
                                         <ul class="nav child_menu" style="display:none;" id="GraphQL-Reddit"></ul>
                                     </li>
                                     <li>
                                         <a onclick="toggle(this,'#GraphQL-YouTube');" id="GraphQL-YouTube-btn">
-                                            <i class="fas fa-plus"></i>&nbsp;YouTube
+                                            <i class="fas fa-plus"></i>&nbsp;YouTube (${firstLevelEntryNum.YouTube})
                                         </a>
                                         <ul class="nav child_menu" style="display:none;" id="GraphQL-YouTube"></ul>
                                     </li>
                                     <li>
                                         <a onclick="toggle(this,'#GraphQL-Twitter');" id="GraphQL-Twitter-btn">
-                                            <i class="fas fa-plus"></i>&nbsp;Twitter
+                                            <i class="fas fa-plus"></i>&nbsp;Twitter (${firstLevelEntryNum.Twitter})
                                         </a>
                                         <ul class="nav child_menu" style="display:none;" id="GraphQL-Twitter"></ul>
                                     </li>`);
@@ -73,19 +90,20 @@ $.getScript("bootstrap/js/customized/view_helperFunc.js", function(){
                             if (key === 'GraphQL') {
                                 $.each(val, function (key1, val1) {
                                     var secondLevel, parentElement;
-                                    if (key1.toLowerCase().includes('twitter')) {
+                                    if (key1.includes('twitter')) {
                                         secondLevel = 'Twitter';
                                         parentElement = '#GraphQL-Twitter';
-                                    } else if (key1.toLowerCase().includes('reddit')) {
+                                    } else if (key1.includes('reddit')) {
                                         secondLevel = 'Reddit';
                                         parentElement = '#GraphQL-Reddit';
-                                    } else if (key1.toLowerCase().includes('youtube')) {
+                                    } else if (key1.includes('youtube')) {
                                         secondLevel = 'YouTube';
                                         parentElement = '#GraphQL-YouTube';
                                     } else {
                                         secondLevel = key1;
                                         parentElement = '#' + key;
                                     }
+
                                     var secondLevelEntryNum = Object.keys(val1).length || 0;
 
                                     $(parentElement).append(
@@ -101,7 +119,7 @@ $.getScript("bootstrap/js/customized/view_helperFunc.js", function(){
                                             `<li id="GraphQL-${key1}-${key2}">
                                                 <a class="historyTabs" onclick="submitHistory(this, '${val2}');">${key2}</a>
                                             </li>`);
-                                    });
+                                            });
                                 });
                             } else {
                                 $.each(val, function (key1, val1) {
@@ -135,6 +153,7 @@ $.getScript("bootstrap/js/customized/view_helperFunc.js", function(){
                 $("#warning").modal('show');
             }
         });
+
 
     });
 
