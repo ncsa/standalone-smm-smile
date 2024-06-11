@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - YouTube gather video from creator [#125](https://github.com/ncsa/standalone-smm-smile/issues/125)
 
+### Changed
+- Update graphql documentation [#163](https://github.com/ncsa/standalone-smm-smile/issues/163)
+
 ## [0.3.5] - 2024-06-03
 ### Added
 - YouTube most popular videos [#128](https://github.com/ncsa/standalone-smm-smile/issues/128)
