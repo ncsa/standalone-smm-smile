@@ -126,7 +126,7 @@ $.getScript("bootstrap/js/customized/view_helperFunc.js", function(){
                                     var secondLevelEntryNum = Object.keys(val1).length || 0;
                                     $("#" + key).append(
                                         `<li>
-                                            <a onclick="toggle(this,'#${key1}');" id="${key1}-btn">
+                                            <a onclick="toggle(this, ${key1});" id="${key1}-btn">
                                                 <i class="fas fa-plus"></i>&nbsp;${key1} (${secondLevelEntryNum})
                                             </a>
                                             <ul class="nav child_menu" style="display:none;" id="${key1}"></ul>
