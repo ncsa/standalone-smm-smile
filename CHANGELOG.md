@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Update graphql documentation [#163](https://github.com/ncsa/standalone-smm-smile/issues/163)
+- Don't always delete token unless specific auth related error by GraphQL server [#160](https://github.com/ncsa/standalone-smm-smile/issues/160)
 
 ## [0.3.5] - 2024-06-03
 ### Added
