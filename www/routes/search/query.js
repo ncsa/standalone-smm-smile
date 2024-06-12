@@ -304,6 +304,38 @@ function checkExist(remotePrefix, localFolderName) {
         return true;
     });
 }
+function _containsKeyword(errorMsg) {
+    // Define a list of potential keywords related to API key, access token, auth, etc.
+    const keywords = [
+        "api key",
+        "token",
+        "access token",
+        "auth",
+        "authentication",
+        "authorization",
+        "credentials",
+        "invalid token",
+        "expired token",
+        "invalid credentials",
+        "unauthorized",
+        "permission denied",
+        "forbidden",
+        "credentials",
+        "login",
+        "logout",
+        "session",
+        "expired session",
+        "invalid credentials",
+        "invalid api key",
+        "invalid access token",
+        "expired api key",
+        "expired access token",
+        "missing api key",
+        "missing access token"
+    ];
+    errorMsg = errorMsg.toLowerCase();
+    return keywords.some(keyword => errorMsg.includes(keyword.toLowerCase()));
+}
 
 function gatherMultiPost(req, headers, pageNum) {
     // user regex to add a pages:pageNum in the query here
@@ -325,13 +357,19 @@ function gatherMultiPost(req, headers, pageNum) {
             responseBody = responseBody.replace(/\\r/g, '');
             var responseObj = JSON.parse(responseBody);
             if (responseObj !== undefined && responseObj['errors'] !== undefined) {
+                if (responseObj['errors'] &&
+                    responseObj['errors'].length > 0 &&
+                    responseObj['errors'][0]["message"] &&
+                    _containsKeyword(responseObj['errors'][0]["message"])) {
+                        removeInvalidToken(req, platform);
+                        console.log("Invalid token detected. Token removed.");
+                }
+
                 reject(responseObj['errors']);
-                removeInvalidToken(req, platform);
             } else {
                 resolve(responseObj);
             }
         }).catch((fetchError) => {
-            removeInvalidToken(req, platform);
             reject(fetchError);
         });
     });
@@ -351,13 +389,19 @@ function gatherSinglePost(req, headers) {
             responseBody = responseBody.replace(/\\r/g, '');
             var responseObj = JSON.parse(responseBody);
             if (responseObj !== undefined && responseObj['errors'] !== undefined) {
+                if (responseObj['errors'] &&
+                    responseObj['errors'].length > 0 &&
+                    responseObj['errors'][0]["message"] &&
+                    _containsKeyword(responseObj['errors'][0]["message"])) {
+                    removeInvalidToken(req, platform);
+                    console.log("Invalid token detected. Token removed.");
+                }
+
                 reject(responseObj['errors']);
-                removeInvalidToken(req, platform);
             } else {
                 resolve(responseObj);
             }
         }).catch((fetchError) => {
-            removeInvalidToken(req, platform);
             reject(fetchError);
         });
     });
