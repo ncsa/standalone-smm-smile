@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="./styles/graphdoc.css" />
+    <title>videoFile</title>
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700" rel="stylesheet"><link type="text/css" rel="stylesheet" href="./assets/code.css" /><link type="text/css" rel="stylesheet" href="./assets/require-by.css" />
+</head>
+<body class="slds-scrollable--y">
+    <nav class="slds-grid slds-grid--vertical slds-col--rule-right">
+        <header class="slds-p-around--medium slds-col slds-shrik slds-grow-none">
+            <button class="slds-button slds-button--icon slds-float--right js-toggle-navigation less-than-medium">
+                <i class="material-icons">close</i>
+            </button>
+                <h3 class="slds-text-heading--medium"><a href="./">GraphQL Schema</a></h3>
+            <div class="slds-p-top--small">
+                <input id="type-search" type="text" placeholder="Search a type" autofocus="" class="slds-input" />
+            </div>
+        </header>
+        <div id="navication-scroll" class="slds-scrollable--y slds-col slds-grow">
+<div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
+    <h4 class="slds-text-title--caps slds-p-around--medium">Schema</h4>
+    <ul>
+        <li  title="Query">
+            <a href="query.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Query
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
+    <h4 class="slds-text-title--caps slds-p-around--medium">Scalars</h4>
+    <ul>
+        <li  title="Boolean">
+            <a href="boolean.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Boolean
+            </a>
+        </li>
+        <li  title="Float">
+            <a href="float.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Float
+            </a>
+        </li>
+        <li  title="Int">
+            <a href="int.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Int
+            </a>
+        </li>
+        <li  title="String">
+            <a href="string.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                String
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
+    <h4 class="slds-text-title--caps slds-p-around--medium">Enums</h4>
+    <ul>
+        <li  title="__DirectiveLocation">
+            <a href="directivelocation.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                __DirectiveLocation
+            </a>
+        </li>
+        <li  title="__TypeKind">
+            <a href="typekind.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                __TypeKind
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
+    <h4 class="slds-text-title--caps slds-p-around--medium">Objects</h4>
+    <ul>
+        <li  title="audioStream">
+            <a href="audiostream.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                audioStream
+            </a>
+        </li>
+        <li  title="pushshiftComment">
+            <a href="pushshiftcomment.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                pushshiftComment
+            </a>
+        </li>
+        <li  title="pushshiftPost">
+            <a href="pushshiftpost.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                pushshiftPost
+            </a>
+        </li>
+        <li  title="ratingType">
+            <a href="ratingtype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ratingType
+            </a>
+        </li>
+        <li  title="redditComment">
+            <a href="redditcomment.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                redditComment
+            </a>
+        </li>
+        <li  title="redditLink">
+            <a href="redditlink.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                redditLink
+            </a>
+        </li>
+        <li  title="redditQuery">
+            <a href="redditquery.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                redditQuery
+            </a>
+        </li>
+        <li  title="retweet">
+            <a href="retweet.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                retweet
+            </a>
+        </li>
+        <li  title="subreddit">
+            <a href="subreddit.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                subreddit
+            </a>
+        </li>
+        <li  title="tagSuggestion">
+            <a href="tagsuggestion.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                tagSuggestion
+            </a>
+        </li>
+        <li  title="tweet">
+            <a href="tweet.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                tweet
+            </a>
+        </li>
+        <li  title="tweetV2">
+            <a href="tweetv2.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                tweetV2
+            </a>
+        </li>
+        <li  title="twitterQuery">
+            <a href="twitterquery.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                twitterQuery
+            </a>
+        </li>
+        <li  title="twtAnnotationsV2">
+            <a href="twtannotationsv2.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                twtAnnotationsV2
+            </a>
+        </li>
+        <li  title="twtAttachmentV2">
+            <a href="twtattachmentv2.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                twtAttachmentV2
+            </a>
+        </li>
+        <li  title="twtCashtagsV2">
+            <a href="twtcashtagsv2.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                twtCashtagsV2
+            </a>
+        </li>
+        <li  title="twtContextAnnotation">
+            <a href="twtcontextannotation.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                twtContextAnnotation
+            </a>
+        </li>
+        <li  title="twtCoordinateType">
+            <a href="twtcoordinatetype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                twtCoordinateType
+            </a>
+        </li>
+        <li  title="twtDomainV2">
+            <a href="twtdomainv2.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                twtDomainV2
+            </a>
+        </li>
+        <li  title="twtEditControlsV2">
+            <a href="twteditcontrolsv2.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                twtEditControlsV2
+            </a>
+        </li>
+        <li  title="twtEntitiesV2">
+            <a href="twtentitiesv2.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                twtEntitiesV2
+            </a>
+        </li>
+        <li  title="twtEntity">
+            <a href="twtentity.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                twtEntity
+            </a>
+        </li>
+        <li  title="twtEntityV2">
+            <a href="twtentityv2.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                twtEntityV2
+            </a>
+        </li>
+        <li  title="twtExtendedEntity">
+            <a href="twtextendedentity.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                twtExtendedEntity
+            </a>
+        </li>
+        <li  title="twtGeo">
+            <a href="twtgeo.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                twtGeo
+            </a>
+        </li>
+        <li  title="twtHashtag">
+            <a href="twthashtag.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                twtHashtag
+            </a>
+        </li>
+        <li  title="twtHashtagsV2">
+            <a href="twthashtagsv2.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                twtHashtagsV2
+            </a>
+        </li>
+        <li  title="twtMedia">
+            <a href="twtmedia.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                twtMedia
+            </a>
+        </li>
+        <li  title="twtMentionsV2">
+            <a href="twtmentionsv2.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                twtMentionsV2
+            </a>
+        </li>
+        <li  title="twtMetricsV2">
+            <a href="twtmetricsv2.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                twtMetricsV2
+            </a>
+        </li>
+        <li  title="twtPlace">
+            <a href="twtplace.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                twtPlace
+            </a>
+        </li>
+        <li  title="twtReferencedTweetV2">
+            <a href="twtreferencedtweetv2.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                twtReferencedTweetV2
+            </a>
+        </li>
+        <li  title="twtUrl">
+            <a href="twturl.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                twtUrl
+            </a>
+        </li>
+        <li  title="twtUrlsV2">
+            <a href="twturlsv2.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                twtUrlsV2
+            </a>
+        </li>
+        <li  title="twtUser">
+            <a href="twtuser.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                twtUser
+            </a>
+        </li>
+        <li  title="twtUserMention">
+            <a href="twtusermention.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                twtUserMention
+            </a>
+        </li>
+        <li  title="twtWithheldV2">
+            <a href="twtwithheldv2.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                twtWithheldV2
+            </a>
+        </li>
+        <li  title="videoContent">
+            <a href="videocontent.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                videoContent
+            </a>
+        </li>
+        <li class="slds-is-active" title="videoFile">
+            <a href="videofile.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                videoFile
+            </a>
+        </li>
+        <li  title="videoLive">
+            <a href="videolive.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                videoLive
+            </a>
+        </li>
+        <li  title="videoPlayer">
+            <a href="videoplayer.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                videoPlayer
+            </a>
+        </li>
+        <li  title="videoProcessing">
+            <a href="videoprocessing.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                videoProcessing
+            </a>
+        </li>
+        <li  title="videoRecording">
+            <a href="videorecording.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                videoRecording
+            </a>
+        </li>
+        <li  title="videoSnippet">
+            <a href="videosnippet.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                videoSnippet
+            </a>
+        </li>
+        <li  title="videoStatistics">
+            <a href="videostatistics.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                videoStatistics
+            </a>
+        </li>
+        <li  title="videoStatus">
+            <a href="videostatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                videoStatus
+            </a>
+        </li>
+        <li  title="videoStream">
+            <a href="videostream.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                videoStream
+            </a>
+        </li>
+        <li  title="videoSuggestion">
+            <a href="videosuggestion.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                videoSuggestion
+            </a>
+        </li>
+        <li  title="videoTopic">
+            <a href="videotopic.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                videoTopic
+            </a>
+        </li>
+        <li  title="youtubeId">
+            <a href="youtubeid.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                youtubeId
+            </a>
+        </li>
+        <li  title="youtubeList">
+            <a href="youtubelist.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                youtubeList
+            </a>
+        </li>
+        <li  title="youtubeQuery">
+            <a href="youtubequery.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                youtubeQuery
+            </a>
+        </li>
+        <li  title="youtubeSnippet">
+            <a href="youtubesnippet.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                youtubeSnippet
+            </a>
+        </li>
+        <li  title="youtubeVideo">
+            <a href="youtubevideo.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                youtubeVideo
+            </a>
+        </li>
+        <li  title="__Directive">
+            <a href="directive.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                __Directive
+            </a>
+        </li>
+        <li  title="__EnumValue">
+            <a href="enumvalue.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                __EnumValue
+            </a>
+        </li>
+        <li  title="__Field">
+            <a href="field.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                __Field
+            </a>
+        </li>
+        <li  title="__InputValue">
+            <a href="inputvalue.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                __InputValue
+            </a>
+        </li>
+        <li  title="__Schema">
+            <a href="schema.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                __Schema
+            </a>
+        </li>
+        <li  title="__Type">
+            <a href="type.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                __Type
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
+    <h4 class="slds-text-title--caps slds-p-around--medium">Directives</h4>
+    <ul>
+        <li  title="deprecated">
+            <a href="deprecated.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                deprecated
+            </a>
+        </li>
+        <li  title="include">
+            <a href="include.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                include
+            </a>
+        </li>
+        <li  title="skip">
+            <a href="skip.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                skip
+            </a>
+        </li>
+        <li  title="specifiedBy">
+            <a href="specifiedby.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                specifiedBy
+            </a>
+        </li>
+    </ul>
+</div>
+        </div>
+    </nav>
+    <main><section class="title slds-theme--inverse">
+    <div class="container slds-grid">
+        <div>
+        <button class="slds-button js-toggle-navigation less-than-medium">
+            <i class="material-icons slds-button__icon slds-button__icon--left">menu</i>
+            <span class="slds-text-title--caps">Types<span>
+        </button>
+        </div>
+        </div>
+    </div>
+    <div class="container">
+        <p class="slds-text-title--caps slds-text-color--weak">OBJECT</p>
+        <h1 class="slds-text-heading--large">videoFile</h1>
+        <div class="slds-text-body--regular"></div>
+    </div>
+</section>
+<section>
+    <div class="container">
+        <h2 id="graphql-schema-definition" class="graphdoc-section__title slds-text-heading--medium slds-m-top--small">
+            <a href="#graphql-schema-definition">
+                <i class="material-icons">link</i>
+            </a>
+            GraphQL Schema definition
+        </h2>
+        <code class="highlight"><ul class="code" style="padding-left:42px"><li><span class="keyword operator ts">type</span> <span class="identifier">videoFile</span> {</li><li></li><li><span class="tab"><span class="meta">fileName</span>: <a class="support type" href="string.doc.html">String</a> </span></li><li></li><li><span class="tab"><span class="meta">fileSize</span>: <a class="support type" href="int.doc.html">Int</a> </span></li><li></li><li><span class="tab"><span class="meta">fileType</span>: <a class="support type" href="string.doc.html">String</a> </span></li><li></li><li><span class="tab"><span class="meta">container</span>: <a class="support type" href="string.doc.html">String</a> </span></li><li></li><li><span class="tab"><span class="meta">videoStreams</span>: [<a class="support type" href="videostream.doc.html">videoStream</a>] </span></li><li></li><li><span class="tab"><span class="meta">audioStreams</span>: [<a class="support type" href="audiostream.doc.html">audioStream</a>] </span></li><li></li><li><span class="tab"><span class="meta">duratioinMs</span>: <a class="support type" href="int.doc.html">Int</a> </span></li><li></li><li><span class="tab"><span class="meta">bitrateBps</span>: <a class="support type" href="int.doc.html">Int</a> </span></li><li></li><li><span class="tab"><span class="meta">creationTime</span>: <a class="support type" href="string.doc.html">String</a> </span></li><li>}</li></ul></code>
+    </div>
+</section>
+<section>
+    <div class="container">
+        <h2 id="require-by" class="graphdoc-section__title slds-text-heading--medium slds-m-top--small">
+            <a href="#require-by">
+                <i class="material-icons">link</i>
+            </a>
+            Require by
+        </h2>
+        <ul class="require-by"><li><a href="youtubevideo.doc.html" title="youtubeVideo - ">youtubeVideo<em></em></a><li></ul>
+    </div>
+</section>
+<footer>
+<div class="container slds-p-around--large">
+    <p class="slds-text-align--right slds-text-title--caps">
+        Generated with <a href="https://github.com/2fd/graphdoc#readme" target="_blank">graphdoc 2.4.0</a>
+    </p>
+</div>
+</footer>
+</main>
+    <script src="./scripts/focus-active.js"></script>
+    <script src="./scripts/filter-types.js"></script>
+    <script src="./scripts/toggle-navigation.js"></script>
+</body>

@@ -54,6 +54,10 @@ function submitQuery(textareaID, filenameID, dryrun = false) {
         prefix = 'youtube-Most-Popular';
         params = parameters.youtubeMostPopular;
         pages = parseInt($("#youtube-most-popular-count").val()) / 50;
+    } else if (queryTerm === 'youtubeCreatorVideos') {
+        prefix = 'youtube-Creator-Videos';
+        params = parameters.youtubeCreatorVideos;
+        pages = parseInt($("#youtube-count").val()) / 50;
     }
 
     if (dryrun) {
@@ -705,6 +709,50 @@ function submitSearchbox(searchboxID, filenameID, dryrun = false) {
         prefix = 'youtube-Most-Popular';
         params = parameters.youtubeMostPopular;
     }
+    else if (queryTerm === 'youtubeCreatorVideos') {
+        pages = 2; // TODO change me to 10 later
+        if (dryrun) pages = 1;
+        queryString = `{
+		  youtube {
+			videosByHandle(handle: "${keyword}") {
+			  kind
+			  etag
+			  id{
+				kind
+				videoId
+				channelId
+				playlistId
+			  }
+			  snippet{
+				publishedAt
+				channelId
+				title
+				description
+				default_thumbnails_url
+				default_thumbnails_width
+				default_thumbnails_height
+				medium_thumbnails_url
+				medium_thumbnails_width
+				medium_thumbnails_height
+				high_thumbnails_url
+				high_thumbnails_width
+				high_thumbnails_height
+				standard_thumbnails_url
+				standard_thumbnails_width
+				standard_thumbnails_height
+				maxres_thumbnails_url
+				maxres_thumbnails_width
+				high_thumbnails_height
+				channelTitle
+				liveBroadcastContent
+			  }
+			}
+		  }
+		}
+		`;
+        prefix = 'youtube-Creator-Videos';
+        params = parameters.youtubeCreatorVideos;
+    }
 
     if (dryrun) {
         $("#instruction").hide();
@@ -955,7 +1003,7 @@ function renderPreview(rendering, prefix) {
 				</div>`);
 
         });
-    } else if (prefix === 'youtube-Search' || prefix === 'youtube-Most-Popular') {
+    } else if (prefix === 'youtube-Search' || prefix === 'youtube-Most-Popular' || prefix === 'youtube-Creator-Videos') {
         $.each(rendering, function (i, val) {
             var img_url = val && val.snippet && val.snippet.medium_thumbnails_url ? val.snippet.medium_thumbnails_url : "";
             let imgElement = img_url ? `<img src="${img_url}" alt="video-img" style="width:100%;"/>` : "";
