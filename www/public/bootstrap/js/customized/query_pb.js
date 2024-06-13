@@ -473,6 +473,7 @@ function init(){
 		parameters['youtubeSearchChannel']['q:'] = keyword;
 		parameters['youtubeSearchPlaylist']['q:'] = keyword;
 		parameters['youtubeMostPopular']['regionCode:'] = keyword;
+		parameters['youtubeCreatorVideos']['handle:'] = keyword;
 		Query =updateString(queryTerm,parameters);
 		$("#input").val(`{\n\n` + Query +`\n\n}`);
 	})
