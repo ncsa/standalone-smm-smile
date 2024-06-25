@@ -230,10 +230,12 @@ function init(){
 	$("#social-media").change(function(){
 		$(".prompt").empty();
 
-		$("#searchbox").prop('disabled',false);
-		$("#dropdownButton").prop('disabled',false);
+		$("#searchbox").val("").prop('disabled',false);
+		$("#dropdownButton").prop('disabled',false).parent().removeClass('open');;
 		$("#simple-search-btn").prop('disabled',false);
-		
+		pushAdvancedDropdown('off');
+
+
 		$(".tweet").hide();
 		$(".timeline").hide();
 		$(".tweetV2").hide();
@@ -342,7 +344,6 @@ function init(){
 				$(".youtube-creator-videos").show();
 				placeholderText = "A single YouTuber creator handle. e.g. MrBeast"
 			}
-
 			$("#searchbox").attr("placeholder", placeholderText);
 
 			// tooltip to show YouTube search rules
