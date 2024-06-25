@@ -93,7 +93,7 @@ router.post('/query', checkIfLoggedIn, function (req, res) {
                     if (parseInt(req.body.pages) !== -999) {
                         if (req.body.prefix === 'twitter-Tweet'
                             || req.body.prefix === 'twitter-Timeline'
-                            || req.body.prefix === 'youtube-Search'
+                            || req.body.prefix === 'youtube-Search-Video'
                             || req.body.prefix === 'youtube-Search-Channel'
                             || req.body.prefix === 'youtube-Search-Playlist'
                             || req.body.prefix === 'youtube-Most-Popular'

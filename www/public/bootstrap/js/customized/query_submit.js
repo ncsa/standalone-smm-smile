@@ -39,7 +39,7 @@ function submitQuery(textareaID, filenameID, dryrun = false) {
         params = parameters.psComment;
         pages = -999;
     } else if (queryTerm === 'queryYoutube') {
-        prefix = 'youtube-Search';
+        prefix = 'youtube-Search-Video';
         params = parameters.youtubeSearch;
         pages = parseInt($("#youtube-count").val()) / 50;
     } else if (queryTerm === 'youtubeRandomVideos') {
@@ -576,7 +576,7 @@ function submitSearchbox(searchboxID, filenameID, dryrun = false) {
 		  }
 		}
 		`;
-        prefix = 'youtube-Search';
+        prefix = 'youtube-Search-Video';
         params = parameters.youtubeSearch;
     } else if (queryTerm === 'queryYoutubeChannel') {
         pages = 2; // TODO change me to 10 later
@@ -1059,7 +1059,7 @@ function renderPreview(rendering, prefix) {
 				</div>`);
 
         });
-    } else if (prefix === 'youtube-Search'
+    } else if (prefix === 'youtube-Search-Video'
         || prefix === 'youtube-Most-Popular'
         || prefix === 'youtube-Creator-Videos'
         || prefix === 'youtube-Random-Videos') {

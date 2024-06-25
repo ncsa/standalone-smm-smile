@@ -1298,7 +1298,7 @@ function setHitogramInterval(freq){
 	}else if (queryTerm === 'pushshiftComment'){
 		prefix = 'reddit-Historical-Comment';
 	}else if (queryTerm === 'queryYoutube') {
-		prefix = 'youtube-Search';
+		prefix = 'youtube-Search-Video';
 	}else if (queryTerm === 'youtubeRandomVideos'){
 		prefix = 'youtube-Random-Videos';
 	}else if (queryTerm === 'queryYoutubeChannel'){
