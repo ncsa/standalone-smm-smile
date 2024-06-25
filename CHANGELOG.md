@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - Randomly collect youtube video [#169](https://github.com/ncsa/standalone-smm-smile/issues/169)
+- Random collect youtube documentation
 - Import youtube data [#168](https://github.com/ncsa/standalone-smm-smile/issues/168)
 
 ## [0.4.0] - 2024-06-13
