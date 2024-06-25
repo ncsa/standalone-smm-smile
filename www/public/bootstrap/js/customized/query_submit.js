@@ -46,8 +46,10 @@ function submitQuery(textareaID, filenameID, dryrun = false) {
         prefix = 'youtube-Random-Videos';
         params = parameters.youtubeRandomVideos;
         if (dryrun){
-            parameters.youtubeRandomVideos["maxTotalResults:"] = 12;
-            queryString = `{\n\n${updateString(queryTerm, parameters)}\n\n}`;
+            // deep copy so that the original parameters are not modified
+            var copiedParameters = structuredClone(parameters);
+            copiedParameters.youtubeRandomVideos["maxTotalResults:"] = 12;
+            queryString = `{\n\n${updateString(queryTerm, copiedParameters)}\n\n}`;
         }
         pages = -999;
     } else if (queryTerm === 'queryYoutubeChannel') {

@@ -15,7 +15,7 @@ function init(){
         rdPost:{},
         psPost:{},
         psComment:{},
-		youtubeSearch:{},
+        youtubeSearch:{},
 		youtubeRandomVideos:{},
 		youtubeSearchChannel:{},
 		youtubeSearchPlaylist:{},
@@ -108,8 +108,8 @@ function init(){
 					`\n\t\t\tentities{\n\t\t\t\tmedia{\n\t\t\t\t\tmedia_url\n\t\t\t\t}\n\t\t\t}`;
 
 				parameters['rdSearch']['query:'] = keyword;
-				parameters['rdSearch']['time:'] =  'all';
-				parameters['rdSearch']['sort:'] =  'relevance';
+				parameters['rdSearch']['time:'] = parameters['rdSearch']['time:'] || 'all';
+				parameters['rdSearch']['sort:'] = parameters['rdSearch']['sort:'] || 'relevance';
 				parameters['rdSearch']['fields'] = `\n\t\t\tarchived\n\t\t\tauthor_name\n\t\t\tbrand_safe\n\t\t\tcontest_mode\n\t\t\tclicked`+
 					`\n\t\t\tcreated\n\t\t\tcreated_utc\n\t\t\tdomain\n\t\t\tdowns\n\t\t\tedited\n\t\t\tgilded\n\t\t\thidden\n\t\t\thide_score`+
 					`\n\t\t\tid\n\t\t\tis_self\n\t\t\tlink_flair_text\n\t\t\tlocked\n\t\t\tname\n\t\t\tover_18\n\t\t\tpermalink\n\t\t\tquarantine\n\t\t\tsaved\n\t\t\tscore`+
@@ -117,7 +117,7 @@ function init(){
 					`\n\t\t\ttitle\n\t\t\turl\n\t\t\tups\n\t\t\tvisited`;
 
 				parameters['rdPost']['subredditName:'] = keyword;
-				parameters['rdPost']['extra:'] = 2000;
+				parameters['rdPost']['extra:'] = parameters['rdPost']['extra:'] || 2000;
 				parameters['rdPost']['fields'] = `\n\t\t\tarchived\n\t\t\tauthor_name\n\t\t\tbrand_safe\n\t\t\tcontest_mode\n\t\t\tclicked`+
 					`\n\t\t\tcreated\n\t\t\tcreated_utc\n\t\t\tdomain\n\t\t\tdowns\n\t\t\tedited\n\t\t\tgilded\n\t\t\thidden\n\t\t\thide_score`+
 					`\n\t\t\tid\n\t\t\tis_self\n\t\t\tlink_flair_text\n\t\t\tlocked\n\t\t\tname\n\t\t\tover_18\n\t\t\tpermalink\n\t\t\tquarantine\n\t\t\tsaved\n\t\t\tscore`+
@@ -125,7 +125,7 @@ function init(){
 					`\n\t\t\ttitle\n\t\t\turl\n\t\t\tups\n\t\t\tvisited`;
 
 				parameters['rdComment']['subredditName:'] = keyword;
-				parameters['rdComment']['extra:'] = 2000;
+				parameters['rdComment']['extra:'] = parameters['rdComment']['extra:'] || 2000;
 				parameters['rdComment']['fields'] = `\n\t\t\tcomment_author_name\n\t\t\tarchived\n\t\t\tbody\n\t\t\tbody_html\n\t\t\tsubreddit_display_name`+
 					`\n\t\t\tcreated_utc\n\t\t\tcomment_created\n\t\t\tcontroversiality\n\t\t\tcomment_downs\n\t\t\tedited\n\t\t\tgilded\n\t\t\tcomment_id`+
 					`\n\t\t\tlink_id\n\t\t\tlink_author\n\t\t\tlink_title\n\t\t\tlink_permalink\n\t\t\tlink_url\n\t\t\tcomment_over_18\n\t\t\tparent_id`+
@@ -150,29 +150,29 @@ function init(){
 					"\n\t\t\t\tmaxres_thumbnails_width\n\t\t\t\thigh_thumbnails_height\n\t\t\t\tchannelTitle\n\t\t\t\tliveBroadcastContent\n\t\t\t}";
 
 				parameters['youtubeSearch']['q:'] = keyword;
-				parameters['youtubeSearch']['order:'] = "relevance";
-				parameters['youtubeSearch']['videoDuration:'] = "any";
+				parameters['youtubeSearch']['order:'] = parameters['youtubeSearch']['order:'] || "relevance";
+				parameters['youtubeSearch']['videoDuration:'] = parameters['youtubeSearch']['videoDuration:'] || "any";
 				parameters['youtubeSearch']['fields'] = youtubeCommonFields;
 
 				parameters['youtubeRandomVideos']['order:'] = "relevance";
-				parameters['youtubeRandomVideos']['videoDuration:'] = "any";
-				parameters['youtubeRandomVideos']['maxTotalResults:'] = 100;
+				parameters['youtubeRandomVideos']['videoDuration:'] = parameters['youtubeRandomVideos']['videoDuration:'] || "any";
+				parameters['youtubeRandomVideos']['maxTotalResults:'] = parameters['youtubeRandomVideos']['maxTotalResults:'] || 100;
 				parameters['youtubeRandomVideos']['fields'] = youtubeCommonFields;
 
 				parameters['youtubeSearchChannel']['q:'] = keyword;
-				parameters['youtubeSearchChannel']['type:'] = "channel";
-				parameters['youtubeSearchChannel']['order:'] = "relevance";
-				parameters['youtubeSearchChannel']['videoDuration:'] = "any";
+				parameters['youtubeSearchChannel']['type:'] = parameters['youtubeSearchChannel']['type:'] || "channel";
+				parameters['youtubeSearchChannel']['order:'] = parameters['youtubeSearchChannel']['order:'] || "relevance";
+				parameters['youtubeSearchChannel']['videoDuration:'] = parameters['youtubeSearchChannel']['videoDuration:'] || "any";
 				parameters['youtubeSearchChannel']['fields'] = youtubeCommonFields;
 
 				parameters['youtubeSearchPlaylist']['q:'] = keyword;
-				parameters['youtubeSearchPlaylist']['type:'] = "playlist";
-				parameters['youtubeSearchPlaylist']['order:'] = "relevance";
-				parameters['youtubeSearchPlaylist']['videoDuration:'] = "any";
+				parameters['youtubeSearchPlaylist']['type:'] = parameters['youtubeSearchPlaylist']['type:'] || "playlist";
+				parameters['youtubeSearchPlaylist']['order:'] = parameters['youtubeSearchPlaylist']['order:'] || "relevance";
+				parameters['youtubeSearchPlaylist']['videoDuration:'] = parameters['youtubeSearchPlaylist']['videoDuration:'] || "any";
 				parameters['youtubeSearchPlaylist']['fields'] = youtubeCommonFields;
 
 				parameters['youtubeMostPopular']['regionCode:'] = keyword;
-				parameters['youtubeMostPopular']['chart:'] = "mostPopular";
+				parameters['youtubeMostPopular']['chart:'] = parameters['youtubeMostPopular']['chart:'] || "mostPopular";
 				parameters['youtubeMostPopular']['fields'] = "\n\t\t\tkind\n\t\t\tetag\n\t\t\tid\n\t\t\tsnippet{\n\t\t\t\t" +
 					"publishedAt\n\t\t\t\tchannelId\n\t\t\t\ttitle\n\t\t\t\tdescription\n\t\t\t\tdefault_thumbnails_url" +
 					"\n\t\t\t\tdefault_thumbnails_width\n\t\t\t\tdefault_thumbnails_height\n\t\t\t\tmedium_thumbnails_url" +
@@ -196,8 +196,8 @@ function init(){
 					"\n\t\t\t\tconcurrentViewers\n\t\t\t\tactiveLiveChatId\n\t\t\t}"
 
 				parameters['youtubeCreatorVideos']['handle:'] = keyword;
-				parameters['youtubeCreatorVideos']['order:'] = "relevance";
-				parameters['youtubeCreatorVideos']['videoDuration:'] = "any";
+				parameters['youtubeCreatorVideos']['order:'] = parameters['youtubeCreatorVideos']['order:'] || "relevance";
+				parameters['youtubeCreatorVideos']['videoDuration:'] = parameters['youtubeCreatorVideos']['videoDuration:'] || "any";
 				parameters['youtubeCreatorVideos']['fields'] = youtubeCommonFields;
 
 				Query =updateString(queryTerm,parameters);
@@ -1191,28 +1191,28 @@ function constructQuery(parameterObj){
 function updateString(queryTerm, parameters){
 	var query = '';
 	if (queryTerm === 'getTimeline'){
-		query = `\ttwitter{\n\t\t`	+ queryTerm + `(` +  constructQuery(parameters.twtTimeline) +  `\n\t\t}\n\t}`;
+		query = `\ttwitter{\n\t\t${queryTerm}(${constructQuery(parameters.twtTimeline)}\n\t\t}\n\t}`;
 	}
 	else if(queryTerm === 'queryTweet'){
-		query =  `\ttwitter{\n\t\t`	+ queryTerm + `(`+ constructQuery(parameters.tweet)	+ `\n\t\t}\n\t}`;
+		query =  `\ttwitter{\n\t\t${queryTerm}(${constructQuery(parameters.tweet)}\n\t\t}\n\t}`;
 	}
 	else if(queryTerm === 'queryTweetV2'){
-		query =  `\ttwitter{\n\t\t`	+ queryTerm + `(`+ constructQuery(parameters.tweetV2)	+ `\n\t\t}\n\t}`;
+		query =  `\ttwitter{\n\t\t${queryTerm}(${constructQuery(parameters.tweetV2)}\n\t\t}\n\t}`;
 	}
 	else if (queryTerm === 'queryReddit'){
-		query =  `\treddit{\n\t\tsearch(`+  constructQuery(parameters.rdSearch) +  `\n\t\t}\n\t}`;  
+		query =  `\treddit{\n\t\tsearch(${constructQuery(parameters.rdSearch)}\n\t\t}\n\t}`;
 	}
 	else if (queryTerm === 'redditPost'){
-		query =  `\treddit{\n\t\tgetNew(`+  constructQuery(parameters.rdPost) +  `\n\t\t}\n\t}`;  
+		query =  `\treddit{\n\t\tgetNew(${constructQuery(parameters.rdPost)}\n\t\t}\n\t}`;
 	}
 	else if (queryTerm === 'redditComment'){
-		query =  `\treddit{\n\t\tgetNewComments(`+  constructQuery(parameters.rdComment) +  `\n\t\t}\n\t}`;  
+		query =  `\treddit{\n\t\tgetNewComments(${constructQuery(parameters.rdComment)}\n\t\t}\n\t}`;
 	}
 	else if (queryTerm === 'pushshiftPost'){
-		query =  `\treddit{\n\t\tpushshiftPost(`+  constructQuery(parameters.psPost) +  `\n\t\t}\n\t}`;  
+		query =  `\treddit{\n\t\tpushshiftPost(${constructQuery(parameters.psPost)}\n\t\t}\n\t}`;
 	}
 	else if (queryTerm === 'pushshiftComment'){
-		query =  `\treddit{\n\t\tpushshiftComment(`+  constructQuery(parameters.psComment) +  `\n\t\t}\n\t}`;  
+		query =  `\treddit{\n\t\tpushshiftComment(${constructQuery(parameters.psComment)}\n\t\t}\n\t}`;
 	}
 	else if (queryTerm === 'queryYoutube'){
 		query = `\tyoutube{\n\t\tsearch(${constructQuery(parameters.youtubeSearch)}\n\t\t}\n\t}`;
