@@ -74,7 +74,7 @@ function submitQuery(textareaID, filenameID, dryrun = false) {
         $("#rendering").hide();
 
         $.ajax({
-            url: 'query-dryrun',
+            url: "query-dryrun",
             type: "post",
             data: {
                 "query": queryString,
@@ -102,9 +102,10 @@ function submitQuery(textareaID, filenameID, dryrun = false) {
                 $("#warning").modal('show');
             }
         });
-    } else {
+    }
+    else {
         $.ajax({
-            url: 'query',
+            url: "query",
             type: "post",
             data: {
                 "query": queryString,
@@ -530,6 +531,7 @@ function submitSearchbox(searchboxID, filenameID, dryrun = false) {
 		}
 		`;
         prefix = 'youtube-Random-Videos';
+        pages = -999;
         params = parameters.youtubeRandomVideos;
     } else if (queryTerm === 'queryYoutube') {
         pages = 2; // TODO change me to 10 later
