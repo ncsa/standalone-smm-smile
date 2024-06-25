@@ -154,7 +154,7 @@ function init(){
 				parameters['youtubeSearch']['videoDuration:'] = parameters['youtubeSearch']['videoDuration:'] || "any";
 				parameters['youtubeSearch']['fields'] = youtubeCommonFields;
 
-				parameters['youtubeRandomVideos']['order:'] = "relevance";
+				parameters['youtubeRandomVideos']['order:'] = parameters['youtubeRandomVideos']['order:'] || "relevance";
 				parameters['youtubeRandomVideos']['videoDuration:'] = parameters['youtubeRandomVideos']['videoDuration:'] || "any";
 				parameters['youtubeRandomVideos']['maxTotalResults:'] = parameters['youtubeRandomVideos']['maxTotalResults:'] || 100;
 				parameters['youtubeRandomVideos']['fields'] = youtubeCommonFields;
