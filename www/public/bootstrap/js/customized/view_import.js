@@ -15,6 +15,9 @@ $("#datasrc-category").on("change", function(){
     else if (selectedItem === 'reddit-Comment') {
         $("#datasrc-criteria").html("<p>Make sure your file has column <u>body</u>.</p>")
     }
+    else if (selectedItem === 'youtube-Search-Video' || selectedItem === 'youtube-Search-Channel'|| selectedItem === 'youtube-Search-Playlist') {
+        $("#datasrc-criteria").html("<p>Make sure your file has column <u>snippet.title</u> or <u>snippet.description</u>.</p>")
+    }
     else if (selectedItem === 'userspec-Others') {
         $("#datasrc-criteria").html("<p>You provide the <u>column headers</u> that you would like to analyze, as well as select " +
             "the <u>analyses</u> you would like to perform.</p>")

@@ -246,7 +246,7 @@ function init(){
 		$(".reddit-comment").hide();
 		$(".pushshift-post").hide();
 		$(".pushshift-comment").hide();
-		$(".youtube-search").hide();
+		$(".youtube-search-video").hide();
 		$(".youtube-random-videos").hide();
 		$(".youtube-search-playlist").hide();
 		$(".youtube-search-channel").hide();
@@ -326,22 +326,22 @@ function init(){
 			$("#searchbox").attr("placeholder","Keyword that you wish to search...");
             $("boolean").tooltip('hide');
 		}
-		else if ( queryTerm === 'queryYoutube'
+		else if ( queryTerm === 'youtubeSearchVideo'
 			|| queryTerm === 'youtubeRandomVideos'
-			|| queryTerm === 'queryYoutubeChannel'
-			|| queryTerm === 'queryYoutubePlaylist'
+			|| queryTerm === 'youtubeSearchChannel'
+			|| queryTerm === 'youtubeSearchPlaylist'
 			|| queryTerm === 'youtubeCreatorVideos')
 		{
 
 			var placeholderText = "Keywords for the Youtube content that you wish to search...";
-			if (queryTerm === 'queryYoutube') $(".youtube-search").show();
+			if (queryTerm === 'youtubeSearchVideo') $(".youtube-search-video").show();
 			if (queryTerm === 'youtubeRandomVideos') {
 				$(".youtube-random-videos").show();
 				placeholderText = "Click the search button to randomly gather YouTube videos."
 				$("#searchbox").prop('disabled',true);
 			}
-			if (queryTerm === 'queryYoutubeChannel') $(".youtube-search-channel").show();
-			if (queryTerm === 'queryYoutubePlaylist') $(".youtube-search-playlist").show();
+			if (queryTerm === 'youtubeSearchChannel') $(".youtube-search-channel").show();
+			if (queryTerm === 'youtubeSearchPlaylist') $(".youtube-search-playlist").show();
 			if (queryTerm === 'youtubeCreatorVideos') {
 				$(".youtube-creator-videos").show();
 				placeholderText = "A single YouTuber creator handle. e.g. MrBeast"
@@ -1213,16 +1213,16 @@ function updateString(queryTerm, parameters){
 	else if (queryTerm === 'pushshiftComment'){
 		query =  `\treddit{\n\t\tpushshiftComment(${constructQuery(parameters.psComment)}\n\t\t}\n\t}`;
 	}
-	else if (queryTerm === 'queryYoutube'){
+	else if (queryTerm === 'youtubeSearchVideo'){
 		query = `\tyoutube{\n\t\tsearch(${constructQuery(parameters.youtubeSearch)}\n\t\t}\n\t}`;
 	}
 	else if (queryTerm === 'youtubeRandomVideos'){
 		query = `\tyoutube{\n\t\trandomSearch(${constructQuery(parameters.youtubeRandomVideos)}\n\t\t}\n\t}`;
 	}
-	else if (queryTerm === 'queryYoutubeChannel'){
+	else if (queryTerm === 'youtubeSearchChannel'){
 		query = `\tyoutube{\n\t\tsearch(${constructQuery(parameters.youtubeSearchChannel)}\n\t\t}\n\t}`;
 	}
-	else if (queryTerm === 'queryYoutubePlaylist'){
+	else if (queryTerm === 'youtubeSearchPlaylist'){
 		query = `\tyoutube{\n\t\tsearch(${constructQuery(parameters.youtubeSearchPlaylist)}\n\t\t}\n\t}`;
 	}
 	else if (queryTerm === 'youtubeMostPopular'){
@@ -1297,13 +1297,13 @@ function setHitogramInterval(freq){
 		prefix = 'reddit-Historical-Post';
 	}else if (queryTerm === 'pushshiftComment'){
 		prefix = 'reddit-Historical-Comment';
-	}else if (queryTerm === 'queryYoutube') {
-		prefix = 'youtube-Search';
+	}else if (queryTerm === 'youtubeSearchVideo') {
+		prefix = 'youtube-Search-Video';
 	}else if (queryTerm === 'youtubeRandomVideos'){
 		prefix = 'youtube-Random-Videos';
-	}else if (queryTerm === 'queryYoutubeChannel'){
+	}else if (queryTerm === 'youtubeSearchChannel'){
 		prefix = 'youtube-Search-Channel';
-	}else if (queryTerm === 'queryYoutubePlaylist'){
+	}else if (queryTerm === 'youtubeSearchPlaylist'){
 		prefix = 'youtube-Search-Playlist';
 	}else if (queryTerm === 'youtubeMostPopular'){
 		prefix = 'youtube-Most-Popular';
