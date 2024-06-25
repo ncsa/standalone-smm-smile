@@ -175,10 +175,10 @@ function formValid(searchID){
 				$("#alert").modal('show');
 				return false
 			}
-		}else if ($("#social-media option:selected").val() === 'queryYoutube'
+		}else if ($("#social-media option:selected").val() === 'youtubeSearchVideo'
 			|| $("#social-media option:selected").val() === 'youtubeRandomVideos'
-			|| $("#social-media option:selected").val() === 'queryYoutubePlaylist'
-			|| $("#social-media option:selected").val() === 'queryYoutubeChannel'
+			|| $("#social-media option:selected").val() === 'youtubeSearchPlaylist'
+			|| $("#social-media option:selected").val() === 'youtubeSearchChannel'
 			|| $("#social-media option:selected").val() === 'youtubeCreatorVideos'
 		){
 			if ($("#ytDateRange").is(':checked') &&

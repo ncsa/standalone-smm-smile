@@ -38,7 +38,7 @@ function submitQuery(textareaID, filenameID, dryrun = false) {
         prefix = 'reddit-Historical-Comment';
         params = parameters.psComment;
         pages = -999;
-    } else if (queryTerm === 'queryYoutube') {
+    } else if (queryTerm === 'youtubeSearchVideo') {
         prefix = 'youtube-Search-Video';
         params = parameters.youtubeSearch;
         pages = parseInt($("#youtube-count").val()) / 50;
@@ -52,11 +52,11 @@ function submitQuery(textareaID, filenameID, dryrun = false) {
             queryString = `{\n\n${updateString(queryTerm, copiedParameters)}\n\n}`;
         }
         pages = -999;
-    } else if (queryTerm === 'queryYoutubeChannel') {
+    } else if (queryTerm === 'youtubeSearchChannel') {
         prefix = 'youtube-Search-Channel';
         params = parameters.youtubeSearchChannel;
         pages = parseInt($("#youtube-count").val()) / 50;
-    } else if (queryTerm === 'queryYoutubePlaylist') {
+    } else if (queryTerm === 'youtubeSearchPlaylist') {
         prefix = 'youtube-Search-Playlist';
         params = parameters.youtubeSearchPlaylist;
         pages = parseInt($("#youtube-count").val()) / 50;
@@ -535,7 +535,7 @@ function submitSearchbox(searchboxID, filenameID, dryrun = false) {
         prefix = 'youtube-Random-Videos';
         pages = -999;
         params = parameters.youtubeRandomVideos;
-    } else if (queryTerm === 'queryYoutube') {
+    } else if (queryTerm === 'youtubeSearchVideo') {
         pages = 2; // TODO change me to 10 later
         if (dryrun) pages = 1;
         queryString = `{
@@ -578,7 +578,7 @@ function submitSearchbox(searchboxID, filenameID, dryrun = false) {
 		`;
         prefix = 'youtube-Search-Video';
         params = parameters.youtubeSearch;
-    } else if (queryTerm === 'queryYoutubeChannel') {
+    } else if (queryTerm === 'youtubeSearchChannel') {
         pages = 2; // TODO change me to 10 later
         if (dryrun) pages = 1;
         queryString = `{
@@ -621,7 +621,7 @@ function submitSearchbox(searchboxID, filenameID, dryrun = false) {
 		`;
         prefix = 'youtube-Search-Channel';
         params = parameters.youtubeSearchChannel;
-    } else if (queryTerm === 'queryYoutubePlaylist') {
+    } else if (queryTerm === 'youtubeSearchPlaylist') {
         pages = 2; // TODO change me to 10 later
         if (dryrun) pages = 1;
         queryString = `{
