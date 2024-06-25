@@ -1,5 +1,5 @@
 //Youtube
-div(class="youtube-search youtube-random-videos youtube-search-channel youtube-search-playlist youtube-creator-videos")
+div(class="youtube-search-video youtube-random-videos youtube-search-channel youtube-search-playlist youtube-creator-videos")
 	div(class="form-group")
 		label(class="label-control warning") Maximum number of search results
 			span(class="warningText") Careful! The default quota allocation is 10,000 units per day. Every 50 counts as 100 units.
@@ -7,7 +7,7 @@ div(class="youtube-search youtube-random-videos youtube-search-channel youtube-s
 			input(type="range" min="50" max="5000" value="100" step="50" id="youtube-count" onchange="ytrangeNode.value=value")
 			output(id="ytrangeNode") 100
 
-div(class="youtube-search youtube-search-channel youtube-search-playlist youtube-creator-videos")
+div(class="youtube-search-video youtube-creator-videos")
 	div(class="form-group")
 		label(class="label-control" style="display:block;") Order
 		label(class="radio-inline")
@@ -29,7 +29,7 @@ div(class="youtube-search youtube-search-channel youtube-search-playlist youtube
 			input(type="radio", name="ytOrder", value="viewCount")
 			| viewCount
 
-div(class="youtube-search youtube-random-videos youtube-search-channel youtube-search-playlist youtube-creator-videos")
+div(class="youtube-search-video youtube-random-videos youtube-creator-videos")
 	div(class="form-group")
 		label(class="label-control" style="display:block;") Video Duration
 		label(class="radio-inline")
@@ -57,7 +57,7 @@ div(class="youtube-search youtube-random-videos youtube-search-channel youtube-s
 			label Published Before
 			input(class="form-control", type="date", id="publishedBefore")
 
-div(class="youtube-search youtube-random-videos youtube-creator-videos")
+div(class="youtube-search-video youtube-random-videos youtube-creator-videos")
 	div(class="form-group")
 		label(class="")
 			i(class="fas fa-map-marker-alt")
@@ -73,7 +73,7 @@ div(class="youtube-search youtube-random-videos youtube-creator-videos")
 		div(class="col-md-12")
 			iframe(id="openLayerMap" src="openLayerMap/geolocation.html")
 
-div(class="youtube-search youtube-random-videos youtube-search-channel youtube-search-playlist")
+div(class="youtube-search-video youtube-random-videos youtube-search-channel youtube-search-playlist")
 	div(class="form-group")
 		label(class="")
 			i(class="fas fa-filter")

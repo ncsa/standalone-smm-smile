@@ -40,7 +40,7 @@ function submitQuery(textareaID, filenameID, dryrun = false) {
         pages = -999;
     } else if (queryTerm === 'youtubeSearchVideo') {
         prefix = 'youtube-Search-Video';
-        params = parameters.youtubeSearch;
+        params = parameters.youtubeSearchVideo;
         pages = parseInt($("#youtube-count").val()) / 50;
     } else if (queryTerm === 'youtubeRandomVideos') {
         prefix = 'youtube-Random-Videos';
@@ -577,7 +577,7 @@ function submitSearchbox(searchboxID, filenameID, dryrun = false) {
 		}
 		`;
         prefix = 'youtube-Search-Video';
-        params = parameters.youtubeSearch;
+        params = parameters.youtubeSearchVideo;
     } else if (queryTerm === 'youtubeSearchChannel') {
         pages = 2; // TODO change me to 10 later
         if (dryrun) pages = 1;
