@@ -15,7 +15,7 @@ function init(){
         rdPost:{},
         psPost:{},
         psComment:{},
-        youtubeSearch:{},
+        youtubeSearchVideo:{},
 		youtubeRandomVideos:{},
 		youtubeSearchChannel:{},
 		youtubeSearchPlaylist:{},
@@ -149,10 +149,10 @@ function init(){
 					"\n\t\t\t\tstandard_thumbnails_url\n\t\t\t\tstandard_thumbnails_width\n\t\t\t\tstandard_thumbnails_height\n\t\t\t\tmaxres_thumbnails_url" +
 					"\n\t\t\t\tmaxres_thumbnails_width\n\t\t\t\thigh_thumbnails_height\n\t\t\t\tchannelTitle\n\t\t\t\tliveBroadcastContent\n\t\t\t}";
 
-				parameters['youtubeSearch']['q:'] = keyword;
-				parameters['youtubeSearch']['order:'] = parameters['youtubeSearch']['order:'] || "relevance";
-				parameters['youtubeSearch']['videoDuration:'] = parameters['youtubeSearch']['videoDuration:'] || "any";
-				parameters['youtubeSearch']['fields'] = youtubeCommonFields;
+				parameters['youtubeSearchVideo']['q:'] = keyword;
+				parameters['youtubeSearchVideo']['order:'] = parameters['youtubeSearchVideo']['order:'] || "relevance";
+				parameters['youtubeSearchVideo']['videoDuration:'] = parameters['youtubeSearchVideo']['videoDuration:'] || "any";
+				parameters['youtubeSearchVideo']['fields'] = youtubeCommonFields;
 
 				parameters['youtubeRandomVideos']['videoDuration:'] = parameters['youtubeRandomVideos']['videoDuration:'] || "any";
 				parameters['youtubeRandomVideos']['maxTotalResults:'] = parameters['youtubeRandomVideos']['maxTotalResults:'] || 100;
@@ -160,14 +160,10 @@ function init(){
 
 				parameters['youtubeSearchChannel']['q:'] = keyword;
 				parameters['youtubeSearchChannel']['type:'] = parameters['youtubeSearchChannel']['type:'] || "channel";
-				parameters['youtubeSearchChannel']['order:'] = parameters['youtubeSearchChannel']['order:'] || "relevance";
-				parameters['youtubeSearchChannel']['videoDuration:'] = parameters['youtubeSearchChannel']['videoDuration:'] || "any";
 				parameters['youtubeSearchChannel']['fields'] = youtubeCommonFields;
 
 				parameters['youtubeSearchPlaylist']['q:'] = keyword;
 				parameters['youtubeSearchPlaylist']['type:'] = parameters['youtubeSearchPlaylist']['type:'] || "playlist";
-				parameters['youtubeSearchPlaylist']['order:'] = parameters['youtubeSearchPlaylist']['order:'] || "relevance";
-				parameters['youtubeSearchPlaylist']['videoDuration:'] = parameters['youtubeSearchPlaylist']['videoDuration:'] || "any";
 				parameters['youtubeSearchPlaylist']['fields'] = youtubeCommonFields;
 
 				parameters['youtubeMostPopular']['regionCode:'] = keyword;
@@ -463,7 +459,7 @@ function init(){
             parameters['rdComment']['subredditName:'] = keyword;
             parameters['psPost']['q:'] = keyword;
             parameters['psComment']['q:'] = keyword;
-            parameters['youtubeSearch']['q:'] = keyword;
+            parameters['youtubeSearchVideo']['q:'] = keyword;
             parameters['youtubeSearchChannel']['q:'] = keyword;
             parameters['youtubeSearchPlaylist']['q:'] = keyword;
             parameters['youtubeMostPopular']['regionCode:'] = keyword;
@@ -487,7 +483,7 @@ function init(){
 		parameters['rdComment']['subredditName:'] = keyword;
 		parameters['psPost']['q:'] = keyword;
 		parameters['psComment']['q:'] = keyword;
-		parameters['youtubeSearch']['q:'] = keyword;
+		parameters['youtubeSearchVideo']['q:'] = keyword;
 		parameters['youtubeSearchChannel']['q:'] = keyword;
 		parameters['youtubeSearchPlaylist']['q:'] = keyword;
 		parameters['youtubeMostPopular']['regionCode:'] = keyword;
@@ -975,9 +971,7 @@ function init(){
 	});
 	// order
 	$("input[name='ytOrder']").change(function(){
-		parameters['youtubeSearch']['order:'] = $(this).val();
-		parameters['youtubeSearchChannel']['order:'] = $(this).val();
-		parameters['youtubeSearchPlaylist']['order:'] = $(this).val();
+		parameters['youtubeSearchVideo']['order:'] = $(this).val();
 		parameters['youtubeCreatorVideos']['order:'] = $(this).val();
 		Query =updateString(queryTerm,parameters);
 		$("#input").val(`{\n\n` + Query +`\n\n}`);
@@ -985,10 +979,8 @@ function init(){
 
 	// duration
 	$("input[name='ytDuration']").change(function(){
-		parameters['youtubeSearch']['videoDuration:'] = $(this).val();
+		parameters['youtubeSearchVideo']['videoDuration:'] = $(this).val();
 		parameters['youtubeRandomVideos']['videoDuration:'] = $(this).val();
-		parameters['youtubeSearchChannel']['videoDuration:'] = $(this).val();
-		parameters['youtubeSearchPlaylist']['videoDuration:'] = $(this).val();
 		parameters['youtubeCreatorVideos']['videoDuration:'] = $(this).val();
 		Query =updateString(queryTerm,parameters);
 		$("#input").val(`{\n\n` + Query +`\n\n}`);
@@ -999,7 +991,7 @@ function init(){
 		if ($("#ytFilters").is(':checked')) {
 			$(".form-group.ytFilters").show();
 			$("#channelId").change(function () {
-				parameters['youtubeSearch']['channelId:'] = $(this).val();
+				parameters['youtubeSearchVideo']['channelId:'] = $(this).val();
 				parameters['youtubeRandomVideos']['channelId:'] = $(this).val();
 				parameters['youtubeSearchChannel']['channelId:'] = $(this).val();
 				parameters['youtubeSearchPlaylist']['channelId:'] = $(this).val();
@@ -1007,7 +999,7 @@ function init(){
 				$("#input").val(`{\n\n` + Query + `\n\n}`);
 			});
 			$("#regionCode").change(function () {
-				parameters['youtubeSearch']['regionCode:'] = $(this).val();
+				parameters['youtubeSearchVideo']['regionCode:'] = $(this).val();
 				parameters['youtubeRandomVideos']['regionCode:'] = $(this).val();
 				parameters['youtubeSearchChannel']['regionCode:'] = $(this).val();
 				parameters['youtubeSearchPlaylist']['regionCode:'] = $(this).val();
@@ -1015,7 +1007,7 @@ function init(){
 				$("#input").val(`{\n\n` + Query + `\n\n}`);
 			});
 			$("#relevanceLanguage").change(function () {
-				parameters['youtubeSearch']['relevanceLanguage:'] = $(this).val();
+				parameters['youtubeSearchVideo']['relevanceLanguage:'] = $(this).val();
 				parameters['youtubeRandomVideos']['relevanceLanguage:'] = $(this).val();
 				parameters['youtubeSearchChannel']['relevanceLanguage:'] = $(this).val();
 				parameters['youtubeSearchPlaylist']['relevanceLanguage:'] = $(this).val();
@@ -1025,15 +1017,15 @@ function init(){
 		}
 		else{
 			$(".form-group.ytFilters").hide();
-			parameters['youtubeSearch']['channelId:'] = '';
+			parameters['youtubeSearchVideo']['channelId:'] = '';
 			parameters['youtubeRandomVideos']['channelId:'] = '';
 			parameters['youtubeSearchChannel']['channelId:'] = '';
 			parameters['youtubeSearchPlaylist']['channelId:'] = '';
-			parameters['youtubeSearch']['regionCode:'] = '';
+			parameters['youtubeSearchVideo']['regionCode:'] = '';
 			parameters['youtubeRandomVideos']['regionCode:'] = '';
 			parameters['youtubeSearchChannel']['regionCode:'] = '';
 			parameters['youtubeSearchPlaylist']['regionCode:'] = '';
-			parameters['youtubeSearch']['relevanceLanguage:'] = '';
+			parameters['youtubeSearchVideo']['relevanceLanguage:'] = '';
 			parameters['youtubeRandomVideos']['relevanceLanguage:'] = '';
 			parameters['youtubeSearchChannel']['relevanceLanguage:'] = '';
 			parameters['youtubeSearchPlaylist']['relevanceLanguage:'] = '';
@@ -1051,7 +1043,7 @@ function init(){
 			$(".form-group.ytDateRange").show();
 			$("#publishedAfter").change(function(){
 				let publishedAfter = new Date($("#publishedAfter").val());
-				parameters['youtubeSearch']['publishedAfter:'] =  publishedAfter.toISOString();
+				parameters['youtubeSearchVideo']['publishedAfter:'] =  publishedAfter.toISOString();
 				parameters['youtubeRandomVideos']['publishedAfter:'] =  publishedAfter.toISOString();
 				parameters['youtubeSearchChannel']['publishedAfter:'] =  publishedAfter.toISOString();
 				parameters['youtubeSearchPlaylist']['publishedAfter:'] =  publishedAfter.toISOString();
@@ -1061,7 +1053,7 @@ function init(){
 			});
 			$("#publishedBefore").change(function(){
 				let publishedBefore = new Date($("#publishedBefore").val());
-				parameters['youtubeSearch']['publishedBefore:'] =  publishedBefore.toISOString();
+				parameters['youtubeSearchVideo']['publishedBefore:'] =  publishedBefore.toISOString();
 				parameters['youtubeRandomVideos']['publishedBefore:'] =  publishedBefore.toISOString();
 				parameters['youtubeSearchChannel']['publishedBefore:'] =  publishedBefore.toISOString();
 				parameters['youtubeSearchPlaylist']['publishedBefore:'] =  publishedBefore.toISOString();
@@ -1072,13 +1064,13 @@ function init(){
 		}
 		else{
 			$(".form-group.ytDateRange").hide();
-			parameters['youtubeSearch']['publishedAfter:'] = '';
+			parameters['youtubeSearchVideo']['publishedAfter:'] = '';
 			parameters['youtubeRandomVideos']['publishedAfter:'] = '';
 			parameters['youtubeSearchChannel']['publishedAfter:'] = '';
 			parameters['youtubeSearchPlaylist']['publishedAfter:'] = '';
 			parameters['youtubeCreatorVideos']['publishedAfter:'] = '';
 
-			parameters['youtubeSearch']['publishedBefore:'] = '';
+			parameters['youtubeSearchVideo']['publishedBefore:'] = '';
 			parameters['youtubeRandomVideos']['publishedBefore:'] = '';
 			parameters['youtubeSearchChannel']['publishedBefore:'] = '';
 			parameters['youtubeSearchPlaylist']['publishedBefore:'] = '';
@@ -1098,14 +1090,14 @@ function init(){
 		if ($("#ytGeoSearch").is(':checked')) {
 			$(".form-group.ytGeoSearch").show();
 			$("#ytLocation").change(function(){
-				parameters['youtubeSearch']['location:'] = $("#ytLocation").val();
+				parameters['youtubeSearchVideo']['location:'] = $("#ytLocation").val();
 				parameters['youtubeRandomVideos']['location:'] = $("#ytLocation").val();
 				parameters['youtubeCreatorVideos']['location:'] = $("#ytLocation").val();
 				Query =updateString(queryTerm,parameters);
 				$("#input").val(`{\n\n` + Query +`\n\n}`);
 			});
 			$("#ytLocationRadius").change(function(){
-				parameters['youtubeSearch']['locationRadius:'] = $("#ytLocationRadius").val();
+				parameters['youtubeSearchVideo']['locationRadius:'] = $("#ytLocationRadius").val();
 				parameters['youtubeRandomVideos']['locationRadius:'] = $("#ytLocationRadius").val();
 				parameters['youtubeCreatorVideos']['locationRadius:'] = $("#ytLocationRadius").val();
 				Query =updateString(queryTerm,parameters);
@@ -1114,10 +1106,10 @@ function init(){
 		}
 		else {
 			$(".form-group.ytGeoSearch").hide();
-			parameters['youtubeSearch']['location:'] = '';
+			parameters['youtubeSearchVideo']['location:'] = '';
 			parameters['youtubeRandomVideos']['location:'] = '';
 			parameters['youtubeCreatorVideos']['location:'] = '';
-			parameters['youtubeSearch']['locationRadius:'] = '';
+			parameters['youtubeSearchVideo']['locationRadius:'] = '';
 			parameters['youtubeRandomVideos']['locationRadius:'] = '';
 			parameters['youtubeCreatorVideos']['locationRadius:'] = '';
 			Query =updateString(queryTerm,parameters);
@@ -1214,7 +1206,7 @@ function updateString(queryTerm, parameters){
 		query =  `\treddit{\n\t\tpushshiftComment(${constructQuery(parameters.psComment)}\n\t\t}\n\t}`;
 	}
 	else if (queryTerm === 'youtubeSearchVideo'){
-		query = `\tyoutube{\n\t\tsearch(${constructQuery(parameters.youtubeSearch)}\n\t\t}\n\t}`;
+		query = `\tyoutube{\n\t\tsearch(${constructQuery(parameters.youtubeSearchVideo)}\n\t\t}\n\t}`;
 	}
 	else if (queryTerm === 'youtubeRandomVideos'){
 		query = `\tyoutube{\n\t\trandomSearch(${constructQuery(parameters.youtubeRandomVideos)}\n\t\t}\n\t}`;
