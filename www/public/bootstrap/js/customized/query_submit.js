@@ -42,6 +42,14 @@ function submitQuery(textareaID, filenameID, dryrun = false) {
         prefix = 'youtube-Search';
         params = parameters.youtubeSearch;
         pages = parseInt($("#youtube-count").val()) / 50;
+    } else if (queryTerm === 'youtubeRandomVideos') {
+        prefix = 'youtube-Random-Videos';
+        params = parameters.youtubeRandomVideos;
+        if (dryrun){
+            parameters.youtubeRandomVideos["maxTotalResults:"] = 12;
+            queryString = `{\n\n${updateString(queryTerm, parameters)}\n\n}`;
+        }
+        pages = -999;
     } else if (queryTerm === 'queryYoutubeChannel') {
         prefix = 'youtube-Search-Channel';
         params = parameters.youtubeSearchChannel;
@@ -456,7 +464,8 @@ function submitSearchbox(searchboxID, filenameID, dryrun = false) {
         prefix = 'reddit-Comment';
         pages = -999;
         params = parameters.rdComment;
-    } else if (queryTerm === 'pushshiftComment') {
+    }
+    else if (queryTerm === 'pushshiftComment') {
         queryString = `{
 							  reddit {
 								pushshiftComment(q: "${keyword}"){
@@ -478,6 +487,50 @@ function submitSearchbox(searchboxID, filenameID, dryrun = false) {
         prefix = 'reddit-Historical-Comment';
         pages = -999;
         params = parameters.psComment;
+    }
+    else if (queryTerm === 'youtubeRandomVideos') {
+        var maxTotalResults = 100
+        if (dryrun) maxTotalResults = 12;
+        queryString = `{
+		  youtube {
+			randomSearch(type:"video", maxTotalResults: ${maxTotalResults}) {
+			  kind
+			  etag
+			  id{
+				kind
+				videoId
+				channelId
+				playlistId
+			  }
+			  snippet{
+				publishedAt
+				channelId
+				title
+				description
+				default_thumbnails_url
+				default_thumbnails_width
+				default_thumbnails_height
+				medium_thumbnails_url
+				medium_thumbnails_width
+				medium_thumbnails_height
+				high_thumbnails_url
+				high_thumbnails_width
+				high_thumbnails_height
+				standard_thumbnails_url
+				standard_thumbnails_width
+				standard_thumbnails_height
+				maxres_thumbnails_url
+				maxres_thumbnails_width
+				high_thumbnails_height
+				channelTitle
+				liveBroadcastContent
+			  }
+			}
+		  }
+		}
+		`;
+        prefix = 'youtube-Random-Videos';
+        params = parameters.youtubeRandomVideos;
     } else if (queryTerm === 'queryYoutube') {
         pages = 2; // TODO change me to 10 later
         if (dryrun) pages = 1;
@@ -612,7 +665,7 @@ function submitSearchbox(searchboxID, filenameID, dryrun = false) {
         if (dryrun) pages = 1;
 
         var segmentString = `videos(chart: "mostPopular", regionCode: "${keyword}") {`;
-        if (keyword === ""){
+        if (keyword === "") {
             segmentString = `videos(chart: "mostPopular") {`
         }
         queryString = `{
@@ -708,8 +761,7 @@ function submitSearchbox(searchboxID, filenameID, dryrun = false) {
         `;
         prefix = 'youtube-Most-Popular';
         params = parameters.youtubeMostPopular;
-    }
-    else if (queryTerm === 'youtubeCreatorVideos') {
+    } else if (queryTerm === 'youtubeCreatorVideos') {
         pages = 2; // TODO change me to 10 later
         if (dryrun) pages = 1;
         queryString = `{
@@ -1003,7 +1055,10 @@ function renderPreview(rendering, prefix) {
 				</div>`);
 
         });
-    } else if (prefix === 'youtube-Search' || prefix === 'youtube-Most-Popular' || prefix === 'youtube-Creator-Videos') {
+    } else if (prefix === 'youtube-Search'
+        || prefix === 'youtube-Most-Popular'
+        || prefix === 'youtube-Creator-Videos'
+        || prefix === 'youtube-Random-Videos') {
         $.each(rendering, function (i, val) {
             var img_url = val && val.snippet && val.snippet.medium_thumbnails_url ? val.snippet.medium_thumbnails_url : "";
             let imgElement = img_url ? `<img src="${img_url}" alt="video-img" style="width:100%;"/>` : "";
