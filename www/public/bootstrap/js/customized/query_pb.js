@@ -154,7 +154,6 @@ function init(){
 				parameters['youtubeSearch']['videoDuration:'] = parameters['youtubeSearch']['videoDuration:'] || "any";
 				parameters['youtubeSearch']['fields'] = youtubeCommonFields;
 
-				parameters['youtubeRandomVideos']['order:'] = parameters['youtubeRandomVideos']['order:'] || "relevance";
 				parameters['youtubeRandomVideos']['videoDuration:'] = parameters['youtubeRandomVideos']['videoDuration:'] || "any";
 				parameters['youtubeRandomVideos']['maxTotalResults:'] = parameters['youtubeRandomVideos']['maxTotalResults:'] || 100;
 				parameters['youtubeRandomVideos']['fields'] = youtubeCommonFields;
@@ -248,6 +247,7 @@ function init(){
 		$(".pushshift-post").hide();
 		$(".pushshift-comment").hide();
 		$(".youtube-search").hide();
+		$(".youtube-random-videos").hide();
 		$(".youtube-search-playlist").hide();
 		$(".youtube-search-channel").hide();
 		$(".youtube-most-popular").hide();
@@ -976,7 +976,6 @@ function init(){
 	// order
 	$("input[name='ytOrder']").change(function(){
 		parameters['youtubeSearch']['order:'] = $(this).val();
-		parameters['youtubeRandomVideos']['order:'] = $(this).val();
 		parameters['youtubeSearchChannel']['order:'] = $(this).val();
 		parameters['youtubeSearchPlaylist']['order:'] = $(this).val();
 		parameters['youtubeCreatorVideos']['order:'] = $(this).val();

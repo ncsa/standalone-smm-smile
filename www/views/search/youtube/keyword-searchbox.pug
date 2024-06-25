@@ -6,6 +6,8 @@ div(class="youtube-search youtube-random-videos youtube-search-channel youtube-s
 		div(class="range range-node")
 			input(type="range" min="50" max="5000" value="100" step="50" id="youtube-count" onchange="ytrangeNode.value=value")
 			output(id="ytrangeNode") 100
+
+div(class="youtube-search youtube-search-channel youtube-search-playlist youtube-creator-videos")
 	div(class="form-group")
 		label(class="label-control" style="display:block;") Order
 		label(class="radio-inline")
@@ -26,6 +28,8 @@ div(class="youtube-search youtube-random-videos youtube-search-channel youtube-s
 		label(class="radio-inline")
 			input(type="radio", name="ytOrder", value="viewCount")
 			| viewCount
+
+div(class="youtube-search youtube-random-videos youtube-search-channel youtube-search-playlist youtube-creator-videos")
 	div(class="form-group")
 		label(class="label-control" style="display:block;") Video Duration
 		label(class="radio-inline")
@@ -52,6 +56,7 @@ div(class="youtube-search youtube-random-videos youtube-search-channel youtube-s
 		div(class="col-md-6", style="display:inline-block;")
 			label Published Before
 			input(class="form-control", type="date", id="publishedBefore")
+
 div(class="youtube-search youtube-random-videos youtube-creator-videos")
 	div(class="form-group")
 		label(class="")
@@ -67,6 +72,7 @@ div(class="youtube-search youtube-random-videos youtube-creator-videos")
 			input(class="form-control", id="ytLocationRadius", placeholder="e.g. 1500m, 5km, 10000ft, 0.75mi")
 		div(class="col-md-12")
 			iframe(id="openLayerMap" src="openLayerMap/geolocation.html")
+
 div(class="youtube-search youtube-random-videos youtube-search-channel youtube-search-playlist")
 	div(class="form-group")
 		label(class="")
