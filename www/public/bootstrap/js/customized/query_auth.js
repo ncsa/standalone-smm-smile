@@ -21,9 +21,10 @@ function authorize(platform){
         $("#social-media option[value='redditComment']").removeAttr('disabled');
     }
     else if (platform === 'youtube') {
-        $("#social-media option[value='queryYoutube']").removeAttr('disabled');
-        $("#social-media option[value='queryYoutubeChannel']").removeAttr('disabled');
-        $("#social-media option[value='queryYoutubePlaylist']").removeAttr('disabled');
+        $("#social-media option[value='youtubeSearchVideo']").removeAttr('disabled');
+        $("#social-media option[value='youtubeRandomVideos']").removeAttr('disabled');
+        $("#social-media option[value='youtubeSearchChannel']").removeAttr('disabled');
+        $("#social-media option[value='youtubeSearchPlaylist']").removeAttr('disabled');
         $("#social-media option[value='youtubeMostPopular']").removeAttr('disabled');
         $("#social-media option[value='youtubeCreatorVideos']").removeAttr('disabled');
     }

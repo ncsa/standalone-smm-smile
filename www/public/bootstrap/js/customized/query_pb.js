@@ -15,7 +15,8 @@ function init(){
         rdPost:{},
         psPost:{},
         psComment:{},
-		youtubeSearch:{},
+        youtubeSearchVideo:{},
+		youtubeRandomVideos:{},
 		youtubeSearchChannel:{},
 		youtubeSearchPlaylist:{},
 		youtubeMostPopular:{},
@@ -68,7 +69,9 @@ function init(){
 			
 	// customize advance dropdown
 	$('#dropdownButton').on('click',function(){
-		if (($("#searchbox").val() !== '' && $("#searchbox").val() !== undefined) || queryTerm ===  "youtubeMostPopular"){
+		if (($("#searchbox").val() !== '' && $("#searchbox").val() !== undefined)
+			|| queryTerm ===  "youtubeMostPopular"
+			|| queryTerm === "youtubeRandomVideos"){
 			if (queryTerm !==  "queryTweetV2"){
 				$(this).parent().toggleClass('open');
 				if ($(this).parent().attr('class') === 'dropdown dropdown-lg open'){
@@ -105,8 +108,8 @@ function init(){
 					`\n\t\t\tentities{\n\t\t\t\tmedia{\n\t\t\t\t\tmedia_url\n\t\t\t\t}\n\t\t\t}`;
 
 				parameters['rdSearch']['query:'] = keyword;
-				parameters['rdSearch']['time:'] =  'all';
-				parameters['rdSearch']['sort:'] =  'relevance';
+				parameters['rdSearch']['time:'] = parameters['rdSearch']['time:'] || 'all';
+				parameters['rdSearch']['sort:'] = parameters['rdSearch']['sort:'] || 'relevance';
 				parameters['rdSearch']['fields'] = `\n\t\t\tarchived\n\t\t\tauthor_name\n\t\t\tbrand_safe\n\t\t\tcontest_mode\n\t\t\tclicked`+
 					`\n\t\t\tcreated\n\t\t\tcreated_utc\n\t\t\tdomain\n\t\t\tdowns\n\t\t\tedited\n\t\t\tgilded\n\t\t\thidden\n\t\t\thide_score`+
 					`\n\t\t\tid\n\t\t\tis_self\n\t\t\tlink_flair_text\n\t\t\tlocked\n\t\t\tname\n\t\t\tover_18\n\t\t\tpermalink\n\t\t\tquarantine\n\t\t\tsaved\n\t\t\tscore`+
@@ -114,7 +117,7 @@ function init(){
 					`\n\t\t\ttitle\n\t\t\turl\n\t\t\tups\n\t\t\tvisited`;
 
 				parameters['rdPost']['subredditName:'] = keyword;
-				parameters['rdPost']['extra:'] = 2000;
+				parameters['rdPost']['extra:'] = parameters['rdPost']['extra:'] || 2000;
 				parameters['rdPost']['fields'] = `\n\t\t\tarchived\n\t\t\tauthor_name\n\t\t\tbrand_safe\n\t\t\tcontest_mode\n\t\t\tclicked`+
 					`\n\t\t\tcreated\n\t\t\tcreated_utc\n\t\t\tdomain\n\t\t\tdowns\n\t\t\tedited\n\t\t\tgilded\n\t\t\thidden\n\t\t\thide_score`+
 					`\n\t\t\tid\n\t\t\tis_self\n\t\t\tlink_flair_text\n\t\t\tlocked\n\t\t\tname\n\t\t\tover_18\n\t\t\tpermalink\n\t\t\tquarantine\n\t\t\tsaved\n\t\t\tscore`+
@@ -122,7 +125,7 @@ function init(){
 					`\n\t\t\ttitle\n\t\t\turl\n\t\t\tups\n\t\t\tvisited`;
 
 				parameters['rdComment']['subredditName:'] = keyword;
-				parameters['rdComment']['extra:'] = 2000;
+				parameters['rdComment']['extra:'] = parameters['rdComment']['extra:'] || 2000;
 				parameters['rdComment']['fields'] = `\n\t\t\tcomment_author_name\n\t\t\tarchived\n\t\t\tbody\n\t\t\tbody_html\n\t\t\tsubreddit_display_name`+
 					`\n\t\t\tcreated_utc\n\t\t\tcomment_created\n\t\t\tcontroversiality\n\t\t\tcomment_downs\n\t\t\tedited\n\t\t\tgilded\n\t\t\tcomment_id`+
 					`\n\t\t\tlink_id\n\t\t\tlink_author\n\t\t\tlink_title\n\t\t\tlink_permalink\n\t\t\tlink_url\n\t\t\tcomment_over_18\n\t\t\tparent_id`+
@@ -146,25 +149,25 @@ function init(){
 					"\n\t\t\t\tstandard_thumbnails_url\n\t\t\t\tstandard_thumbnails_width\n\t\t\t\tstandard_thumbnails_height\n\t\t\t\tmaxres_thumbnails_url" +
 					"\n\t\t\t\tmaxres_thumbnails_width\n\t\t\t\thigh_thumbnails_height\n\t\t\t\tchannelTitle\n\t\t\t\tliveBroadcastContent\n\t\t\t}";
 
-				parameters['youtubeSearch']['q:'] = keyword;
-				parameters['youtubeSearch']['order:'] = "relevance";
-				parameters['youtubeSearch']['videoDuration:'] = "any";
-				parameters['youtubeSearch']['fields'] = youtubeCommonFields;
+				parameters['youtubeSearchVideo']['q:'] = keyword;
+				parameters['youtubeSearchVideo']['order:'] = parameters['youtubeSearchVideo']['order:'] || "relevance";
+				parameters['youtubeSearchVideo']['videoDuration:'] = parameters['youtubeSearchVideo']['videoDuration:'] || "any";
+				parameters['youtubeSearchVideo']['fields'] = youtubeCommonFields;
+
+				parameters['youtubeRandomVideos']['videoDuration:'] = parameters['youtubeRandomVideos']['videoDuration:'] || "any";
+				parameters['youtubeRandomVideos']['maxTotalResults:'] = parameters['youtubeRandomVideos']['maxTotalResults:'] || 100;
+				parameters['youtubeRandomVideos']['fields'] = youtubeCommonFields;
 
 				parameters['youtubeSearchChannel']['q:'] = keyword;
-				parameters['youtubeSearchChannel']['type:'] = "channel";
-				parameters['youtubeSearchChannel']['order:'] = "relevance";
-				parameters['youtubeSearchChannel']['videoDuration:'] = "any";
+				parameters['youtubeSearchChannel']['type:'] = parameters['youtubeSearchChannel']['type:'] || "channel";
 				parameters['youtubeSearchChannel']['fields'] = youtubeCommonFields;
 
 				parameters['youtubeSearchPlaylist']['q:'] = keyword;
-				parameters['youtubeSearchPlaylist']['type:'] = "playlist";
-				parameters['youtubeSearchPlaylist']['order:'] = "relevance";
-				parameters['youtubeSearchPlaylist']['videoDuration:'] = "any";
+				parameters['youtubeSearchPlaylist']['type:'] = parameters['youtubeSearchPlaylist']['type:'] || "playlist";
 				parameters['youtubeSearchPlaylist']['fields'] = youtubeCommonFields;
 
 				parameters['youtubeMostPopular']['regionCode:'] = keyword;
-				parameters['youtubeMostPopular']['chart:'] = "mostPopular";
+				parameters['youtubeMostPopular']['chart:'] = parameters['youtubeMostPopular']['chart:'] || "mostPopular";
 				parameters['youtubeMostPopular']['fields'] = "\n\t\t\tkind\n\t\t\tetag\n\t\t\tid\n\t\t\tsnippet{\n\t\t\t\t" +
 					"publishedAt\n\t\t\t\tchannelId\n\t\t\t\ttitle\n\t\t\t\tdescription\n\t\t\t\tdefault_thumbnails_url" +
 					"\n\t\t\t\tdefault_thumbnails_width\n\t\t\t\tdefault_thumbnails_height\n\t\t\t\tmedium_thumbnails_url" +
@@ -188,8 +191,8 @@ function init(){
 					"\n\t\t\t\tconcurrentViewers\n\t\t\t\tactiveLiveChatId\n\t\t\t}"
 
 				parameters['youtubeCreatorVideos']['handle:'] = keyword;
-				parameters['youtubeCreatorVideos']['order:'] = "relevance";
-				parameters['youtubeCreatorVideos']['videoDuration:'] = "any";
+				parameters['youtubeCreatorVideos']['order:'] = parameters['youtubeCreatorVideos']['order:'] || "relevance";
+				parameters['youtubeCreatorVideos']['videoDuration:'] = parameters['youtubeCreatorVideos']['videoDuration:'] || "any";
 				parameters['youtubeCreatorVideos']['fields'] = youtubeCommonFields;
 
 				Query =updateString(queryTerm,parameters);
@@ -227,10 +230,12 @@ function init(){
 	$("#social-media").change(function(){
 		$(".prompt").empty();
 
-		$("#searchbox").prop('disabled',false);
-		$("#dropdownButton").prop('disabled',false);
+		$("#searchbox").val("").prop('disabled',false);
+		$("#dropdownButton").prop('disabled',false).parent().removeClass('open');;
 		$("#simple-search-btn").prop('disabled',false);
-		
+		pushAdvancedDropdown('off');
+
+
 		$(".tweet").hide();
 		$(".timeline").hide();
 		$(".tweetV2").hide();
@@ -239,7 +244,8 @@ function init(){
 		$(".reddit-comment").hide();
 		$(".pushshift-post").hide();
 		$(".pushshift-comment").hide();
-		$(".youtube-search").hide();
+		$(".youtube-search-video").hide();
+		$(".youtube-random-videos").hide();
 		$(".youtube-search-playlist").hide();
 		$(".youtube-search-channel").hide();
 		$(".youtube-most-popular").hide();
@@ -318,13 +324,22 @@ function init(){
 			$("#searchbox").attr("placeholder","Keyword that you wish to search...");
             $("boolean").tooltip('hide');
 		}
-		else if ( queryTerm === 'queryYoutube' || queryTerm === 'queryYoutubeChannel' || queryTerm === 'queryYoutubePlaylist'
-			|| queryTerm === 'youtubeCreatorVideos'){
+		else if ( queryTerm === 'youtubeSearchVideo'
+			|| queryTerm === 'youtubeRandomVideos'
+			|| queryTerm === 'youtubeSearchChannel'
+			|| queryTerm === 'youtubeSearchPlaylist'
+			|| queryTerm === 'youtubeCreatorVideos')
+		{
 
 			var placeholderText = "Keywords for the Youtube content that you wish to search...";
-			if (queryTerm === 'queryYoutube') $(".youtube-search").show();
-			if (queryTerm === 'queryYoutubeChannel') $(".youtube-search-channel").show();
-			if (queryTerm === 'queryYoutubePlaylist') $(".youtube-search-playlist").show();
+			if (queryTerm === 'youtubeSearchVideo') $(".youtube-search-video").show();
+			if (queryTerm === 'youtubeRandomVideos') {
+				$(".youtube-random-videos").show();
+				placeholderText = "Click the search button to randomly gather YouTube videos."
+				$("#searchbox").prop('disabled',true);
+			}
+			if (queryTerm === 'youtubeSearchChannel') $(".youtube-search-channel").show();
+			if (queryTerm === 'youtubeSearchPlaylist') $(".youtube-search-playlist").show();
 			if (queryTerm === 'youtubeCreatorVideos') {
 				$(".youtube-creator-videos").show();
 				placeholderText = "A single YouTuber creator handle. e.g. MrBeast"
@@ -332,7 +347,7 @@ function init(){
 			$("#searchbox").attr("placeholder", placeholderText);
 
 			// tooltip to show YouTube search rules
-			if (queryTerm !== 'youtubeCreatorVideos'){
+			if (queryTerm !== 'youtubeCreatorVideos' && queryTerm !== 'youtubeRandomVideos'){
 				$("boolean").attr('data-original-title',
 					"YouTube keyword search supports boolean NOT (-) and OR (|) operators to exclude videos or to find videos " +
 					"that are associated with one of several search terms. Details please refer to the&nbsp" +
@@ -445,7 +460,7 @@ function init(){
             parameters['rdComment']['subredditName:'] = keyword;
             parameters['psPost']['q:'] = keyword;
             parameters['psComment']['q:'] = keyword;
-            parameters['youtubeSearch']['q:'] = keyword;
+            parameters['youtubeSearchVideo']['q:'] = keyword;
             parameters['youtubeSearchChannel']['q:'] = keyword;
             parameters['youtubeSearchPlaylist']['q:'] = keyword;
             parameters['youtubeMostPopular']['regionCode:'] = keyword;
@@ -469,7 +484,7 @@ function init(){
 		parameters['rdComment']['subredditName:'] = keyword;
 		parameters['psPost']['q:'] = keyword;
 		parameters['psComment']['q:'] = keyword;
-		parameters['youtubeSearch']['q:'] = keyword;
+		parameters['youtubeSearchVideo']['q:'] = keyword;
 		parameters['youtubeSearchChannel']['q:'] = keyword;
 		parameters['youtubeSearchPlaylist']['q:'] = keyword;
 		parameters['youtubeMostPopular']['regionCode:'] = keyword;
@@ -929,7 +944,6 @@ function init(){
 
 	});
 	
-	
 	/*------------------------------Reddit Comment-----------------------------------------*/
 	$("#rdCommentCount").change(function(){
 		parameters['rdComment']['extra:'] = parseInt($("#rdCommentCount").val());
@@ -952,14 +966,13 @@ function init(){
 	/*--------------------- Youtube Search Videos, channel, playlist, video by creator-----------------------------*/
 	// count
 	$("#youtube-count").change(function(){
+		parameters['youtubeRandomVideos']['maxTotalResults:'] = parseInt($("#youtube-count").val());
 		Query =updateString(queryTerm,parameters);
 		$("#input").val(`{\n\n` + Query +`\n\n}`);
 	});
 	// order
 	$("input[name='ytOrder']").change(function(){
-		parameters['youtubeSearch']['order:'] = $(this).val();
-		parameters['youtubeSearchChannel']['order:'] = $(this).val();
-		parameters['youtubeSearchPlaylist']['order:'] = $(this).val();
+		parameters['youtubeSearchVideo']['order:'] = $(this).val();
 		parameters['youtubeCreatorVideos']['order:'] = $(this).val();
 		Query =updateString(queryTerm,parameters);
 		$("#input").val(`{\n\n` + Query +`\n\n}`);
@@ -967,9 +980,8 @@ function init(){
 
 	// duration
 	$("input[name='ytDuration']").change(function(){
-		parameters['youtubeSearch']['videoDuration:'] = $(this).val();
-		parameters['youtubeSearchChannel']['videoDuration:'] = $(this).val();
-		parameters['youtubeSearchPlaylist']['videoDuration:'] = $(this).val();
+		parameters['youtubeSearchVideo']['videoDuration:'] = $(this).val();
+		parameters['youtubeRandomVideos']['videoDuration:'] = $(this).val();
 		parameters['youtubeCreatorVideos']['videoDuration:'] = $(this).val();
 		Query =updateString(queryTerm,parameters);
 		$("#input").val(`{\n\n` + Query +`\n\n}`);
@@ -980,21 +992,24 @@ function init(){
 		if ($("#ytFilters").is(':checked')) {
 			$(".form-group.ytFilters").show();
 			$("#channelId").change(function () {
-				parameters['youtubeSearch']['channelId:'] = $(this).val();
+				parameters['youtubeSearchVideo']['channelId:'] = $(this).val();
+				parameters['youtubeRandomVideos']['channelId:'] = $(this).val();
 				parameters['youtubeSearchChannel']['channelId:'] = $(this).val();
 				parameters['youtubeSearchPlaylist']['channelId:'] = $(this).val();
 				Query = updateString(queryTerm, parameters);
 				$("#input").val(`{\n\n` + Query + `\n\n}`);
 			});
 			$("#regionCode").change(function () {
-				parameters['youtubeSearch']['regionCode:'] = $(this).val();
+				parameters['youtubeSearchVideo']['regionCode:'] = $(this).val();
+				parameters['youtubeRandomVideos']['regionCode:'] = $(this).val();
 				parameters['youtubeSearchChannel']['regionCode:'] = $(this).val();
 				parameters['youtubeSearchPlaylist']['regionCode:'] = $(this).val();
 				Query = updateString(queryTerm, parameters);
 				$("#input").val(`{\n\n` + Query + `\n\n}`);
 			});
 			$("#relevanceLanguage").change(function () {
-				parameters['youtubeSearch']['relevanceLanguage:'] = $(this).val();
+				parameters['youtubeSearchVideo']['relevanceLanguage:'] = $(this).val();
+				parameters['youtubeRandomVideos']['relevanceLanguage:'] = $(this).val();
 				parameters['youtubeSearchChannel']['relevanceLanguage:'] = $(this).val();
 				parameters['youtubeSearchPlaylist']['relevanceLanguage:'] = $(this).val();
 				Query = updateString(queryTerm, parameters);
@@ -1003,13 +1018,16 @@ function init(){
 		}
 		else{
 			$(".form-group.ytFilters").hide();
-			parameters['youtubeSearch']['channelId:'] = '';
+			parameters['youtubeSearchVideo']['channelId:'] = '';
+			parameters['youtubeRandomVideos']['channelId:'] = '';
 			parameters['youtubeSearchChannel']['channelId:'] = '';
 			parameters['youtubeSearchPlaylist']['channelId:'] = '';
-			parameters['youtubeSearch']['regionCode:'] = '';
+			parameters['youtubeSearchVideo']['regionCode:'] = '';
+			parameters['youtubeRandomVideos']['regionCode:'] = '';
 			parameters['youtubeSearchChannel']['regionCode:'] = '';
 			parameters['youtubeSearchPlaylist']['regionCode:'] = '';
-			parameters['youtubeSearch']['relevanceLanguage:'] = '';
+			parameters['youtubeSearchVideo']['relevanceLanguage:'] = '';
+			parameters['youtubeRandomVideos']['relevanceLanguage:'] = '';
 			parameters['youtubeSearchChannel']['relevanceLanguage:'] = '';
 			parameters['youtubeSearchPlaylist']['relevanceLanguage:'] = '';
 			Query =updateString(queryTerm,parameters);
@@ -1026,7 +1044,8 @@ function init(){
 			$(".form-group.ytDateRange").show();
 			$("#publishedAfter").change(function(){
 				let publishedAfter = new Date($("#publishedAfter").val());
-				parameters['youtubeSearch']['publishedAfter:'] =  publishedAfter.toISOString();
+				parameters['youtubeSearchVideo']['publishedAfter:'] =  publishedAfter.toISOString();
+				parameters['youtubeRandomVideos']['publishedAfter:'] =  publishedAfter.toISOString();
 				parameters['youtubeSearchChannel']['publishedAfter:'] =  publishedAfter.toISOString();
 				parameters['youtubeSearchPlaylist']['publishedAfter:'] =  publishedAfter.toISOString();
 				parameters['youtubeCreatorVideos']['publishedAfter:'] =  publishedAfter.toISOString();
@@ -1035,7 +1054,8 @@ function init(){
 			});
 			$("#publishedBefore").change(function(){
 				let publishedBefore = new Date($("#publishedBefore").val());
-				parameters['youtubeSearch']['publishedBefore:'] =  publishedBefore.toISOString();
+				parameters['youtubeSearchVideo']['publishedBefore:'] =  publishedBefore.toISOString();
+				parameters['youtubeRandomVideos']['publishedBefore:'] =  publishedBefore.toISOString();
 				parameters['youtubeSearchChannel']['publishedBefore:'] =  publishedBefore.toISOString();
 				parameters['youtubeSearchPlaylist']['publishedBefore:'] =  publishedBefore.toISOString();
 				parameters['youtubeCreatorVideos']['publishedBefore:'] =  publishedBefore.toISOString();
@@ -1045,12 +1065,14 @@ function init(){
 		}
 		else{
 			$(".form-group.ytDateRange").hide();
-			parameters['youtubeSearch']['publishedAfter:'] = '';
+			parameters['youtubeSearchVideo']['publishedAfter:'] = '';
+			parameters['youtubeRandomVideos']['publishedAfter:'] = '';
 			parameters['youtubeSearchChannel']['publishedAfter:'] = '';
 			parameters['youtubeSearchPlaylist']['publishedAfter:'] = '';
 			parameters['youtubeCreatorVideos']['publishedAfter:'] = '';
 
-			parameters['youtubeSearch']['publishedBefore:'] = '';
+			parameters['youtubeSearchVideo']['publishedBefore:'] = '';
+			parameters['youtubeRandomVideos']['publishedBefore:'] = '';
 			parameters['youtubeSearchChannel']['publishedBefore:'] = '';
 			parameters['youtubeSearchPlaylist']['publishedBefore:'] = '';
 			parameters['youtubeCreatorVideos']['publishedBefore:'] = '';
@@ -1069,13 +1091,15 @@ function init(){
 		if ($("#ytGeoSearch").is(':checked')) {
 			$(".form-group.ytGeoSearch").show();
 			$("#ytLocation").change(function(){
-				parameters['youtubeSearch']['location:'] = $("#ytLocation").val();
+				parameters['youtubeSearchVideo']['location:'] = $("#ytLocation").val();
+				parameters['youtubeRandomVideos']['location:'] = $("#ytLocation").val();
 				parameters['youtubeCreatorVideos']['location:'] = $("#ytLocation").val();
 				Query =updateString(queryTerm,parameters);
 				$("#input").val(`{\n\n` + Query +`\n\n}`);
 			});
 			$("#ytLocationRadius").change(function(){
-				parameters['youtubeSearch']['locationRadius:'] = $("#ytLocationRadius").val();
+				parameters['youtubeSearchVideo']['locationRadius:'] = $("#ytLocationRadius").val();
+				parameters['youtubeRandomVideos']['locationRadius:'] = $("#ytLocationRadius").val();
 				parameters['youtubeCreatorVideos']['locationRadius:'] = $("#ytLocationRadius").val();
 				Query =updateString(queryTerm,parameters);
 				$("#input").val(`{\n\n` + Query +`\n\n}`);
@@ -1083,9 +1107,11 @@ function init(){
 		}
 		else {
 			$(".form-group.ytGeoSearch").hide();
-			parameters['youtubeSearch']['location:'] = '';
+			parameters['youtubeSearchVideo']['location:'] = '';
+			parameters['youtubeRandomVideos']['location:'] = '';
 			parameters['youtubeCreatorVideos']['location:'] = '';
-			parameters['youtubeSearch']['locationRadius:'] = '';
+			parameters['youtubeSearchVideo']['locationRadius:'] = '';
+			parameters['youtubeRandomVideos']['locationRadius:'] = '';
 			parameters['youtubeCreatorVideos']['locationRadius:'] = '';
 			Query =updateString(queryTerm,parameters);
 			$("#input").val(`{\n\n` + Query +`\n\n}`);
@@ -1157,36 +1183,39 @@ function constructQuery(parameterObj){
 function updateString(queryTerm, parameters){
 	var query = '';
 	if (queryTerm === 'getTimeline'){
-		query = `\ttwitter{\n\t\t`	+ queryTerm + `(` +  constructQuery(parameters.twtTimeline) +  `\n\t\t}\n\t}`;
+		query = `\ttwitter{\n\t\t${queryTerm}(${constructQuery(parameters.twtTimeline)}\n\t\t}\n\t}`;
 	}
 	else if(queryTerm === 'queryTweet'){
-		query =  `\ttwitter{\n\t\t`	+ queryTerm + `(`+ constructQuery(parameters.tweet)	+ `\n\t\t}\n\t}`;
+		query =  `\ttwitter{\n\t\t${queryTerm}(${constructQuery(parameters.tweet)}\n\t\t}\n\t}`;
 	}
 	else if(queryTerm === 'queryTweetV2'){
-		query =  `\ttwitter{\n\t\t`	+ queryTerm + `(`+ constructQuery(parameters.tweetV2)	+ `\n\t\t}\n\t}`;
+		query =  `\ttwitter{\n\t\t${queryTerm}(${constructQuery(parameters.tweetV2)}\n\t\t}\n\t}`;
 	}
 	else if (queryTerm === 'queryReddit'){
-		query =  `\treddit{\n\t\tsearch(`+  constructQuery(parameters.rdSearch) +  `\n\t\t}\n\t}`;  
+		query =  `\treddit{\n\t\tsearch(${constructQuery(parameters.rdSearch)}\n\t\t}\n\t}`;
 	}
 	else if (queryTerm === 'redditPost'){
-		query =  `\treddit{\n\t\tgetNew(`+  constructQuery(parameters.rdPost) +  `\n\t\t}\n\t}`;  
+		query =  `\treddit{\n\t\tgetNew(${constructQuery(parameters.rdPost)}\n\t\t}\n\t}`;
 	}
 	else if (queryTerm === 'redditComment'){
-		query =  `\treddit{\n\t\tgetNewComments(`+  constructQuery(parameters.rdComment) +  `\n\t\t}\n\t}`;  
+		query =  `\treddit{\n\t\tgetNewComments(${constructQuery(parameters.rdComment)}\n\t\t}\n\t}`;
 	}
 	else if (queryTerm === 'pushshiftPost'){
-		query =  `\treddit{\n\t\tpushshiftPost(`+  constructQuery(parameters.psPost) +  `\n\t\t}\n\t}`;  
+		query =  `\treddit{\n\t\tpushshiftPost(${constructQuery(parameters.psPost)}\n\t\t}\n\t}`;
 	}
 	else if (queryTerm === 'pushshiftComment'){
-		query =  `\treddit{\n\t\tpushshiftComment(`+  constructQuery(parameters.psComment) +  `\n\t\t}\n\t}`;  
+		query =  `\treddit{\n\t\tpushshiftComment(${constructQuery(parameters.psComment)}\n\t\t}\n\t}`;
 	}
-	else if (queryTerm === 'queryYoutube'){
-		query = `\tyoutube{\n\t\tsearch(${constructQuery(parameters.youtubeSearch)}\n\t\t}\n\t}`;
+	else if (queryTerm === 'youtubeSearchVideo'){
+		query = `\tyoutube{\n\t\tsearch(${constructQuery(parameters.youtubeSearchVideo)}\n\t\t}\n\t}`;
 	}
-	else if (queryTerm === 'queryYoutubeChannel'){
+	else if (queryTerm === 'youtubeRandomVideos'){
+		query = `\tyoutube{\n\t\trandomSearch(${constructQuery(parameters.youtubeRandomVideos)}\n\t\t}\n\t}`;
+	}
+	else if (queryTerm === 'youtubeSearchChannel'){
 		query = `\tyoutube{\n\t\tsearch(${constructQuery(parameters.youtubeSearchChannel)}\n\t\t}\n\t}`;
 	}
-	else if (queryTerm === 'queryYoutubePlaylist'){
+	else if (queryTerm === 'youtubeSearchPlaylist'){
 		query = `\tyoutube{\n\t\tsearch(${constructQuery(parameters.youtubeSearchPlaylist)}\n\t\t}\n\t}`;
 	}
 	else if (queryTerm === 'youtubeMostPopular'){
@@ -1261,11 +1290,13 @@ function setHitogramInterval(freq){
 		prefix = 'reddit-Historical-Post';
 	}else if (queryTerm === 'pushshiftComment'){
 		prefix = 'reddit-Historical-Comment';
-	}else if (queryTerm === 'queryYoutube'){
-		prefix = 'youtube-Search';
-	}else if (queryTerm === 'queryYoutubeChannel'){
+	}else if (queryTerm === 'youtubeSearchVideo') {
+		prefix = 'youtube-Search-Video';
+	}else if (queryTerm === 'youtubeRandomVideos'){
+		prefix = 'youtube-Random-Videos';
+	}else if (queryTerm === 'youtubeSearchChannel'){
 		prefix = 'youtube-Search-Channel';
-	}else if (queryTerm === 'queryYoutubePlaylist'){
+	}else if (queryTerm === 'youtubeSearchPlaylist'){
 		prefix = 'youtube-Search-Playlist';
 	}else if (queryTerm === 'youtubeMostPopular'){
 		prefix = 'youtube-Most-Popular';

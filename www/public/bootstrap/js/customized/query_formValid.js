@@ -37,7 +37,8 @@ function formValid(searchID){
 		$("#alert").modal('show');
 		$("#social-media").focus();
 		return false;
-	} else if ($("#social-media option:selected").val() !== 'youtubeMostPopular' &&
+	} else if ($("#social-media option:selected").val() !== 'youtubeMostPopular'
+		&& $("#social-media option:selected").val() !== 'youtubeRandomVideos' &&
 		(!regx.test($("#searchbox").val()) || $("#searchbox").val().length >= 500)) {
 		$("#modal-message").append(`<h4>Please type in search keyword in the form of <i>English words, number, operators, 
                                 and/or combinations</i> of them!<br><b>Length shouldn't exceed 500 characters!</b></h4>`);
@@ -174,9 +175,10 @@ function formValid(searchID){
 				$("#alert").modal('show');
 				return false
 			}
-		}else if ($("#social-media option:selected").val() === 'queryYoutube'
-			|| $("#social-media option:selected").val() === 'queryYoutubePlaylist'
-			|| $("#social-media option:selected").val() === 'queryYoutubeChannel'
+		}else if ($("#social-media option:selected").val() === 'youtubeSearchVideo'
+			|| $("#social-media option:selected").val() === 'youtubeRandomVideos'
+			|| $("#social-media option:selected").val() === 'youtubeSearchPlaylist'
+			|| $("#social-media option:selected").val() === 'youtubeSearchChannel'
 			|| $("#social-media option:selected").val() === 'youtubeCreatorVideos'
 		){
 			if ($("#ytDateRange").is(':checked') &&

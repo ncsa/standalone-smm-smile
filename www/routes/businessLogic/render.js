@@ -111,11 +111,12 @@ router.post('/list', checkIfLoggedIn, function (req, res, next) {
     promise_array.push(s3.list_folders(req.user.email + '/GraphQL/reddit-Comment/'));
     promise_array.push(s3.list_folders(req.user.email + '/GraphQL/reddit-Historical-Post/'));
     promise_array.push(s3.list_folders(req.user.email + '/GraphQL/reddit-Historical-Comment/'));
-    promise_array.push(s3.list_folders(req.user.email + '/GraphQL/youtube-Search/'));
+    promise_array.push(s3.list_folders(req.user.email + '/GraphQL/youtube-Search-Video/'));
     promise_array.push(s3.list_folders(req.user.email + '/GraphQL/youtube-Search-Channel/'));
     promise_array.push(s3.list_folders(req.user.email + '/GraphQL/youtube-Search-Playlist/'));
     promise_array.push(s3.list_folders(req.user.email + '/GraphQL/youtube-Most-Popular/'));
     promise_array.push(s3.list_folders(req.user.email + '/GraphQL/youtube-Creator-Videos/'));
+    promise_array.push(s3.list_folders(req.user.email + '/GraphQL/youtube-Random-Videos/'));
     promise_array.push(s3.list_folders(req.user.email + '/GraphQL/userspec-Others/'));
     Promise.all(promise_array).then(values => {
         directory['twitter-Tweet'] = values[0];
@@ -126,12 +127,13 @@ router.post('/list', checkIfLoggedIn, function (req, res, next) {
         directory['reddit-Comment'] = values[5];
         directory['reddit-Historical-Post'] = values[6];
         directory['reddit-Historical-Comment'] = values[7];
-        directory['youtube-Search'] = values[8];
+        directory['youtube-Search-Video'] = values[8];
         directory['youtube-Search-Channel'] = values[9];
         directory['youtube-Search-Playlist'] = values[10];
         directory['youtube-Most-Popular'] = values[11];
         directory['youtube-Creator-Videos'] = values[12];
-        directory['userspec-Others'] = values[13];
+        directory['youtube-Random-Videos'] = values[13];
+        directory['userspec-Others'] = values[14];
         res.send(directory);
     }).catch(err => {
         res.send({ERROR: err});
@@ -149,11 +151,12 @@ router.post('/list-all', checkIfLoggedIn, function (req, res, next) {
     promise_array.push(s3.list_folders(req.user.email + '/GraphQL/reddit-Comment/'));
     promise_array.push(s3.list_folders(req.user.email + '/GraphQL/reddit-Historical-Post/'));
     promise_array.push(s3.list_folders(req.user.email + '/GraphQL/reddit-Historical-Comment/'));
-    promise_array.push(s3.list_folders(req.user.email + '/GraphQL/youtube-Search/'));
+    promise_array.push(s3.list_folders(req.user.email + '/GraphQL/youtube-Search-Video/'));
     promise_array.push(s3.list_folders(req.user.email + '/GraphQL/youtube-Search-Channel/'));
     promise_array.push(s3.list_folders(req.user.email + '/GraphQL/youtube-Search-Playlist/'));
     promise_array.push(s3.list_folders(req.user.email + '/GraphQL/youtube-Most-Popular/'));
     promise_array.push(s3.list_folders(req.user.email + '/GraphQL/youtube-Creator-Videos/'));
+    promise_array.push(s3.list_folders(req.user.email + '/GraphQL/youtube-Random-Videos/'));
     promise_array.push(s3.list_folders(req.user.email + '/GraphQL/userspec-Others/'));
     var graphqlLength = promise_array.length;
 
@@ -188,12 +191,13 @@ router.post('/list-all', checkIfLoggedIn, function (req, res, next) {
         directory['GraphQL']['reddit-Comment'] = values[5];
         directory['GraphQL']['reddit-Historical-Post'] = values[6];
         directory['GraphQL']['reddit-Historical-Comment'] = values[7];
-        directory['GraphQL']['youtube-Search'] = values[8];
+        directory['GraphQL']['youtube-Search-Video'] = values[8];
         directory['GraphQL']['youtube-Search-Channel'] = values[9];
         directory['GraphQL']['youtube-Search-Playlist'] = values[10];
         directory['GraphQL']['youtube-Most-Popular'] = values[11];
         directory['GraphQL']['youtube-Creator-Videos'] = values[12];
-        directory['GraphQL']['userspec-Others'] = values[13];
+        directory['GraphQL']['youtube-Random-Videos'] = values[13];
+        directory['GraphQL']['userspec-Others'] = values[14];
         for (i = 0; i < order.length; i++) {
             var parent = order[i]['parent'];
             var child = order[i]['child'];
