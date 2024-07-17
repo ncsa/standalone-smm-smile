@@ -34,8 +34,8 @@ router.get('/login/google/callback', checkIfLoggedIn, (req, res) => {
 
 router.post('/login/google/apikey', checkIfLoggedIn, function (req, res, next) {
     if (req.body.apiKey) {
-        setCredential(req, 'google_api_key',);
-        res.redirect('/query');
+        setCredential(req, 'google_api_key', req.body.apiKey);
+        res.status(200).send({ message: 'API Key set' });
     }
     else {
         res.status(400).send({ ERROR: 'API Key not provided' });
