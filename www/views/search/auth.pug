@@ -35,8 +35,51 @@ div(id="auth-panel")
                 img(src='bootstrap/img/logo/youtube-sm-logo.png', width="30px",height="30px")
                 | Authorize with your Youtube account
                 img(src="bootstrap/img/logo/checkbox.png", class="export-success", width="30px", style="display:none;")
+            div(style="display: flex; justify-content: end; align-items: center; margin-top: 10px; color:#ffffff;font-size: 16px;")
+                span If you have a YouTube API key, please&nbsp;
+                a(href="#", id="youtubeApiKeyLink", style="text-decoration: underline; color:#ffffff") click here
         else
             a(class="btn btn-primary btn-block auth-button", href="login/google" disabled)
                 img(src='bootstrap/img/logo/youtube-sm-logo.png', width="30px",height="30px")
                 | Youtube Temporarily Not Accessible
-    button(id="auth-next", style="", class="pull-right") next
+    button(id="auth-next", style="margin-top: 2em;", class="pull-right") next
+
+// youtube api key modal
+div(id="youtube-apikey-modal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false")
+    div(class="modal-dialog")
+        div(class="modal-content")
+            div(class="modal-header")
+                button(class="close", data-dismiss="modal") &times;
+                h2(class="modal-title", id="modal-title", style="text-align:left;vertical-align:middle;") Provide your Google API Key
+            div(class="modal-body form")
+                div(class="modal-message")
+                    div(class="form-group")
+                        p Please provide your API key to access the service. This is designed to help you use the
+                            |  maximum quota of the service and to ensure the service is available for you. The API key
+                            |  will be stored in&nbsp;
+                            a(href="https://redis.io/" target="_blank") Redis
+                            |  , which is an in-memory cache store, under the user's account
+                            |  for only 30 minutes to ensure the security of your credentials.
+                        p To get an API key:
+                        ol
+                            li Open the&nbsp;
+                                a(href="https://console.cloud.google.com/apis/credentials" target="_blank") Credentials page
+                                |  in the API Console.
+                            li Click&nbsp;
+                                strong Create credentials
+                                |  -->&nbsp;
+                                strong API key
+                            li Apply restrictions as needed before using the key in production.
+                        a(href="https://developers.google.com/youtube/registering_an_application" target="_blank") For more information...
+                    div(class="form-group")
+                        label(class="control-label col-md-2 col-md-2 col-xs-12") API key
+                        div(class="col-md-10 col-md-10 col-xs-12")
+                            input(class="form-control" id="youtubeApiKey", placeholder="Your API Key")
+            div(class="modal-footer")
+                button(class="btn btn-yes", id="submitYoutubeApiKey") Submit
+
+script.
+    $("#youtube-apikey-modal").on('hidden.bs.modal', function () {
+        $('#apiKey').tagsinput('removeAll');
+    });
+
