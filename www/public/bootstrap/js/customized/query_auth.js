@@ -110,3 +110,33 @@ $("#twitter-pin").on('keyup', function (e) {
 $(".twitter-auth").find('a').on('click', function () {
     $("#twitter-callback").modal('show');
 });
+
+
+/****************************** Youtube ******************************/
+$("#submitYoutubeApiKey").on('click', function () {
+    console.log('clicked');
+    $.ajax({
+        type: 'post',
+        url: 'login/google/apikey',
+        data: {
+            "apiKey": $("#youtubeApiKey").val(),
+        },
+        success: function (data) {
+            if ('ERROR' in data) {
+                $("#error").val(JSON.stringify(data));
+                $("#warning").modal('show');
+            }
+            else {
+                location.reload(true);
+            }
+        },
+        error: function (jqXHR, exception) {
+            $("#error").val(jqXHR.responseText);
+            $("#warning").modal('show');
+        }
+    });
+});
+
+$("#youtubeApiKeyLink").on('click', function () {
+    $("#youtube-apikey-modal").modal('show');
+});
