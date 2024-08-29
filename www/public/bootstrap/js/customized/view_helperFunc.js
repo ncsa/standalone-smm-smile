@@ -102,19 +102,38 @@ function escapeHtml(str) {
     .replace(/'/g, '&#039;');
 }
 
-function extractHeader2(array) {
+
+function extractHeaderRadio(array) {
     var headerContent = '';
-    column_header = array[0];
+    var column_header = array[0];
     $.each(column_header, function (i, val) {
-        //check the first item
+        // Check the first item
         if (i === 0) {
-            headerContent += `<label class=radio-inline>
-			<input type="radio"  class="customized-radio" name="selectFileColumn",id=`
-                + val + ` value=` + val + ` checked></div>` + val + ` </label>`;
+            headerContent += `<label class="radio-inline">
+                <input type="radio" class="customized-radio" name="selectFileColumn" id="` + val
+                + `" value="` + val + `" checked>` + val + `</label>`;
         } else {
-            headerContent += `<label class=radio-inline>
-				<input type="radio" class="customized-radio" name="selectFileColumn",id=`
-                + val + ` value=` + val + `></div>` + val + ` </label>`;
+            headerContent += `<label class="radio-inline">
+                <input type="radio" class="customized-radio" name="selectFileColumn" id="` + val
+                + `" value="` + val + `">` + val + `</label>`;
+        }
+    });
+    return headerContent;
+}
+
+function extractHeaderCheckBox(array) {
+    var headerContent = '';
+    var column_header = array[0];
+    $.each(column_header, function (i, val) {
+        // Check the first item
+        if (i === 0) {
+            headerContent += `<label class="checkbox-inline">
+                <input type="checkbox" class="customized-checkbox" name="selectFileColumn" id="` + val
+                + `" value="` + val + `" checked>` + val + `</label>`;
+        } else {
+            headerContent += `<label class="checkbox-inline">
+                <input type="checkbox" class="customized-checkbox" name="selectFileColumn" id="` + val
+                + `" value="` + val + `">` + val + `</label>`;
         }
     });
     return headerContent;
@@ -174,6 +193,10 @@ function processData(csv) {
         $("#datasrc-criteria-hint").html("<p>Based on the column of your imported file, it is likely that you uploaded a " +
             "<u>Reddit Comment</u> dataset.</p>")
     }
+    else if (previewLinesWords[0].indexOf('snippet.title') > 0 || previewLinesWords[0].indexOf('snippet.description') > 0){
+        $("#datasrc-criteria-hint").html("<p>Based on the column of your imported file, it is likely that you uploaded a " +
+            "<u>YouTube video/channel/playlist search collection</u> dataset.</p>")
+    }
     else{
         $("#datasrc-criteria-hint").html("<p>We cannot detect the file category, make sure you choose <u>Others</u> in the category.</p>")
     }
@@ -183,7 +206,7 @@ function processData(csv) {
 
     // set column headers for userspec-Others-metadata
     $("#column-header-selection").empty();
-    $("#column-header-selection").append(extractHeader1(previewLinesWords));
+    $("#column-header-selection").append(extractHeaderCheckBox(previewLinesWords));
 
 }
 

@@ -110,7 +110,7 @@ $.getScript("bootstrap/js/customized/view_helperFunc.js", function(){
 
                                 // add preview and column
                                 $previewContent.append(arrayToTable(text_data.slice(0, 11), '#selectFileTable'));
-                                $columnContent.append(extractHeader2(text_data));
+                                $columnContent.append(extractHeaderRadio(text_data));
                                 $preview.show();
                                 $column.show();
 
