@@ -102,7 +102,7 @@ function escapeHtml(str) {
     .replace(/'/g, '&#039;');
 }
 
-function extractHeader2(array) {
+function extractHeader(array) {
     var headerContent = '';
     column_header = array[0];
     $.each(column_header, function (i, val) {
@@ -183,7 +183,7 @@ function processData(csv) {
 
     // set column headers for userspec-Others-metadata
     $("#column-header-selection").empty();
-    $("#column-header-selection").append(extractHeader1(previewLinesWords));
+    $("#column-header-selection").append(extractHeader(previewLinesWords));
 
 }
 
