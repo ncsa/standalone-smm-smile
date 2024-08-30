@@ -35,8 +35,9 @@ div(id="auth-panel")
                 img(src='bootstrap/img/logo/youtube-sm-logo.png', width="30px",height="30px")
                 | Authorize with your Youtube account
                 img(src="bootstrap/img/logo/checkbox.png", class="export-success", width="30px", style="display:none;")
-            div(style="display: flex; justify-content: end; align-items: center; margin-top: 10px; color:#ffffff;font-size: 16px;")
-                span If you have a YouTube API key, please&nbsp;
+            div(style="display: flex; justify-content: end; align-items: center; margin-top: 10px; color:#ffffff; font-size: 16px;")
+                i(class="glyphicon glyphicon-cog", style="margin-right: 5px;")
+                span Use your own YouTube API Key.&nbsp;
                 a(href="#", id="youtubeApiKeyLink", style="text-decoration: underline; color:#ffffff") click here
         else
             a(class="btn btn-primary btn-block auth-button", href="login/google" disabled)
@@ -46,7 +47,7 @@ div(id="auth-panel")
 
 // youtube api key modal
 div(id="youtube-apikey-modal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false")
-    div(class="modal-dialog")
+    div(class="modal-dialog modal-lg")
         div(class="modal-content")
             div(class="modal-header")
                 button(class="close", data-dismiss="modal") &times;
@@ -54,23 +55,95 @@ div(id="youtube-apikey-modal" class="modal fade" role="dialog" data-backdrop="st
             div(class="modal-body form")
                 div(class="modal-message")
                     div(class="form-group")
-                        p Please provide your API key to access the service. This is designed to help you use the
-                            |  maximum quota of the service and to ensure the service is available for you. The API key
-                            |  will be stored in&nbsp;
-                            a(href="https://redis.io/" target="_blank") Redis
-                            |  , which is an in-memory cache store, under the user's account
-                            |  for only 30 minutes to ensure the security of your credentials.
-                        p To get an API key:
+                        p To access YouTube data with Google's YouTube Data API (used by the SMILE app), generate an
+                            |  API key from Google. Request one key per project to avoid access issues and keep it
+                            |  confidential. Follow the instructions below for generating and storing your API key.
                         ol
-                            li Open the&nbsp;
-                                a(href="https://console.cloud.google.com/apis/credentials" target="_blank") Credentials page
-                                |  in the API Console.
-                            li Click&nbsp;
-                                strong Create credentials
-                                |  -->&nbsp;
-                                strong API key
-                            li Apply restrictions as needed before using the key in production.
-                        a(href="https://developers.google.com/youtube/registering_an_application" target="_blank") For more information...
+                            li
+                                b Generate an API Key
+                                a(href="#generate-api-key" data-toggle="collapse" style="margin-left:1em;color:#e94a36;") Show/Hide Steps...
+                                div(id="generate-api-key" class="collapse")
+                                    ul
+                                        li
+                                            p Create a Google Cloud Project
+                                            ul
+                                                li Sign in to <a href="https://console.cloud.google.com/" target="_blank">Google Cloud Console</a>.
+                                                li Click on the project dropdown in the top bar.
+                                                li Select "New Project."
+                                                li Name your project and click "Create."
+                                        img(src='bootstrap/img/google_auth/new_project.png', width="600px")
+                                        li
+                                            p Enable the Required APIs
+                                            ul
+                                                li Ensure your new project is selected in the top bar.
+                                                li Go to "APIs & Services" > "Library."
+                                                li Search for "YouTube Data API" and click "Enable."
+                                        img(src='bootstrap/img/google_auth/enable_api_service_0.png', width="300px")
+                                        img(src='bootstrap/img/google_auth/enable_api_service_1.png', width="600px")
+                                        li
+                                            p Create API Keys
+                                            ul
+                                                li Go to "APIs & Services" > "Credentials."
+                                                li Click "Create Credentials" right below the top bar.
+                                                li Select "API Key."
+                                                li
+                                                    p Restrict API Key (Optional)
+                                                    ul
+                                                        li In the "API key created" dialog, click "Restrict Key."
+                                                        li Under "Application restrictions," select the appropriate restriction type (e.g., HTTP referrers, IP addresses).
+                                                        li Set application restriction for websites:
+                                                            ul
+                                                                li <i>https://smm.ncsa.illinois.edu</i>
+                                                                li <i>https://*.smm.ncsa.illinois.edu</i>
+                                                        li Under "API restrictions," select "YouTube Data API v3."
+                                                        li Click "Save."
+                                        img(src='bootstrap/img/google_auth/create_api_key.png', width="600px")
+                            li
+                                b Securely Store and Use the API Key
+                                a(href="#securely-store-api-key" data-toggle="collapse" style="margin-left:1em;color:#e94a36;") Show/Hide Steps...
+                                div(id="securely-store-api-key" class="collapse")
+                                    ul
+                                        li Find the API Key
+                                            p After creating your API key, find it under "APIs & Services" > "Credentials" > “API Keys” > SHOW KEY.
+                                        li Usage in SMILE App
+                                            p When pasted into the SMILE app, the key will be stored in-memory for 30 minutes. After 30 minutes, you need to re-enter your API key.
+                                        li Usage in Other Contexts
+                                            ul
+                                                li For other purposes, such as scripting or Jupyter notebooks directly against Google API:
+                                                    ul
+                                                        li Keep the API key secure.
+                                                        li Avoid hardcoding it into your code. Use environment variables or secret management tools.
+                                                li For more information visit <a href="https://developers.google.com/docs/api/reference/rest" target="_blank">Google Developers Guide</a>.
+                                        li Regenerate Keys if Compromised
+                                            p If you suspect your API key is compromised, regenerate it immediately by going to the "Credentials" page, selecting the key, and choosing "Regenerate Key."
+                            li
+                                b Monitor Usage and Quotas
+                                a(href="#monitor-usage-quota" data-toggle="collapse" style="margin-left:1em;color:#e94a36;") Show/Hide Steps...
+                                div(id="monitor-usage-quota" class="collapse")
+                                    p Your API key has quotas, such as the number of API calls or results you can retrieve daily. You will receive an error message if you exceed your quota (e.g., "code": 403, "message": "User Rate Limit Exceeded"). In the SMILE app, error messages will appear if quotas are exceeded.
+                                    ul
+                                        li Monitor API Usage
+                                            p Regularly check the "API Dashboard" for usage and unusual activity.
+                                        li Adjust Quotas
+                                            ul
+                                                li View and edit quotas under IAM & admin > Quotas.
+                                                li You can view current usage percentage, create quota alerts, and request quota increases or decreases.
+                                                p For more information:
+                                                    ul
+                                                        li <a href="https://developers.google.com/youtube/v3/guides/quota_and_compliance_audits" target="_blank">Current Quotas</a>
+                                                        li <a href="https://cloud.google.com/api-keys/docs/quotas" target="_blank">Quota Management</a>
+                                    img(src='bootstrap/img/google_auth/quota_0.png', width="600px")
+                                    img(src='bootstrap/img/google_auth/quota_1.png', width="200px")
+                        div(class="form-group" style="padding-left: 23px;")
+                            p Watch a similar video tutorial for Google Maps.
+                            iframe(width="400"
+                                height="225"
+                                src="https://www.youtube.com/embed/2_HZObVbe-g?si=fdksXX-dyz0NE9xY"
+                                title="YouTube video player"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                referrerpolicy="strict-origin-when-cross-origin"
+                                allowfullscreen)
+
                     div(class="form-group")
                         label(class="control-label col-md-2 col-md-2 col-xs-12") API key
                         div(class="col-md-10 col-md-10 col-xs-12")
