@@ -77,6 +77,40 @@
         }
       },
       {
+        "container-name": "Language Filter",
+        "container-label-name": "Language Filter",
+        "input": {
+          "type": "select",
+          "name": "english_only",
+          "id": "english_only",
+          "options": [
+            {
+              "value": "Please Select...",
+              "label": "Please Select..."
+            },
+            {
+              "value": "true",
+              "label": "English Only"
+            }
+          ]
+        }
+      },
+      {
+        "container-name": "language-score",
+        "container-label-name": "Language Confidence",
+        "input": {
+          "type": "range",
+          "min": "0.01",
+          "max": "1",
+          "value": "0.9",
+          "step": "0.01",
+          "name": "language_score",
+          "onchange": "rangeNodeLang.value=value",
+          "id": "language_score",
+          "output_id": "rangeNodeLang"
+        }
+      },
+      {
         "container-name": "",
         "container-label-name": "Algorithm",
         "input": {
