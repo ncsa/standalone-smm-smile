@@ -35,8 +35,9 @@ div(id="auth-panel")
                 img(src='bootstrap/img/logo/youtube-sm-logo.png', width="30px",height="30px")
                 | Authorize with your Youtube account
                 img(src="bootstrap/img/logo/checkbox.png", class="export-success", width="30px", style="display:none;")
-            div(style="display: flex; justify-content: end; align-items: center; margin-top: 10px; color:#ffffff;font-size: 16px;")
-                span If you have a YouTube API key, please&nbsp;
+            div(style="display: flex; justify-content: end; align-items: center; margin-top: 10px; color:#ffffff; font-size: 16px;")
+                i(class="glyphicon glyphicon-cog", style="margin-right: 5px;")
+                span Use your own YouTube API Key.&nbsp;
                 a(href="#", id="youtubeApiKeyLink", style="text-decoration: underline; color:#ffffff") click here
         else
             a(class="btn btn-primary btn-block auth-button", href="login/google" disabled)
@@ -86,7 +87,7 @@ div(id="youtube-apikey-modal" class="modal fade" role="dialog" data-backdrop="st
                                                 li Click "Create Credentials" right below the top bar.
                                                 li Select "API Key."
                                                 li
-                                                    p Restrict API Key (Highly Recommended)
+                                                    p Restrict API Key (Optional)
                                                     ul
                                                         li In the "API key created" dialog, click "Restrict Key."
                                                         li Under "Application restrictions," select the appropriate restriction type (e.g., HTTP referrers, IP addresses).
@@ -102,26 +103,19 @@ div(id="youtube-apikey-modal" class="modal fade" role="dialog" data-backdrop="st
                                 a(href="#securely-store-api-key" data-toggle="collapse" style="margin-left:1em;color:#e94a36;") Show/Hide Steps...
                                 div(id="securely-store-api-key" class="collapse")
                                     ul
-                                        li
-                                            p Find the API Key
-                                            ul
-                                                li After creating your API key, find it under "APIs & Services" > "Credentials" > “API Keys” > SHOW KEY.
-                                        li
-                                            p Usage in SMILE App
-                                            ul
-                                                li When pasted into the SMILE app, the key will be stored in-memory for 30 minutes. After 30 minutes, you need to re-enter your API key.
-                                        li
-                                            p Usage in Other Contexts
+                                        li Find the API Key
+                                            p After creating your API key, find it under "APIs & Services" > "Credentials" > “API Keys” > SHOW KEY.
+                                        li Usage in SMILE App
+                                            p When pasted into the SMILE app, the key will be stored in-memory for 30 minutes. After 30 minutes, you need to re-enter your API key.
+                                        li Usage in Other Contexts
                                             ul
                                                 li For other purposes, such as scripting or Jupyter notebooks directly against Google API:
                                                     ul
                                                         li Keep the API key secure.
                                                         li Avoid hardcoding it into your code. Use environment variables or secret management tools.
                                                 li For more information visit <a href="https://developers.google.com/docs/api/reference/rest" target="_blank">Google Developers Guide</a>.
-                                        li
-                                            p Regenerate Keys if Compromised
-                                            ul
-                                                li If you suspect your API key is compromised, regenerate it immediately by going to the "Credentials" page, selecting the key, and choosing "Regenerate Key."
+                                        li Regenerate Keys if Compromised
+                                            p If you suspect your API key is compromised, regenerate it immediately by going to the "Credentials" page, selecting the key, and choosing "Regenerate Key."
                             li
                                 b Monitor Usage and Quotas
                                 a(href="#monitor-usage-quota" data-toggle="collapse" style="margin-left:1em;color:#e94a36;") Show/Hide Steps...
@@ -139,7 +133,7 @@ div(id="youtube-apikey-modal" class="modal fade" role="dialog" data-backdrop="st
                                                         li <a href="https://developers.google.com/youtube/v3/guides/quota_and_compliance_audits" target="_blank">Current Quotas</a>
                                                         li <a href="https://cloud.google.com/api-keys/docs/quotas" target="_blank">Quota Management</a>
                                     img(src='bootstrap/img/google_auth/quota_0.png', width="600px")
-                                    img(src='bootstrap/img/google_auth/quota_1.png', width="600px")
+                                    img(src='bootstrap/img/google_auth/quota_1.png', width="200px")
                         div(class="form-group" style="padding-left: 23px;")
                             p Watch a similar video tutorial for Google Maps.
                             iframe(width="400"
