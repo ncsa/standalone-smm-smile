@@ -46,7 +46,7 @@ div(id="auth-panel")
 
 // youtube api key modal
 div(id="youtube-apikey-modal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false")
-    div(class="modal-dialog")
+    div(class="modal-dialog modal-lg")
         div(class="modal-content")
             div(class="modal-header")
                 button(class="close", data-dismiss="modal") &times;
@@ -54,23 +54,82 @@ div(id="youtube-apikey-modal" class="modal fade" role="dialog" data-backdrop="st
             div(class="modal-body form")
                 div(class="modal-message")
                     div(class="form-group")
-                        p Please provide your API key to access the service. This is designed to help you use the
-                            |  maximum quota of the service and to ensure the service is available for you. The API key
-                            |  will be stored in&nbsp;
-                            a(href="https://redis.io/" target="_blank") Redis
-                            |  , which is an in-memory cache store, under the user's account
-                            |  for only 30 minutes to ensure the security of your credentials.
-                        p To get an API key:
+                        p To access YouTube data via Google's YouTube Data API, which the SMILE app utilizes behind the
+                            | scenes, you first need to generate an API key. Google will provide this key upon request,
+                            | and while you can request multiple keys, it’s recommended to use one key per project to avoid
+                            | potential access issues. Once you have the key, ensure you keep it confidential and secure.
+                            | Below are detailed instructions for generating and storing your API key:
+
                         ol
-                            li Open the&nbsp;
-                                a(href="https://console.cloud.google.com/apis/credentials" target="_blank") Credentials page
-                                |  in the API Console.
-                            li Click&nbsp;
-                                strong Create credentials
-                                |  -->&nbsp;
-                                strong API key
-                            li Apply restrictions as needed before using the key in production.
-                        a(href="https://developers.google.com/youtube/registering_an_application" target="_blank") For more information...
+                            li <b>Generate an API Key</b>
+                                ul
+                                    li
+                                        p Create a Google Cloud Project
+                                        ul
+                                            li Sign in to Google Cloud Console.
+                                            li Click on the project dropdown in the top bar.
+                                            li Select "New Project."
+                                            li Name your project and click "Create."
+                                    li
+                                        p Enable the Required APIs
+                                        ul
+                                            li Ensure your new project is selected in the top bar.
+                                            li Go to "APIs & Services" > "Library."
+                                            li Search for "YouTube Data API" and click "Enable."
+                                    li
+                                        p Create API Keys
+                                        ul
+                                            li Go to "APIs & Services" > "Credentials."
+                                            li Click "Create Credentials" right below the top bar.
+                                            li Select "API Key."
+                                            li
+                                                p Restrict API Key (Highly Recommended)
+                                                ul
+                                                    li In the "API key created" dialog, click "Restrict Key."
+                                                    li Under "Application restrictions," select the appropriate restriction type (e.g., HTTP referrers, IP addresses).
+                                                    li Set application restriction for websites:
+                                                        ul
+                                                            li https://smm.ncsa.illinois.edu
+                                                            li https://*.smm.ncsa.illinois.edu
+                                                    li Under "API restrictions," select "YouTube Data API v3."
+                                                    li Click "Save."
+                                            li For more information: [YouTube Video Guide](https://www.youtube.com/watch?v=2_HZObVbe-g) (Originally for Google Maps; adjust the APIs to YouTube Data API.)
+
+                            li <b>Securely Store and Use the API Key</b>
+                                ul
+                                    li
+                                        p Find the API Key
+                                        ul
+                                            li After creating your API key, find it under "APIs & Services" > "Credentials" > “API Keys” > SHOW KEY.
+                                    li
+                                        p Usage in SMILE App
+                                        ul
+                                            li When pasted into the SMILE app, the key will be stored in-memory for 30 minutes. After 30 minutes, you need to re-enter your API key.
+                                    li
+                                        p Usage in Other Contexts
+                                        ul
+                                            li For other purposes, such as scripting or Jupyter notebooks directly against Google API:
+                                                ul
+                                                    li Keep the API key secure.
+                                                    li Avoid hardcoding it into your code. Use environment variables or secret management tools.
+                                            li For more information visit [Google Developers](https://developers.google.com/docs/api/reference/rest).
+
+                            li <b>Regenerate Keys if Compromised</b>
+                                p If you suspect your API key is compromised, regenerate it immediately by going to the "Credentials" page, selecting the key, and choosing "Regenerate Key."
+                            li <b>Monitor Usage and Quotas</b>
+                                p Your API key has quotas, such as the number of API calls or results you can retrieve daily. You will receive an error message if you exceed your quota (e.g., "code": 403, "message": "User Rate Limit Exceeded"). In the SMILE app, error messages will appear if quotas are exceeded.
+                                ul
+                                    li Monitor API Usage
+                                        p Regularly check the "API Dashboard" for usage and unusual activity.
+                                    li Adjust Quotas
+                                        ul
+                                            li View and edit quotas under IAM & admin > Quotas.
+                                            li You can view current usage percentage, create quota alerts, and request quota increases or decreases.
+                                            p For more information:
+                                                ul
+                                                    li [Current Quotas](https://developers.google.com/youtube/v3/guides/quota_and_compliance_audits)
+                                                    li [Quota Management](https://cloud.google.com/api-keys/docs/quotas)
+
                     div(class="form-group")
                         label(class="control-label col-md-2 col-md-2 col-xs-12") API key
                         div(class="col-md-10 col-md-10 col-xs-12")
