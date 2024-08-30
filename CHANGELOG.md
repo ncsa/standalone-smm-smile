@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Import data is not working properly [#184](https://github.com/ncsa/standalone-smm-smile/issues/184)
 
+### Changed
+- Update the instruction of acquiring Google API key [#186](https://github.com/ncsa/standalone-smm-smile/issues/186)
+
 ## [0.4.2] - 2024-07-17
 ### Added
 - Provide google api key to authorize YouTube Data API [#179](https://github.com/ncsa/standalone-smm-smile/issues/179)
