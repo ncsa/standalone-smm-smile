@@ -16,7 +16,8 @@ $("#datasrc-category").on("change", function(){
         $("#datasrc-criteria").html("<p>Make sure your file has column <u>body</u>.</p>")
     }
     else if (selectedItem === 'youtube-Search-Video' || selectedItem === 'youtube-Search-Channel'|| selectedItem === 'youtube-Search-Playlist') {
-        $("#datasrc-criteria").html("<p>Make sure your file has column <u>snippet.title</u> or <u>snippet.description</u>.</p>")
+        $("#datasrc-criteria").html("<p>Make sure your file has column <u>title</u>, <u>description</u>, " +
+            "<u>snippet.title</u>, or <u>snippet.description</u>.</p>")
     }
     else if (selectedItem === 'userspec-Others') {
         $("#datasrc-criteria").html("<p>You provide the <u>column headers</u> that you would like to analyze, as well as select " +
@@ -163,6 +164,19 @@ function importFormValidate(){
         if (importedColumnHeaders.indexOf('body') === -1){
             $("#modal-message").append(`<h4>Your file must have <u>body</u> column to be ` +
                 `categorized as Reddit comment collection.</h4>`);
+            $("#alert").modal('show');
+            return false;
+        }
+    }
+    else if (category === 'youtube-Search-Video' || category === 'youtube-Search-Channel'|| category === 'youtube-Search-Playlist') {
+        if (importedColumnHeaders.indexOf('title') === -1
+            && importedColumnHeaders.indexOf('description') === -1
+            && importedColumnHeaders.indexOf('snippet.description') === -1
+            && importedColumnHeaders.indexOf('snippet.description') === -1
+        ){
+            $("#modal-message").append("<h4>Your file must have <u>title</u> and/or <u>description</u> " +
+                "and/or <u>snippet.title</u> and/or <u>snippet.description</u> column to be " +
+                "categorized as YouTube video/channel/playlist search collection.</h4>");
             $("#alert").modal('show');
             return false;
         }
