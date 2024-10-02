@@ -41,41 +41,64 @@ html
         include components/warning.pug
         include components/clientside-warning.pug
 
-        div(class="privacy-notice")
-            h4(class="citation-header") APPLICATION PRIVACY NOTICE
-            p.intro
-                strong INTRODUCTION:
-                | BY INSTALLING, USING OR OTHERWISE ACCESSING THE SOCIAL MEDIA INTELLIGENCE AND LEARNING ENVIRONMENT (SMILE) APPLICATION FROM ANY DEVICE, MOBILE OR OTHERWISE, YOU ARE AGREEING TO ABIDE BY THE TERMS AND CONDITIONS OF THIS PRIVACY NOTICE. IF YOU DO NOT AGREE TO THESE TERMS AND CONDITIONS, DO NOT DOWNLOAD AND/OR ACCESS OUR APPLICATION. BY USING THIS APPLICATION, YOU ARE CONSENTING TO THE COLLECTION, USE, AND DISCLOSURE OF INFORMATION IN ACCORDANCE WITH THIS PRIVACY NOTICE.
+        div(class="citation light")
+            h4(class="citation-header light") APPLICATION PRIVACY NOTICE
+            h4(class="citation-content light")
+                <strong>INTRODUCTION:</strong>&nbsp;
+                | BY INSTALLING, USING OR OTHERWISE ACCESSING THE <i>SOCIAL MEDIA INTELLIGENCE AND LEARNING ENVIRONMENT
+                |  (SMILE)</i> APPLICATION FROM ANY DEVICE, MOBILE OR OTHERWISE, <strong>YOU</strong> ARE AGREEING TO
+                |  ABIDE BY THE TERMS AND CONDITIONS OF THIS PRIVACY NOTICE. IF <strong>YOU</strong> DO NOT AGREE TO
+                |  THESE TERMS AND CONDITIONS, DO NOT DOWNLOAD AND/OR ACCESS OUR APPLICATION. BY USING THIS APPLICATION,
+                |  YOU ARE CONSENTING TO THE COLLECTION, USE, AND DISCLOSURE OF INFORMATION IN ACCORDANCE WITH THIS
+                |  PRIVACY NOTICE.
+            div(class="citation-notice light")
+                p This Privacy Notice sets forth how your information is collected, used, transferred, and stored
+                    |  through the mobile application titled “Social Media Intelligence and Learning Environment (SMILE)”
+                    |  (“<strong>Application</strong>”) and the terms and conditions governing your use of the Application.
+                    |  The Application provides a way to access YouTube Data APIs through Google API Services
+                    |  (“<strong>Data</strong>”), where API stands for Application Programming Interface, provided by
+                    |  Google, LLC and/or its affiliate YouTube, LLC (“<strong>Third Party</strong>”). The Application was created by the
+                    |  University of Illinois Urbana-Champaign and is owned by the Board of Trustees of the University of
+                    |  Illinois (“<strong>University,</strong>” “<strong>we,</strong>” “<strong>our,<strong>” “<strong>us</strong>”).
+                p This Privacy Notice is subject to the Application <a href="https://www.vpaa.uillinois.edu/resources/terms_of_use">Terms of Service</a>;
+                    |  the <a href="https://www.vpaa.uillinois.edu/resources/web_privacy">University of Illinois System
+                    |  Privacy Statement</a>, which contains among other sections the <u>Rules for Individuals under
+                    |  Thirteen Years of Age</u>; the <a href="https://www.vpaa.uillinois.edu/resources/terms_of_use">Legal
+                    |  Notice and Terms of Use</a>, which contains among other <u>provisions, disclaimers of: liability,
+                    |  warranties and accuracy of data, endorsement, external links, and duties regarding data</u>; and
+                    |  <a href="https://www.vpaa.uillinois.edu/resources/web_privacy/supplemental_web_privacy_notice">the
+                    |  University of Illinois Supplemental Privacy Notice for certain persons in the European Economic
+                    |  Area and the United Kingdom</a> (Supplemental Privacy Notice).
 
-            p This Privacy Notice sets forth how your information is collected, used, transferred, and stored through the mobile application titled “Social Media Intelligence and Learning Environment (SMILE)” (“Application”) and the terms and conditions governing your use of the Application.
-            p(class="section-title") 1. What information may the Application collect?
-            ul
-                li Personal Information: “Personal Information” means information such as your name, address, phone number, or email address. The Application collects your email, which is considered Personal Information.
-                li Non-Personal Information: The Application may collect Non-Personal Information, such as device type, IP address, and access data, for University purposes.
+                p(class="section-title") 1. What information may the Application collect?
+                p a) Personal Information. “Personal Information” for purposes of this Privacy Notice means information that can be used to identify, contact, or locate an individual, such as, your name, address, phone number, or email address.
+                p The Application collects your email, which is considered Personal Information. You are not required to provide the Personal Information requested by the Application; however, you will not be able to use the Application if you choose not to provide your Personal Information. By providing us with your Personal Information, you are consenting to our use of it in accordance with this Privacy Notice, the University of Illinois System Privacy Statement, and the Supplemental Privacy Notice.
+                p b) Automatically Collected Non-Personal Information. The Application may collect certain Non-Personal Information automatically that may not, on its own, permit direct association with any specific individual. The following are some examples of non-personal information that may be collected: the type of device you use, IP address, device unique device ID, browser type and language, Internet Service provider (ISP), frequency of access, duration, and time of access of the Application, and other.  By using the Application, you are consenting to University collection, use, and disclosure of non-personal information for any University purpose. In addition, Third Party may be collecting certain data, according to their <a href="https://developers.google.com/youtube/terms/api-services-terms-of-service">Third Party Terms of Service</a> and <a href="https://developers.google.com/terms/api-services-user-data-policy">Third Party User Data Policy</a>. To the extent that any non-personal information is combined with Personal Information, University will treat the combined information as Personal Information for as long it is combined.
 
-            p(class="section-title") 2. How Is Your Personal Information Used?
-            p The Application uses your Personal Information to provide you with services directly relevant to your use of the Application.
+                p(class="section-title") 2. How Is Your Personal Information Used?
+                p The Application uses your Personal Information to provide you with the information and services that is directly relevant to your use of the Application. Specifically, we will use the Personal Information collected to provide you with access to Data.
 
-            p(class="section-title") 3. Is Your Personal Information Shared With Any Third Parties Outside The University?
-            ul
-                li We may share your Personal Information outside the University as required by law or if authorized by University policy.
-                li The University does not sell or lease your Personal Information to third parties.
+                p(class="section-title") 3. Is Your Personal Information Shared With Any Third Parties Outside The University?
+                p a) We may share your Personal Information outside the University as required by law, order of governmental authority, or court order to be disclosed; when we believe in good faith that disclosure is necessary to protect our rights, protect your safety or the safety of others, investigate fraud, or respond to a government request.  We may also share your Personal Information if permitted under University of Illinois policy, authorized by an approved University of Illinois contract, for good cause by the Chancellor or the Vice President for Academic Affairs of the University of Illinois. The University does not sell or lease your Personal Information to third parties. We will not share your Personal Information with Third Party in order to provide you with access to Data.
+                p b)   Does Application Link To Third Party Websites?
+                p The Application may contain links to other websites, which in no way represent any endorsement or affiliation between University of Illinois and that third party. We do not exercise control over third party websites and encourage you to exercise caution before activating the link and to read the other website privacy policies.
 
-            p(class="section-title") 4. How Is Your Information Protected?
-            p The Application follows generally accepted industry standards to protect your data but cannot guarantee absolute security.
+                p(class="section-title") 4. How Is Your Information Protected?
+                p We follow generally accepted industry standards to protect information processed by the Application. No method of transmission, or method of electronic storage, is 100% secure. Therefore, we cannot guarantee its absolute security.
 
-            p(class="section-title") 5. Where Will the Information Be Stored?
-            p All information is stored in the Application and on secure cloud-based servers.
+                p(class="section-title") 5. Where Will the Information Be Stored?
+                p All Personal Information and Non-Personal Information is stored in the Application. Your Personal Information and Non-Personal Information is also stored on a secure cloud-based server.
 
-            p(class="section-title") 6. Opt-In and Opt-Out Information
-            p You may choose to opt-out of information collection by discontinuing use of the Application.
+                p(class="section-title") 6. Opt-In and Opt-Out Information
+                p Your information preferences and opt-out of information collection by non-using Application.
 
-            p(class="section-title") 7. How Long Is Your Personal Information Stored?
-            p Your personal information is retained in cloud storage for 30 minutes. For deletion requests, contact smm@lists.illinois.edu.
+                p(class="section-title") 7. How Long Is Your Personal Information Stored?
+                p We will retain user personal information (your email address) in cloud storage for 30 minutes. If you would like us to delete your Personal Information that you have provided via the Application, please contact us at smm@lists.illinois.edu and we will respond in a reasonable time. Please note that some or all the user Personal Information may be required for the Application to function properly, and we may be required to retain certain information by law.
 
-            p(class="section-title") 8. Changes to this Privacy Notice
-            p Changes to this notice will be posted on the SMILE website. Your continued use of the Application constitutes acceptance of the revised notice.
+                p(class="section-title") 8. Changes to this Privacy Notice
+                p We may amend this Privacy Notice from time to time. If we amend this Privacy Notice, we will post the changes on <a href="/privacy-policy">SMILE privacy policy page</a>. Your continued use of the Application after any such changes will constitute your acceptance of the updated Privacy Notice. If you do not wish to accept the revised Privacy Notice, you must not use or access (or continue to use or access) the Application. Please regularly check the Application or website to determine if the Privacy Notice has been updated and to review those changes before deciding whether to access (or continue to access) the Application.
 
-            p(class="contact-info") Need Help? Contact us at smm@lists.illinois.edu.
+                p(class="section-title") Need Help?
+                p Contact the SMILE app at: <a href="mailto:smm@lists.illinois.edu">smm@lists.illinois.edu</a>
 
-        a(class="btn btn-default pull-right", id="privacy-next", href="query") Next
+            a(class="btn btn-default pull-right cite-next light", id="cite-next", href="query") Next
