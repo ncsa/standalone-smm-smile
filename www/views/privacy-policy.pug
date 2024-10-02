@@ -1,0 +1,81 @@
+doctype html
+html
+    head
+        // Google tag (gtag.js)
+        script(async src = "https://www.googletagmanager.com/gtag/js?id=" + process.env.GA_KEY)
+
+        script.
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '#{process.env.GA_KEY}');
+
+        meta(charset="utf-8")
+        meta(http-equiv="X-UA-Compatible",content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1")
+
+        // Bootstrap 3 CSS and custom styles
+        link(href="bootstrap/css/bootstrap.css", rel="stylesheet")
+        link(href="bootstrap/css/customized/citation.css", rel="stylesheet")
+        link(href="bootstrap/css/customized/global.css", rel="stylesheet")
+        link(rel="stylesheet",
+            href="https://use.fontawesome.com/releases/v5.0.10/css/all.css",
+            integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg",
+            crossorigin="anonymous")
+
+        // Font family
+        link(href="https://fonts.googleapis.com/css?family=Ubuntu:300", rel="stylesheet")
+        script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
+        script(src="bootstrap/js/bootstrap.min.js")
+
+        // jquery cookie plugin
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js")
+        script(src="bootstrap/js/customized/detect_cookie.js")
+
+        // Custom JavaScript
+        script(src="bootstrap/js/customized/warning_trigger.js")
+        script(src="bootstrap/js/customized/parse_session.js")
+
+    body
+        include components/topbar.pug
+        include components/warning.pug
+        include components/clientside-warning.pug
+
+        div(class="privacy-notice")
+            h4(class="citation-header") APPLICATION PRIVACY NOTICE
+            p.intro
+                strong INTRODUCTION:
+                | BY INSTALLING, USING OR OTHERWISE ACCESSING THE SOCIAL MEDIA INTELLIGENCE AND LEARNING ENVIRONMENT (SMILE) APPLICATION FROM ANY DEVICE, MOBILE OR OTHERWISE, YOU ARE AGREEING TO ABIDE BY THE TERMS AND CONDITIONS OF THIS PRIVACY NOTICE. IF YOU DO NOT AGREE TO THESE TERMS AND CONDITIONS, DO NOT DOWNLOAD AND/OR ACCESS OUR APPLICATION. BY USING THIS APPLICATION, YOU ARE CONSENTING TO THE COLLECTION, USE, AND DISCLOSURE OF INFORMATION IN ACCORDANCE WITH THIS PRIVACY NOTICE.
+
+            p This Privacy Notice sets forth how your information is collected, used, transferred, and stored through the mobile application titled “Social Media Intelligence and Learning Environment (SMILE)” (“Application”) and the terms and conditions governing your use of the Application.
+            p(class="section-title") 1. What information may the Application collect?
+            ul
+                li Personal Information: “Personal Information” means information such as your name, address, phone number, or email address. The Application collects your email, which is considered Personal Information.
+                li Non-Personal Information: The Application may collect Non-Personal Information, such as device type, IP address, and access data, for University purposes.
+
+            p(class="section-title") 2. How Is Your Personal Information Used?
+            p The Application uses your Personal Information to provide you with services directly relevant to your use of the Application.
+
+            p(class="section-title") 3. Is Your Personal Information Shared With Any Third Parties Outside The University?
+            ul
+                li We may share your Personal Information outside the University as required by law or if authorized by University policy.
+                li The University does not sell or lease your Personal Information to third parties.
+
+            p(class="section-title") 4. How Is Your Information Protected?
+            p The Application follows generally accepted industry standards to protect your data but cannot guarantee absolute security.
+
+            p(class="section-title") 5. Where Will the Information Be Stored?
+            p All information is stored in the Application and on secure cloud-based servers.
+
+            p(class="section-title") 6. Opt-In and Opt-Out Information
+            p You may choose to opt-out of information collection by discontinuing use of the Application.
+
+            p(class="section-title") 7. How Long Is Your Personal Information Stored?
+            p Your personal information is retained in cloud storage for 30 minutes. For deletion requests, contact smm@lists.illinois.edu.
+
+            p(class="section-title") 8. Changes to this Privacy Notice
+            p Changes to this notice will be posted on the SMILE website. Your continued use of the Application constitutes acceptance of the revised notice.
+
+            p(class="contact-info") Need Help? Contact us at smm@lists.illinois.edu.
+
+        a(class="btn btn-default pull-right", id="privacy-next", href="query") Next
