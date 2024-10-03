@@ -107,6 +107,17 @@ cite{
 	text-decoration: underline;
 }
 
+.citation-notice.light {
+	background-color: #ffffff; /* Set background to white */
+	color: #333; /* Change text color to match the darker theme for readability */
+}
+
+.citation-notice.light ul li a,
+.citation-notice.light ul li a:hover,
+.citation-notice.light ul li a:focus {
+	color: #1e325a; /* Ensure links are still visible against the white background */
+}
+
 
 
 /*-----------modals-----------------------------*/
